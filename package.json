@@ -2,6 +2,7 @@
   "name": "deon-api-client",
   "version": "0.1.0",
   "description": "REST client for Deon Digital CSL service",
+  "repository": "https://github.com/deondigital/deon-api-client/",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -12,7 +13,7 @@
     "test": "mocha -r ts-node/register test/*.spec.ts"
   },
   "author": "Deon Digital",
-  "license": "UNLICENSED",
+  "license": "AGPL-3.0",
   "devDependencies": {
     "ts-node": "^6.0.2",
     "tslint": "^5.9.1",
