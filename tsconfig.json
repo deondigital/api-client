@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "lib": ["es6"]
+  },
+  "include": [
+    "lib/**/*.ts",
+    "deon-api-client/lib/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".npm",
+  ],
+  "moduleResolution": "node"
+}
