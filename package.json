@@ -1,8 +1,8 @@
 {
-  "name": "deon-api-client",
+  "name": "@deondigital/api-client",
   "version": "0.1.0",
   "description": "REST client for Deon Digital CSL service",
-  "repository": "https://github.com/deondigital/deon-api-client/",
+  "repository": "https://github.com/deondigital/api-client/",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
