@@ -70,7 +70,7 @@ export interface BadRequestError { message: string; }
 
 type CheckErrors
   = { class: 'ParseCheckErrors', parseErrors: ParseError[] }
-  | { class: 'TypeCheckErrors', typeErrors: TypingError[] }
+  | { class: 'TypeCheckErrors', typeErrors: GeneralTypingError[] }
   | { class: 'SanityCheckError', sanityError: string };
 
 interface ParseError {
@@ -78,10 +78,9 @@ interface ParseError {
   position?: Position;
 }
 
-interface TypingError {
-  msg: string;
-  position?: Position;
-}
+type GeneralTypingError
+  = { class: 'TypingError', msg: string, position?: Position }
+  | { class: 'ArgumentTypingError', msg: string, argumentIndex: number };
 
 interface Position {
   line: number;
@@ -90,5 +89,5 @@ interface Position {
 
 export {
   DeonApi, ContractsApi, DeclarationsApi, CslApi, InfoApi,
-  ContractUpdate, RestResponse, CheckErrors, ParseError, TypingError, Position,
+  ContractUpdate, RestResponse, CheckErrors, ParseError, GeneralTypingError, Position,
 };
