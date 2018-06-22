@@ -21,47 +21,47 @@ class DeonRestClient implements DeonApi {
   contracts: ContractsApi = {
     getAll: () => this.http.get('/contracts'),
 
-    get: (id: string) => this.http.get('/contracts/' + id),
+    get: (id: string) => this.http.get(`/contracts/${id}`),
 
-    tree: (id: string) => this.http.get('/contracts/' + id + '/tree'),
+    tree: (id: string) => this.http.get(`/contracts/${id}/tree`),
 
     src: (id: string, simplified: boolean) => {
       const url = simplified ? `/contracts/${id}/src/?simplified=true` : `/contracts/${id}/src`;
       return this.http.get(url);
     },
 
-    nextEvents: (id: string) => this.http.get('/contracts/' + id + '/next-events'),
+    nextEvents: (id: string) => this.http.get(`/contracts/${id}/next-events`),
 
     instantiate: (instantiateInput: InstantiationInput) =>
       this.http.post('/contracts', instantiateInput),
 
     applyEvent: (id: string, event: Event, tag?: Tag) => {
-      if (tag) return this.http.post('/contracts/' + id + '/' + tag + '/events', event);
-      return this.http.post('/contracts/' + id + '/events', event);
+      if (tag) return this.http.post(`/contracts/${id}/${tag}/events`, event);
+      return this.http.post(`/contracts/${id}/events`, event);
     },
 
     report: (expressionInput: ExpressionInput) =>
       this.http.post('/contracts/report', expressionInput),
 
     reportOnContract: (id: string, expressionInput: ExpressionInput) =>
-      this.http.post('/contracts/' + id + '/report', expressionInput),
+      this.http.post(`/contracts/${id}/report`, expressionInput),
   };
 
   declarations: DeclarationsApi = {
     getAll: () => this.http.get('/declarations'),
 
-    get: (id: string) => this.http.get('/declarations/' + id),
+    get: (id: string) => this.http.get(`/declarations/${id}`),
 
     add: (i: DeclarationInput) => this.http.post('/declarations', i),
 
-    ontology: (id: string) => this.http.get('/declarations/' + id + '/ontology'),
+    ontology: (id: string) => this.http.get(`/declarations/${id}/ontology`),
   };
 
   csl: CslApi = {
     check: (i: ExpressionInput) => this.http.post('/csl/check', i),
 
     checkExpression: (i: ExpressionInput, id?: string) => {
-      if (id) return this.http.post('/csl/check-expression/' + id, i);
+      if (id) return this.http.post(`/csl/check-expression/${id}`, i);
       return this.http.post('/csl/check-expression', i);
     },
 
