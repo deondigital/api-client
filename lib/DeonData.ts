@@ -21,8 +21,13 @@ export interface InstantiationOutput {
   tag: string;
 }
 
-export interface ExpressionInput {
+export interface CheckExpressionInput {
   csl: string;
+}
+
+export interface EvaluateExpressionInput {
+  csl: string;
+  values: Value[];
 }
 
 export interface NodeInfoOutput {
