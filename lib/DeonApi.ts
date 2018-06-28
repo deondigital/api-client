@@ -18,8 +18,8 @@ interface ContractsApi {
   nextEvents(id: string): Promise<D.EventPredicate[]>;
   instantiate(i: D.InstantiationInput): Promise<D.InstantiationOutput>;
   applyEvent(id: string, event: D.Event, tag?: D.Tag): Promise<D.Tag | void>;
-  report(i: D.ExpressionInput): Promise<D.Value>;
-  reportOnContract(id: string, i: D.ExpressionInput): Promise<D.Value>;
+  report(i: D.EvaluateExpressionInput): Promise<D.Value>;
+  reportOnContract(id: string, i: D.EvaluateExpressionInput): Promise<D.Value>;
 }
 
 interface DeclarationsApi {
@@ -30,8 +30,8 @@ interface DeclarationsApi {
 }
 
 interface CslApi {
-  check(i: D.ExpressionInput): Promise<CheckErrors[]>;
-  checkExpression(i: D.ExpressionInput, id?: string): Promise<CheckErrors[]>;
+  check(i: D.CheckExpressionInput): Promise<CheckErrors[]>;
+  checkExpression(i: D.CheckExpressionInput, id?: string): Promise<CheckErrors[]>;
 }
 
 interface InfoApi {

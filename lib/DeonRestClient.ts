@@ -8,7 +8,14 @@ import {
   BadRequestError,
   ResponseError,
 } from './DeonApi';
-import { InstantiationInput, ExpressionInput, DeclarationInput, Event, Tag } from './DeonData';
+import {
+  InstantiationInput,
+  CheckExpressionInput,
+  EvaluateExpressionInput,
+  DeclarationInput,
+  Event,
+  Tag
+} from './DeonData';
 import { HttpClient, Response } from './HttpClient';
 
 const throwIfNotFound = (r: Response, data: any) => {
@@ -111,10 +118,10 @@ class DeonRestClient implements DeonApi {
       this.http.post(`/contracts/${id}/${tag != null ? `${tag}/` : ''}events`, event)
         .then(possiblyBadRequestOrNotFound),
 
-    report: (expressionInput: ExpressionInput) =>
+    report: (expressionInput: EvaluateExpressionInput) =>
       this.http.post('/contracts/report', expressionInput).then(possiblyBadRequest),
 
-    reportOnContract: (id: string, expressionInput: ExpressionInput) =>
+    reportOnContract: (id: string, expressionInput: EvaluateExpressionInput) =>
       this.http.post(`/contracts/${id}/report`, expressionInput)
         .then(possiblyBadRequestOrNotFound),
   };
@@ -130,10 +137,10 @@ class DeonRestClient implements DeonApi {
   };
 
   csl: CslApi = {
-    check: (i: ExpressionInput) => this.http.post('/csl/check', i)
+    check: (i: CheckExpressionInput) => this.http.post('/csl/check', i)
       .then(r => r.ok ? [] : r.json()),
 
-    checkExpression: (i: ExpressionInput, id?: string) => {
+    checkExpression: (i: CheckExpressionInput, id?: string) => {
       return this.http.post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i)
         .then(r => r.ok ? [] : r.json());
     },
