@@ -1,5 +1,3 @@
-import { RestResponse } from './DeonApi';
-
 export type Response = any;
 export type RequestInit = any;
 export type Request = any;
@@ -19,36 +17,12 @@ export class HttpClient {
     this.serverUrl = serverUrl;
   }
 
-  get = <TOk, TErr>(url: string): Promise<RestResponse<TOk, TErr>> =>
-    this.fetchRest(this.serverUrl + url)
+  get = (url: string): Promise<Response> => this.fetch(this.serverUrl + url).then(this.hook);
 
-  post = <TOk, TErr>(url: string, data: object): Promise<RestResponse<TOk, TErr>> =>
-    this.fetchRest(this.serverUrl + url, {
+  post = (url: string, data: object): Promise<Response> =>
+    this.fetch(this.serverUrl + url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    })
-
-  private fetchRest = <TOk, TErr>(
-    url: string,
-    data?: RequestInit,
-  ): Promise<RestResponse<TOk, TErr>> =>
-    this.fetch(url, data).then(this.hook).then(r => this.toRestResponse<TOk, TErr>(r))
-
-  private toRestResponse = async <TOk, TErr>(r: Response): Promise<RestResponse<TOk, TErr>> => {
-    const hasData = r.status !== 204 && r.headers.get('content-length') !== '0';
-
-    if (r.ok) {
-      if (hasData) {
-        const data: TOk = await r.json();
-        return { data, ok: true, statusCode: r.status };
-      }
-      return { ok: true, statusCode: r.status };
-    }
-    if (hasData) {
-      const data: TErr = await r.json();
-      return { data, ok: false, statusCode: r.status };
-    }
-    return { ok: false, statusCode: r.status };
-  }
+    }).then(this.hook)
 }

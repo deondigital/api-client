@@ -1,6 +1,70 @@
-import { DeonApi, ContractsApi, DeclarationsApi, CslApi, InfoApi } from './DeonApi';
+import {
+  DeonApi,
+  ContractsApi,
+  DeclarationsApi,
+  CslApi,
+  InfoApi,
+  NotFoundError,
+  BadRequestError,
+} from './DeonApi';
 import { InstantiationInput, ExpressionInput, DeclarationInput, Event, Tag } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
+
+const throwIfNotFound = async (r: Response) => {
+  const data = await getData(r);
+  if (r.status === 404 && data && data.message) {
+    throw new NotFoundError(data.message);
+  }
+};
+
+const throwIfBadRequest = async (r: Response) => {
+  const data = await getData(r);
+  if (r.status === 400 && data && data.message) {
+    throw new BadRequestError(data.message);
+  }
+};
+
+const throwUnexpected = (r: Response): never => {
+  throw new Error('Unexpected error: ' + JSON.stringify(r));
+};
+
+const getData = async (r: Response): Promise<any> => {
+  if (r.status === 204) return;
+  try { return await r.json(); }
+  catch (e) { return; }
+};
+
+const noKnownExceptions = async (r: Response) => {
+  if (r.ok) {
+    return getData(r);
+  }
+  throwUnexpected(r);
+};
+
+const possiblyNotFound = async (r: Response) => {
+  if (r.ok) {
+    return getData(r);
+  }
+  throwIfNotFound(r);
+  throwUnexpected(r);
+};
+
+const possiblyBadRequest = async (r: Response) => {
+  if (r.ok) {
+    return getData(r);
+  }
+  throwIfBadRequest(r);
+  throwUnexpected(r);
+};
+
+const possiblyBadRequestOrNotFound = async (r: Response) => {
+  if (r.ok) {
+    return getData(r);
+  }
+  throwIfBadRequest(r);
+  throwIfNotFound(r);
+  throwUnexpected(r);
+};
 
 /**
  * Constructs a Deon REST client.
@@ -19,56 +83,57 @@ class DeonRestClient implements DeonApi {
   ) => new DeonRestClient(new HttpClient(fetch, hook, serverUrl))
 
   contracts: ContractsApi = {
-    getAll: () => this.http.get('/contracts'),
+    getAll: () => this.http.get('/contracts').then(noKnownExceptions),
 
-    get: (id: string) => this.http.get(`/contracts/${id}`),
+    get: (id: string) => this.http.get(`/contracts/${id}`).then(possiblyNotFound),
 
-    tree: (id: string) => this.http.get(`/contracts/${id}/tree`),
+    tree: (id: string) => this.http.get(`/contracts/${id}/tree`).then(possiblyNotFound),
 
     src: (id: string, simplified: boolean) => {
       const url = simplified ? `/contracts/${id}/src/?simplified=true` : `/contracts/${id}/src`;
-      return this.http.get(url);
+      return this.http.get(url).then(possiblyNotFound);
     },
 
-    nextEvents: (id: string) => this.http.get(`/contracts/${id}/next-events`),
+    nextEvents: (id: string) => this.http.get(`/contracts/${id}/next-events`)
+      .then(possiblyNotFound),
 
     instantiate: (instantiateInput: InstantiationInput) =>
-      this.http.post('/contracts', instantiateInput),
+      this.http.post('/contracts', instantiateInput).then(possiblyBadRequest),
 
-    applyEvent: (id: string, event: Event, tag?: Tag) => {
-      if (tag) return this.http.post(`/contracts/${id}/${tag}/events`, event);
-      return this.http.post(`/contracts/${id}/events`, event);
-    },
+    applyEvent: (id: string, event: Event, tag?: Tag) =>
+      this.http.post(`/contracts/${id}/${tag != null ? `${tag}/` : ''}events`, event)
+        .then(possiblyBadRequestOrNotFound),
 
     report: (expressionInput: ExpressionInput) =>
-      this.http.post('/contracts/report', expressionInput),
+      this.http.post('/contracts/report', expressionInput).then(possiblyBadRequest),
 
     reportOnContract: (id: string, expressionInput: ExpressionInput) =>
-      this.http.post(`/contracts/${id}/report`, expressionInput),
+      this.http.post(`/contracts/${id}/report`, expressionInput)
+        .then(possiblyBadRequestOrNotFound),
   };
 
   declarations: DeclarationsApi = {
-    getAll: () => this.http.get('/declarations'),
+    getAll: () => this.http.get('/declarations').then(noKnownExceptions),
 
-    get: (id: string) => this.http.get(`/declarations/${id}`),
+    get: (id: string) => this.http.get(`/declarations/${id}`).then(possiblyNotFound),
 
-    add: (i: DeclarationInput) => this.http.post('/declarations', i),
+    add: (i: DeclarationInput) => this.http.post('/declarations', i).then(possiblyBadRequest),
 
-    ontology: (id: string) => this.http.get(`/declarations/${id}/ontology`),
+    ontology: (id: string) => this.http.get(`/declarations/${id}/ontology`).then(possiblyNotFound),
   };
 
   csl: CslApi = {
-    check: (i: ExpressionInput) => this.http.post('/csl/check', i),
+    check: (i: ExpressionInput) => this.http.post('/csl/check', i)
+      .then(r => r.ok ? [] : r.json()),
 
     checkExpression: (i: ExpressionInput, id?: string) => {
-      if (id) return this.http.post(`/csl/check-expression/${id}`, i);
-      return this.http.post('/csl/check-expression', i);
+      return this.http.post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i)
+        .then(r => r.ok ? [] : r.json());
     },
-
   };
 
   info: InfoApi = {
-    get: () => this.http.get('/node-info'),
+    get: () => this.http.get('/node-info').then(noKnownExceptions),
   };
 }
 
