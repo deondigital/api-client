@@ -11,44 +11,32 @@ interface DeonApi {
 }
 
 interface ContractsApi {
-  getAll(): Promise<RestResponse<D.Contract[], void>>;
-  get(id: string): Promise<RestResponse<D.Contract, NotFoundError>>;
-  tree(id: string): Promise<RestResponse<D.ContractTree, NotFoundError>>;
-  src(id: string, simplified: boolean): Promise<RestResponse<D.ResidualSource, NotFoundError>>;
-  nextEvents(id: string): Promise<RestResponse<D.EventPredicate[], NotFoundError>>;
-  instantiate(i: D.InstantiationInput):
-    Promise<RestResponse<D.InstantiationOutput, BadRequestError>>;
-  applyEvent(id: string, event: D.Event, tag?: D.Tag):
-    Promise<RestResponse<D.Tag, BadRequestError | NotFoundError>>;
-  report(i: D.ExpressionInput): Promise<RestResponse<D.Value, BadRequestError>>;
-  reportOnContract(id: string, i: D.ExpressionInput):
-    Promise<RestResponse<D.Value, BadRequestError | NotFoundError>>;
+  getAll(): Promise<D.Contract[]>;
+  get(id: string): Promise<D.Contract>;
+  tree(id: string): Promise<D.ContractTree>;
+  src(id: string, simplified: boolean): Promise<D.ResidualSource>;
+  nextEvents(id: string): Promise<D.EventPredicate[]>;
+  instantiate(i: D.InstantiationInput): Promise<D.InstantiationOutput>;
+  applyEvent(id: string, event: D.Event, tag?: D.Tag): Promise<D.Tag | void>;
+  report(i: D.ExpressionInput): Promise<D.Value>;
+  reportOnContract(id: string, i: D.ExpressionInput): Promise<D.Value>;
 }
 
 interface DeclarationsApi {
-  getAll(): Promise<RestResponse<D.Declaration[], void>>;
-  get(id: string): Promise<RestResponse<D.Declaration, NotFoundError>>;
-  add(declarationInput: D.DeclarationInput):
-    Promise<RestResponse<D.DeclarationOutput, BadRequestError>>;
-  ontology(id: string): Promise<RestResponse<D.Ontology, NotFoundError>>;
+  getAll(): Promise<D.Declaration[]>;
+  get(id: string): Promise<D.Declaration>;
+  add(declarationInput: D.DeclarationInput): Promise<D.DeclarationOutput>;
+  ontology(id: string): Promise<D.Ontology>;
 }
 
 interface CslApi {
-  check(i: D.ExpressionInput): Promise<RestResponse<void, CheckErrors[]>>;
-  checkExpression(i: D.ExpressionInput, id?: string): Promise<RestResponse<void, CheckErrors[]>>;
+  check(i: D.ExpressionInput): Promise<CheckErrors[]>;
+  checkExpression(i: D.ExpressionInput, id?: string): Promise<CheckErrors[]>;
 }
 
 interface InfoApi {
-  get(): Promise<RestResponse<D.NodeInfoOutput, void>>;
+  get(): Promise<D.NodeInfoOutput>;
 }
-
-/**
- * Represents a response from a webserver.
- * "ok" will be true iff the status code is in the range 200-299.
- */
-type RestResponse<TOk, TFail>
-  = { ok: true, statusCode: number, data?: TOk }
-  | { ok: false, statusCode: number, data?: TFail };
 
 /**
  * WebSocket message format
@@ -65,8 +53,17 @@ export type BatchItemUpdate
   | { type: 'AddEventFail', ref: string, error: string };
 
 /* Error types */
-export interface NotFoundError { message: string; }
-export interface BadRequestError { message: string; }
+export class NotFoundError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
+
+export class BadRequestError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
 
 type CheckErrors
   = { class: 'ParseCheckErrors', parseErrors: ParseError[] }
@@ -89,5 +86,5 @@ interface Position {
 
 export {
   DeonApi, ContractsApi, DeclarationsApi, CslApi, InfoApi,
-  ContractUpdate, RestResponse, CheckErrors, ParseError, GeneralTypingError, Position,
+  ContractUpdate, CheckErrors, ParseError, GeneralTypingError, Position,
 };
