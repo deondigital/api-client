@@ -53,15 +53,23 @@ export type BatchItemUpdate
   | { type: 'AddEventFail', ref: string, error: string };
 
 /* Error types */
-export class NotFoundError extends Error {
-  constructor(message: string) {
+export class ResponseError extends Error {
+  status: number;
+  constructor(status: number, message: string) {
     super(message);
+    this.status = status;
   }
 }
 
-export class BadRequestError extends Error {
+export class NotFoundError extends ResponseError {
   constructor(message: string) {
-    super(message);
+    super(404, message);
+  }
+}
+
+export class BadRequestError extends ResponseError {
+  constructor(message: string) {
+    super(400, message);
   }
 }
 

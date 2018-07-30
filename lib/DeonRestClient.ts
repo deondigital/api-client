@@ -6,26 +6,29 @@ import {
   InfoApi,
   NotFoundError,
   BadRequestError,
+  ResponseError,
 } from './DeonApi';
 import { InstantiationInput, ExpressionInput, DeclarationInput, Event, Tag } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
 
-const throwIfNotFound = async (r: Response) => {
-  const data = await getData(r);
+const throwIfNotFound = (r: Response, data: any) => {
   if (r.status === 404 && data && data.message) {
     throw new NotFoundError(data.message);
   }
 };
 
-const throwIfBadRequest = async (r: Response) => {
-  const data = await getData(r);
+const throwIfBadRequest = (r: Response, data: any) => {
   if (r.status === 400 && data && data.message) {
     throw new BadRequestError(data.message);
   }
 };
 
-const throwUnexpected = (r: Response): never => {
-  throw new Error('Unexpected error: ' + JSON.stringify(r));
+const throwUnexpected = (r: Response, data: any): never => {
+  throw new ResponseError(
+    r.status,
+    `Unexpected error. Status: ${r.status} ${r.statusText}. `
+      + `Data: ${JSON.stringify(data)}`,
+  );
 };
 
 const getData = async (r: Response): Promise<any> => {
@@ -35,35 +38,39 @@ const getData = async (r: Response): Promise<any> => {
 };
 
 const noKnownExceptions = async (r: Response) => {
+  const data = await getData(r);
   if (r.ok) {
-    return getData(r);
+    return data;
   }
-  throwUnexpected(r);
+  throwUnexpected(r, data);
 };
 
 const possiblyNotFound = async (r: Response) => {
+  const data = await getData(r);
   if (r.ok) {
-    return getData(r);
+    return data;
   }
-  throwIfNotFound(r);
-  throwUnexpected(r);
+  throwIfNotFound(r, data);
+  throwUnexpected(r, data);
 };
 
 const possiblyBadRequest = async (r: Response) => {
+  const data = await getData(r);
   if (r.ok) {
-    return getData(r);
+    return data;
   }
-  throwIfBadRequest(r);
-  throwUnexpected(r);
+  throwIfBadRequest(r, data);
+  throwUnexpected(r, data);
 };
 
 const possiblyBadRequestOrNotFound = async (r: Response) => {
+  const data = await getData(r);
   if (r.ok) {
-    return getData(r);
+    return data;
   }
-  throwIfBadRequest(r);
-  throwIfNotFound(r);
-  throwUnexpected(r);
+  throwIfBadRequest(r, data);
+  throwIfNotFound(r, data);
+  throwUnexpected(r, data);
 };
 
 /**
