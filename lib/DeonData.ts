@@ -27,7 +27,7 @@ export interface CheckExpressionInput {
 
 export interface EvaluateExpressionInput {
   csl: string;
-  values: Value[];
+  values?: Value[];
 }
 
 export interface NodeInfoOutput {
