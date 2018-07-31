@@ -14,7 +14,7 @@ import {
   EvaluateExpressionInput,
   DeclarationInput,
   Event,
-  Tag
+  Tag,
 } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
 
