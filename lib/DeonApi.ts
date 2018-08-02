@@ -78,6 +78,13 @@ type CheckErrors
   | { class: 'TypeCheckErrors', typeErrors: GeneralTypingError[] }
   | { class: 'SanityCheckError', sanityError: string };
 
+export const isCheckErrors = (x: any): x is CheckErrors[] =>
+  Array.isArray(x)
+  && x.every(y => typeof y === 'object' &&
+             (y.class === 'ParseCheckErrors' ||
+              y.class === 'TypeCheckErrors' ||
+              y.class === 'SanityCheckError'));
+
 interface ParseError {
   msg: string;
   position?: Position;

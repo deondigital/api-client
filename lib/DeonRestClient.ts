@@ -7,6 +7,8 @@ import {
   NotFoundError,
   BadRequestError,
   ResponseError,
+  isCheckErrors,
+  CheckErrors,
 } from './DeonApi';
 import {
   InstantiationInput,
@@ -24,9 +26,24 @@ const throwIfNotFound = (r: Response, data: any) => {
   }
 };
 
+const errorsMessage = (errors: CheckErrors[]): string => {
+  const message = (checkErrors: CheckErrors): string => {
+    const extract = (o: { msg: string }[]): string =>
+      o.map(o => o.msg).join('\n');
+
+    switch (checkErrors.class) {
+      case 'ParseCheckErrors': return extract(checkErrors.parseErrors);
+      case 'TypeCheckErrors': return extract(checkErrors.typeErrors);
+      case 'SanityCheckError': return checkErrors.sanityError;
+    }
+  };
+  return errors.map(message).join('\n');
+};
+
 const throwIfBadRequest = (r: Response, data: any) => {
-  if (r.status === 400 && data && data.message) {
-    throw new BadRequestError(data.message);
+  if (r.status === 400) {
+    if (isCheckErrors(data)) throw new BadRequestError(errorsMessage(data));
+    if (data && data.message) throw new BadRequestError(data.message);
   }
 };
 
