@@ -23,5 +23,9 @@ export const valueToJson = (value: Value): {} => {
                 k => ({ [k]: valueToJson(value.fields[k]) }))),
     };
     case 'ListValue': return value.elements.map(e => valueToJson(e));
+    case 'AgentValue': return {
+      identifier: value.identifier,
+      boundName: value.boundName,
+    };
   }
 };

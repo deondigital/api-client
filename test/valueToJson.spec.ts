@@ -103,4 +103,8 @@ describe('Fully typed to JSON typed', () => {
     ]);
     expect(valueToJson(l)).to.deep.equal([[1, 2], [3.5, 4.3]]);
   });
+  it('works on AgentValue', () => {
+    const a: D.AgentValue = ({ identifier: 'foo', boundName: D.qual('a'), class: 'AgentValue' });
+    expect(valueToJson(a)).to.deep.equal({ identifier: 'foo', boundName: D.qual('a') });
+  });
 });
