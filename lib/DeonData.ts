@@ -98,7 +98,8 @@ export type Value =
   | InstantValue
   | ConstructorValue
   | RecordValue
-  | ListValue;
+  | ListValue
+  | AgentValue;
 
 export interface IntValue {
   class: 'IntValue';
@@ -158,6 +159,12 @@ export interface ListValue {
 }
 export const mkListValue = (elements: Value[]): ListValue =>
   ({ elements, class: 'ListValue' });
+
+export interface AgentValue {
+  class: 'AgentValue';
+  identifier: string;
+  boundName: QualifiedName;
+}
 
 /* Contract AST tree */
 export type ContractTree

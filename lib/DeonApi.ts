@@ -36,6 +36,7 @@ interface CslApi {
 
 interface InfoApi {
   get(): Promise<D.NodeInfoOutput>;
+  requestAgent(): Promise<D.AgentValue>;
 }
 
 /**
