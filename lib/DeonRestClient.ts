@@ -165,8 +165,8 @@ class DeonRestClient implements DeonApi {
 
   info: InfoApi = {
     get: () => this.http.get('/node-info').then(noKnownExceptions),
-    requestAgent: () =>
-      this.http.get('/request-agent').then(possiblyBadRequest),
+    getAgents: () =>
+      this.http.get('/agents').then(possiblyBadRequest),
   };
 }
 
