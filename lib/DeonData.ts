@@ -1,3 +1,5 @@
+import { Duration, durationToISOString } from './ISO8601Duration';
+
 /* API Input and output wrappers */
 export interface DeclarationInput {
   csl: string;
@@ -96,6 +98,7 @@ export type Value =
   | StringValue
   | BooleanValue
   | InstantValue
+  | DurationValue
   | ConstructorValue
   | RecordValue
   | ListValue
@@ -133,6 +136,15 @@ export interface InstantValue {
   class: 'InstantValue';
   instant: string;
 }
+
+export interface DurationValue {
+  class: 'DurationValue';
+  duration: string;
+}
+
+export const mkDurationValue = (duration: Duration): DurationValue =>
+  ({ class: 'DurationValue', duration: durationToISOString(duration) });
+
 export const mkInstantValue = (instant: Date): InstantValue =>
   ({ class: 'InstantValue', instant: instant.toISOString() });
 

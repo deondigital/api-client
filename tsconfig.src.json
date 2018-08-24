@@ -2,7 +2,7 @@
   "extends": "./tsconfig.base.json",
   "include": [
     "lib/**/*.ts",
-    "test/**/*.ts",
+    "typings/**/*.d.ts",
     "deon-api-client/lib/**/*.ts"
   ]
 }

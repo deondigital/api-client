@@ -13,6 +13,7 @@ export const valueToJson = (value: Value): {} => {
     case 'StringValue': return value.s;
     case 'BooleanValue': return value.b;
     case 'InstantValue': return value.instant;
+    case 'DurationValue': return value.duration;
     case 'ConstructorValue': return {
       name: value.name,
       args: value.args.map(e => valueToJson(e)),

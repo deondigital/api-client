@@ -1,4 +1,5 @@
 import { valueToJson } from '../lib/valueToJson';
+import { Duration } from '../lib/ISO8601Duration';
 import { expect } from 'chai';
 import 'mocha';
 import * as D from '../lib/DeonData';
@@ -17,6 +18,10 @@ describe('Fully typed to JSON typed', () => {
   it('works for InstantValue', () => {
     const then = new Date('December 17, 1995 03:24:21');
     expect(valueToJson(D.mkInstantValue(then))).to.equal(then.toISOString());
+  });
+  it('works for DurationValue', () => {
+    const dur: Duration = { years: 0, months: 0, days: 1, hours: 20, minutes: 44, seconds: 12.67901 } as Duration;
+    expect(valueToJson(D.mkDurationValue(dur))).to.equal("P1DT20H44M12.67901S");
   });
   it('works for simple ConstructorValue', () => {
     const c = D.mkConstructorValue(D.qual('C1'), []);
