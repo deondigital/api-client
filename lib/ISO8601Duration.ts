@@ -20,12 +20,16 @@ export interface Duration {
  */
 
 // PnYnMnDTnHnMnS
-const numbers = '\\d+(?:[\\.,]\\d{0,12})?'
-const datePattern = `(${numbers}Y)?(${numbers}M)?(${numbers}D)?`
-const timePattern = `T(${numbers}H)?(${numbers}M)?(${numbers}S)?`
+const numbers = '\\d+(?:[\\.,]\\d{0,3})?';
+const datePattern = `(${numbers}Y)?(${numbers}M)?(${numbers}D)?`;
+const timePattern = `T(${numbers}H)?(${numbers}M)?(${numbers}S)?`;
 
-const iso8601 = `P(?:${datePattern}(?:${timePattern})?)`
-const objMap:Array<keyof Duration> = ['years', 'months', 'days', 'hours', 'minutes', 'seconds']
+const iso8601 = `P(?:${datePattern}(?:${timePattern})?)`;
+const objMap:Array<keyof Duration> = ['years', 'months', 'days', 'hours', 'minutes', 'seconds'];
+
+const defaultDuration = (): Duration => ({
+  years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0
+});
 
 /**
  * The ISO8601 regex for matching / testing durations
@@ -36,12 +40,16 @@ export const pattern = new RegExp(iso8601)
  * @param  durationString - PnYnMnDTnHnMnS formatted string
  * @return With a property for each part of the pattern
  */
-export const parse = (durationString: string): Duration => {
+export const parse = (durationString: string): Duration | undefined => {
   // Slice away first entry in match-array
-  return (durationString.match(pattern) || []).slice(1).reduce((prev, next, idx) => {
+  const matches = durationString.match(pattern);
+  if (!matches || matches.filter(x => typeof x !== "undefined").length < 2) {
+    return undefined;
+  }
+  return (matches).slice(1).reduce((prev, next, idx) => {
     prev[objMap[idx]] = parseFloat(next) || 0
     return prev
-  }, {} as Duration)
+  }, defaultDuration())
 }
 
 /**
