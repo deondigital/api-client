@@ -20,8 +20,10 @@ describe('Fully typed to JSON typed', () => {
     expect(valueToJson(D.mkInstantValue(then))).to.equal(then.toISOString());
   });
   it('works for DurationValue', () => {
-    const dur: Duration = { years: 0, months: 0, days: 1, hours: 20, minutes: 44, seconds: 12.67901 } as Duration;
-    expect(valueToJson(D.mkDurationValue(dur))).to.equal("P1DT20H44M12.67901S");
+    const dur: Duration = {
+      years: 0, months: 0, days: 1, hours: 20, minutes: 44, seconds: 12.67901,
+    } as Duration;
+    expect(valueToJson(D.mkDurationValue(dur))).to.equal('P1DT20H44M12.67901S');
   });
   it('works for simple ConstructorValue', () => {
     const c = D.mkConstructorValue(D.qual('C1'), []);
