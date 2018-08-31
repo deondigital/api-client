@@ -8,7 +8,7 @@
 
 * Expose ISO8601 duration parsing functionality.
 * Support for duration primitive datatype.
-* (Note: Requires Deon-api version "Unreleased") Introduced a `NodeInfo.requestAgent()` that wraps the api call `/request-agent`, to request agent values from the back end.
+* (Note: Requires Deon-api version "Unreleased") Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
 
