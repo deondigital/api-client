@@ -13,7 +13,7 @@ export interface DeclarationOutput {
 export interface InstantiationInput {
   declarationId: string;
   name: string;
-  declarationExpressionArguments: Value[];
+  declarationExpressionArguments: InstantiationArgument[];
   entryPoint: QualifiedName;
   peers: string[];
 }
@@ -177,6 +177,17 @@ export interface AgentValue {
   identifier: string;
   boundName: QualifiedName;
 }
+
+/* Instantiation arguments */
+export type InstantiationArgument
+  = Value
+  | SelfContractId;
+
+export interface SelfContractId {
+  class: 'SelfContractId';
+}
+
+export const selfContractId: SelfContractId = { class: 'SelfContractId' };
 
 /* Contract AST tree */
 export type ContractTree
