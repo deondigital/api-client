@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unpublished
+
+* Add support for `SelfContractId` instantiation argument, which resolves to the id of the contract that is being instantiated.
+
 ### [3.2.0] - 2018-08-30
 
 * Expose ISO8601 duration parsing functionality.
