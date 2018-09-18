@@ -23,26 +23,26 @@ import {
 
 export const contractsApiMock : ContractsApi = {
   getAll: () => Promise.reject(),
-  get: (_: string) => Promise.reject(),
-  tree: (_: string) => Promise.reject(),
-  src: (_: string, __: boolean) => Promise.reject(),
-  nextEvents: (_: string) => Promise.reject(),
-  applyEvent: (_: string, __: Event, ___?: Tag) => Promise.reject(),
-  report: (_: EvaluateExpressionInput) => Promise.reject(),
-  reportOnContract: (_: string, __: EvaluateExpressionInput) => Promise.reject(),
-  instantiate: (_: InstantiationInput) => Promise.reject(),
+  get: (_1: string) => Promise.reject(),
+  tree: (_1: string) => Promise.reject(),
+  src: (_1: string, _2: boolean) => Promise.reject(),
+  nextEvents: (_1: string) => Promise.reject(),
+  applyEvent: (_1: string, _2: Event, _3?: Tag) => Promise.reject(),
+  report: (_1: EvaluateExpressionInput) => Promise.reject(),
+  reportOnContract: (_1: string, _2: EvaluateExpressionInput) => Promise.reject(),
+  instantiate: (_1: InstantiationInput) => Promise.reject(),
 };
 
 export const declarationsApiMock : DeclarationsApi = {
   getAll : () => Promise.reject(),
-  get : (_: string) => Promise.reject(),
-  add : (_: DeclarationInput) => Promise.reject(),
-  ontology : (_: string) => Promise.reject(),
+  get : (_1: string) => Promise.reject(),
+  add : (_1: DeclarationInput) => Promise.reject(),
+  ontology : (_1: string) => Promise.reject(),
 };
 
 export const cslApiMock : CslApi = {
-  check : (_: CheckExpressionInput) => Promise.reject(),
-  checkExpression : (_: CheckExpressionInput, __?: string) => Promise.reject(),
+  check : (_1: CheckExpressionInput) => Promise.reject(),
+  checkExpression : (_1: CheckExpressionInput, _2?: string) => Promise.reject(),
 };
 
 export const infoApiMock : InfoApi = {
