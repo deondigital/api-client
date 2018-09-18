@@ -1,5 +1,5 @@
-import { ContractsApi, DeclarationsApi, CslApi, InfoApi, DeonApi } from "./DeonApi";
-import { Event, Tag, EvaluateExpressionInput, InstantiationInput, DeclarationInput, CheckExpressionInput } from "./DeonData";
+import { ContractsApi, DeclarationsApi, CslApi, InfoApi, DeonApi } from './DeonApi';
+import { Event, Tag, EvaluateExpressionInput, InstantiationInput, DeclarationInput, CheckExpressionInput } from './DeonData';
 
 /**
  * Mock classes for the Deon API.  All API methods return rejected Promises.
