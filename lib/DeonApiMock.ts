@@ -1,5 +1,18 @@
-import { ContractsApi, DeclarationsApi, CslApi, InfoApi, DeonApi } from './DeonApi';
-import { Event, Tag, EvaluateExpressionInput, InstantiationInput, DeclarationInput, CheckExpressionInput } from './DeonData';
+import {
+  ContractsApi,
+  DeclarationsApi,
+  CslApi,
+  InfoApi,
+  DeonApi,
+  } from './DeonApi';
+import {
+  Event,
+  Tag,
+  EvaluateExpressionInput,
+  InstantiationInput,
+  DeclarationInput,
+  CheckExpressionInput,
+  } from './DeonData';
 
 /**
  * Mock classes for the Deon API.  All API methods return rejected Promises.
@@ -10,36 +23,36 @@ import { Event, Tag, EvaluateExpressionInput, InstantiationInput, DeclarationInp
 
 export const contractsApiMock : ContractsApi = {
   getAll: () => Promise.reject(),
-  get: (_id: string) => Promise.reject(),
-  tree: (_id: string) => Promise.reject(),
-  src: (_id: string, _simplified: boolean) => Promise.reject(),
-  nextEvents: (_id: string) => Promise.reject(),
-  applyEvent: (_id: string, _event: Event, _tag?: Tag) => Promise.reject(),
-  report: (_expressionInput: EvaluateExpressionInput) => Promise.reject(),
-  reportOnContract: (_id: string, _expressionInput: EvaluateExpressionInput) => Promise.reject(),
-  instantiate: (_instantiateInput: InstantiationInput) => Promise.reject()
-}
+  get: (_: string) => Promise.reject(),
+  tree: (_: string) => Promise.reject(),
+  src: (_: string, __: boolean) => Promise.reject(),
+  nextEvents: (_: string) => Promise.reject(),
+  applyEvent: (_: string, __: Event, ___?: Tag) => Promise.reject(),
+  report: (_: EvaluateExpressionInput) => Promise.reject(),
+  reportOnContract: (_: string, __: EvaluateExpressionInput) => Promise.reject(),
+  instantiate: (_: InstantiationInput) => Promise.reject(),
+};
 
 export const declarationsApiMock : DeclarationsApi = {
   getAll : () => Promise.reject(),
-  get : (_id: string) => Promise.reject(),
-  add : (_declarationInput: DeclarationInput) => Promise.reject(),
-  ontology : (_id: string) => Promise.reject()
-}
+  get : (_: string) => Promise.reject(),
+  add : (_: DeclarationInput) => Promise.reject(),
+  ontology : (_: string) => Promise.reject(),
+};
 
 export const cslApiMock : CslApi = {
-  check : (_i: CheckExpressionInput) => Promise.reject(),
-  checkExpression : (_i: CheckExpressionInput, _id?: string) => Promise.reject()
-}
+  check : (_: CheckExpressionInput) => Promise.reject(),
+  checkExpression : (_: CheckExpressionInput, __?: string) => Promise.reject(),
+};
 
 export const infoApiMock : InfoApi = {
   get : () => Promise.reject(),
-  getAgents : () => Promise.reject()
-}
+  getAgents : () => Promise.reject(),
+};
 
 export const deonApiMock : DeonApi = {
   contracts: contractsApiMock,
   declarations: declarationsApiMock,
   csl: cslApiMock,
-  info: infoApiMock
-}
+  info: infoApiMock,
+};
