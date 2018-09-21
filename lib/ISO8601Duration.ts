@@ -88,6 +88,6 @@ export const durationToISOString = (d: Duration): string => {
   const { years, months, days, hours, minutes, seconds } = d;
   const datestr = fmt('Y')(years) + fmt('M')(months) + fmt('D')(days);
   const timestr = fmt('H')(hours) + fmt('M')(minutes) + fmt('S')(seconds);
-  const ret = datestr + (timestr.length > 0 ? 'T' + timestr : '') ;
-  return 'P' + (ret.length > 0 ? ret : '0S');
+  const ret = datestr + (timestr.length > 0 ? `T${timestr}` : '') ;
+  return `P${ret.length > 0 ? ret : '0S'}`;
 };
