@@ -7,6 +7,7 @@
 ### Unpublished
 
 * Add support for `SelfContractId` instantiation argument, which resolves to the id of the contract that is being instantiated.
+* Added mock versions of the APIs to assist in testing with mocking frameworks.
 
 ### [3.2.0] - 2018-08-30
 
