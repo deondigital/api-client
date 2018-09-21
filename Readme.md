@@ -4,9 +4,9 @@
 
 ## Changelog
 
-### Unpublished
+### [3.3.0] - 2018-09-21
 
-* Add support for `SelfContractId` instantiation argument, which resolves to the id of the contract that is being instantiated.
+* Add support for `SelfContractId` instantiation argument, which resolves to the id of the contract that is being instantiated.  Requires Deon API version 0.22.0.
 * Added mock versions of the APIs to assist in testing with mocking frameworks.
 
 ### [3.2.0] - 2018-08-30
@@ -18,4 +18,5 @@
 ---
 
 
+[3.3.0]: https://github.com/deondigital/api-client/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/deondigital/api-client/compare/v3.1.0...v3.2.0
