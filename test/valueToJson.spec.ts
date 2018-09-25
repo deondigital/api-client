@@ -116,7 +116,7 @@ describe('Fully typed to JSON typed', () => {
   });
   it('works on ContractIdValue', () => {
     const c: D.ContractIdValue =
-    ({ class: 'ContractIdValue', contractId: 'foo', boundName: D.qual('a') });
-    expect(valueToJson(c)).to.deep.equal({ contractId: 'foo', boundName: D.qual('a') });
+    ({ class: 'ContractIdValue', identifier: 'foo', boundName: D.qual('a') });
+    expect(valueToJson(c)).to.deep.equal({ identifier: 'foo', boundName: D.qual('a') });
   });
 });
