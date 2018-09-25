@@ -28,5 +28,9 @@ export const valueToJson = (value: Value): {} => {
       identifier: value.identifier,
       boundName: value.boundName,
     };
+    case 'ContractIdValue': return {
+      contractId: value.contractId,
+      boundName: value.boundName,
+    };
   }
 };
