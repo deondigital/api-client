@@ -102,7 +102,8 @@ export type Value =
   | ConstructorValue
   | RecordValue
   | ListValue
-  | AgentValue;
+  | AgentValue
+  | ContractIdValue;
 
 export interface IntValue {
   class: 'IntValue';
@@ -175,6 +176,12 @@ export const mkListValue = (elements: Value[]): ListValue =>
 export interface AgentValue {
   class: 'AgentValue';
   identifier: string;
+  boundName: QualifiedName;
+}
+
+export interface ContractIdValue {
+  class: 'ContractIdValue';
+  contractId: string;
   boundName: QualifiedName;
 }
 
