@@ -181,7 +181,7 @@ export interface AgentValue {
 
 export interface ContractIdValue {
   class: 'ContractIdValue';
-  contractId: string;
+  identifier: string;
   boundName: QualifiedName;
 }
 
