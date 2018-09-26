@@ -19,7 +19,7 @@ export interface InstantiationInput {
 }
 
 export interface InstantiationOutput {
-  contractId: string;
+  contractId: ContractIdValue;
   tag: string;
 }
 
