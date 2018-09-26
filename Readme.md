@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* Added a `ContractIdValue` that holds information about instantiated contracts. This value is returned from `POST /contracts`.
+
 ### [3.3.0] - 2018-09-21
 
 * Add support for `SelfContractId` instantiation argument, which resolves to the id of the contract that is being instantiated.  Requires Deon API version 0.22.0.
