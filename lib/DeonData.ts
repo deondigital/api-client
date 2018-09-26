@@ -181,8 +181,13 @@ export interface AgentValue {
 
 export interface ContractIdValue {
   class: 'ContractIdValue';
-  identifier: string;
+  identifier: ContractIdentifier;
   boundName: QualifiedName;
+}
+
+export interface ContractIdentifier {
+  class: 'ContractIdentifier';
+  id: string;
 }
 
 /* Instantiation arguments */
