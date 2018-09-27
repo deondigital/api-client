@@ -197,9 +197,8 @@ export type InstantiationArgument
 
 export interface SelfContractId {
   class: 'SelfContractId';
+  boundName: QualifiedName;
 }
-
-export const selfContractId: SelfContractId = { class: 'SelfContractId' };
 
 /* Contract AST tree */
 export type ContractTree
