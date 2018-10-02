@@ -201,8 +201,8 @@ export interface SelfContractId {
 }
 
 export const selfContractId = (boundName: QualifiedName): SelfContractId => {
-  return { class: "SelfContractId", boundName }
-}
+  return { boundName, class: 'SelfContractId' };
+};
 
 /* Contract AST tree */
 export type ContractTree

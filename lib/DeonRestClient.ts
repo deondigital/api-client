@@ -17,6 +17,7 @@ import {
   DeclarationInput,
   Event,
   Tag,
+  ContractIdValue,
 } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
 
@@ -97,6 +98,13 @@ const possiblyBadRequestOrNotFound = async (r: Response) => {
   throwUnexpected(r, data);
 };
 
+const idString = (id: string | ContractIdValue): string => {
+  if (typeof(id) === 'string') {
+    return id;
+  }
+  return id.identifier.id;
+};
+
 /**
  * Constructs a Deon REST client.
  */
@@ -114,32 +122,41 @@ class DeonRestClient implements DeonApi {
   ) => new DeonRestClient(new HttpClient(fetch, hook, serverUrl))
 
   contracts: ContractsApi = {
-    getAll: () => this.http.get('/contracts').then(noKnownExceptions),
+    getAll: () => this.http.get('/contracts')
+      .then(noKnownExceptions),
 
-    get: (id: string) => this.http.get(`/contracts/${id}`).then(possiblyNotFound),
+    get: (id: string | ContractIdValue) =>
+      this.http.get(`/contracts/${idString(id)}`)
+        .then(possiblyNotFound),
 
-    tree: (id: string) => this.http.get(`/contracts/${id}/tree`).then(possiblyNotFound),
+    tree: (id: string | ContractIdValue) =>
+      this.http.get(`/contracts/${idString(id)}/tree`)
+        .then(possiblyNotFound),
 
-    src: (id: string, simplified: boolean) => {
-      const url = simplified ? `/contracts/${id}/src/?simplified=true` : `/contracts/${id}/src`;
+    src: (id: string | ContractIdValue, simplified: boolean) => {
+      const url = simplified ? `/contracts/${idString(id)}/src/?simplified=true`
+                             : `/contracts/${idString(id)}/src`;
       return this.http.get(url).then(possiblyNotFound);
     },
 
-    nextEvents: (id: string) => this.http.get(`/contracts/${id}/next-events`)
-      .then(possiblyNotFound),
+    nextEvents: (id: string | ContractIdValue) =>
+      this.http.get(`/contracts/${idString(id)}/next-events`)
+        .then(possiblyNotFound),
 
     instantiate: (instantiateInput: InstantiationInput) =>
-      this.http.post('/contracts', instantiateInput).then(possiblyBadRequest),
+      this.http.post('/contracts', instantiateInput)
+        .then(possiblyBadRequest),
 
-    applyEvent: (id: string, event: Event, tag?: Tag) =>
-      this.http.post(`/contracts/${id}/${tag != null ? `${tag}/` : ''}events`, event)
+    applyEvent: (id: string | ContractIdValue, event: Event, tag?: Tag) =>
+      this.http.post(`/contracts/${idString(id)}/${tag != null ? `${tag}/` : ''}events`, event)
         .then(possiblyBadRequestOrNotFound),
 
     report: (expressionInput: EvaluateExpressionInput) =>
-      this.http.post('/contracts/report', expressionInput).then(possiblyBadRequest),
+      this.http.post('/contracts/report', expressionInput)
+        .then(possiblyBadRequest),
 
-    reportOnContract: (id: string, expressionInput: EvaluateExpressionInput) =>
-      this.http.post(`/contracts/${id}/report`, expressionInput)
+    reportOnContract: (id: string | ContractIdValue, expressionInput: EvaluateExpressionInput) =>
+      this.http.post(`/contracts/${idString(id)}/report`, expressionInput)
         .then(possiblyBadRequestOrNotFound),
   };
 
