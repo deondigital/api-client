@@ -185,6 +185,13 @@ export interface ContractIdValue {
   boundName: QualifiedName;
 }
 
+export const mkContractIdValue = (id: string, boundName: QualifiedName): ContractIdValue =>
+  ({
+    boundName,
+    identifier: { id, class: 'ContractIdentifier' },
+    class: 'ContractIdValue',
+  });
+
 export interface ContractIdentifier {
   class: 'ContractIdentifier';
   id: string;
