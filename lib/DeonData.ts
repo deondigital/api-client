@@ -200,6 +200,10 @@ export interface SelfContractId {
   boundName: QualifiedName;
 }
 
+export const selfContractId = (boundName: QualifiedName): SelfContractId => {
+  return { class: "SelfContractId", boundName }
+}
+
 /* Contract AST tree */
 export type ContractTree
   = TSuccess
