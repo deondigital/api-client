@@ -12,14 +12,14 @@ interface DeonApi {
 
 interface ContractsApi {
   getAll(): Promise<D.Contract[]>;
-  get(id: string): Promise<D.Contract>;
-  tree(id: string): Promise<D.ContractTree>;
-  src(id: string, simplified: boolean): Promise<D.ResidualSource>;
-  nextEvents(id: string): Promise<D.EventPredicate[]>;
+  get(id: string | D.ContractIdValue): Promise<D.Contract>;
+  tree(id: string | D.ContractIdValue): Promise<D.ContractTree>;
+  src(id: string | D.ContractIdValue, simplified: boolean): Promise<D.ResidualSource>;
+  nextEvents(id: string | D.ContractIdValue): Promise<D.EventPredicate[]>;
   instantiate(i: D.InstantiationInput): Promise<D.InstantiationOutput>;
-  applyEvent(id: string, event: D.Event, tag?: D.Tag): Promise<D.Tag | void>;
+  applyEvent(id: string | D.ContractIdValue, event: D.Event, tag?: D.Tag): Promise<D.Tag | void>;
   report(i: D.EvaluateExpressionInput): Promise<D.Value>;
-  reportOnContract(id: string, i: D.EvaluateExpressionInput): Promise<D.Value>;
+  reportOnContract(id: string | D.ContractIdValue, i: D.EvaluateExpressionInput): Promise<D.Value>;
 }
 
 interface DeclarationsApi {
