@@ -103,7 +103,9 @@ export type Value =
   | RecordValue
   | ListValue
   | AgentValue
-  | ContractIdValue;
+  | ContractIdValue
+  | SignedValue
+  | PublicKeyValue;
 
 export interface IntValue {
   class: 'IntValue';
@@ -148,6 +150,71 @@ export const mkDurationValue = (duration: Duration): DurationValue =>
 
 export const mkInstantValue = (instant: Date): InstantValue =>
   ({ class: 'InstantValue', instant: instant.toISOString() });
+
+export interface ECDSAPublicKey {
+  tag: 'ECDSAPublicKey';
+  pem: string;
+  curveName: string;
+}
+
+export type PublicKey = ECDSAPublicKey;
+
+export interface PublicKeyValue {
+  class: 'PublicKeyValue';
+  publicKey: PublicKey;
+  boundName: QualifiedName;
+}
+
+export const mkECDSAPublicKeyValue = (pem: string, boundName: QualifiedName): PublicKeyValue => ({
+  boundName,
+  class: 'PublicKeyValue',
+  publicKey: {
+    pem,
+    tag: 'ECDSAPublicKey',
+    curveName: 'secp192r1', // TODO: dont use constant
+  },
+});
+
+export interface ECDSASignature {
+  tag: 'ECDSASignature';
+  bytes: string;
+}
+
+export type Signature = ECDSASignature;
+
+export interface Signed {
+  message: string;
+  sig: Signature;
+}
+
+export interface SignedValue {
+  class: 'SignedValue';
+  signed: Signed;
+  boundName: QualifiedName;
+}
+
+function stringToBytes(str: string): number[] {
+  let bytes:number[] = [];
+  for (let i = 0; i < str.length; i = i + 1) {
+    const code = str.charCodeAt(i);
+    bytes = bytes.concat([code & 0xff, code / 256 >>> 0]);
+  }
+  return bytes;
+}
+
+export const mkECDSASignedValue = (message: string, boundName: QualifiedName): SignedValue => {
+  return {
+    boundName,
+    class: 'SignedValue',
+    signed: {
+      message,
+      sig: {
+        bytes: stringToBytes(message).join(''),
+        tag: 'ECDSASignature',
+      },
+    },
+  };
+};
 
 export interface ConstructorValue {
   class: 'ConstructorValue';
