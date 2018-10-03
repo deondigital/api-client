@@ -32,5 +32,13 @@ export const valueToJson = (value: Value): {} => {
       identifier: value.identifier,
       boundName: value.boundName,
     };
+    case 'SignedValue': return {
+      signed: Object.assign({}, value.signed),
+      boundName: value.boundName,
+    };
+    case 'PublicKeyValue': return {
+      publicKey: Object.assign({}, value.publicKey),
+      boundName: value.boundName,
+    };
   }
 };
