@@ -177,7 +177,9 @@ export const mkECDSAPublicKeyValue = (pem: string, boundName: QualifiedName): Pu
 
 export interface ECDSASignature {
   tag: 'ECDSASignature';
-  bytes: string;
+  signature: {
+    bytes: string,
+  };
 }
 
 export type Signature = ECDSASignature;
@@ -209,7 +211,9 @@ export const mkECDSASignedValue = (message: string, boundName: QualifiedName): S
     signed: {
       message,
       sig: {
-        bytes: stringToBytes(message).join(''),
+        signature: {
+          bytes: stringToBytes(message).join(''),
+        },
         tag: 'ECDSASignature',
       },
     },
