@@ -21,7 +21,9 @@
   "author": "Deon Digital",
   "license": "AGPL-3.0",
   "devDependencies": {
+    "@types/base64-js": "^1.2.5",
     "@types/chai": "^4.1.3",
+    "@types/elliptic": "^6.4.0",
     "@types/mocha": "^5.2.0",
     "chai": "^4.1.2",
     "mocha": "^5.1.1",
@@ -30,5 +32,10 @@
     "tslint-config-airbnb": "^5.8.0",
     "typescript": "^2.9.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@lapo/asn1js": "^1.0.2",
+    "base64-js": "^1.3.0",
+    "elliptic": "^6.4.1",
+    "js-sha3": "^0.8.0"
+  }
 }

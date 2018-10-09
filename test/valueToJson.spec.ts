@@ -121,4 +121,47 @@ describe('Fully typed to JSON typed', () => {
       boundName: D.qual('a') });
     expect(valueToJson(c)).to.deep.equal({ identifier: { id: 'foo' }, boundName: D.qual('a') });
   });
+
+  it('works on PublicKeyValue', () => {
+    const pem = `
+-----BEGIN PUBLIC KEY-----
+MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEFDpOIaItaN2oAaz4bVVMbFSq2jhYbpvS
+JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
+-----END PUBLIC KEY-----`;
+    const pubk: D.PublicKeyValue = {
+      class: 'PublicKeyValue',
+      publicKey: {
+        pem,
+        curveName: D.CurveName.secp256k1,
+        tag: 'ECDSAPublicKey',
+      },
+      boundName: D.qual('a'),
+    };
+
+    const epubk = Object.assign({}, pubk);
+    delete epubk.class;
+
+    expect(valueToJson(pubk)).to.deep.equal(epubk);
+  });
+
+  it('works on SignedValue', () => {
+    const signed: D.SignedValue = {
+      class: 'SignedValue',
+      signed: {
+        message: 'We attack at dawn!',
+        sig: {
+          tag: 'ECDSASignature',
+          signature: {
+            bytes: '8BADF00DCAFEC0DED00DBABEDEADBEEF',
+          },
+        },
+      },
+      boundName: D.qual('a'),
+    };
+
+    const esigned = Object.assign({}, signed);
+    delete esigned.class;
+
+    expect(valueToJson(signed)).to.deep.equal(esigned);
+  });
 });
