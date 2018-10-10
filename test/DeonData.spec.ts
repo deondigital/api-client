@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import 'mocha';
 import {
   qual,
-  mkECDSAPublicKeyValue,
+  newECDSAPublicKeyValue,
   mkECDSAPrivateKey,
-  mkECDSASignedValue,
+  signWithECDSA,
   checkSignature,
 } from '../lib/DeonData';
 
@@ -31,10 +31,10 @@ MHQCAQEEIBLDGd9V/M3AgxCo+O+A6GDDIaIY1QQyYL9x969eioJToAcGBSuBBAAK
 oUQDQgAEFDpOIaItaN2oAaz4bVVMbFSq2jhYbpvSJyFpzshkKrjg1Up82XtpOibz
 mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
 -----END EC PRIVATE KEY-----`;
-    const pubkVal = mkECDSAPublicKeyValue(publicPem, qual('publicKey'));
+    const pubkVal = newECDSAPublicKeyValue(publicPem, qual('publicKey'));
     const privk = mkECDSAPrivateKey(privatePem);
     const signedVal =
-      mkECDSASignedValue(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', qual('signed'));
+      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', qual('signed'));
     expect(checkSignature(pubkVal.publicKey, signedVal.signed)).to.be.true;
   });
 
@@ -52,10 +52,10 @@ oUQDQgAEdy9CBHRkqwhP4IfQFmj386JU1bB4R15fKVW8MmIObtREFJ4cYDWHo7Ju
 vSQCx5o2XUXD2t82qOY8J3/ByehWSQ==
 -----END EC PRIVATE KEY-----`;
 
-    const pubkVal = mkECDSAPublicKeyValue(publicPem, qual('publicKey'));
+    const pubkVal = newECDSAPublicKeyValue(publicPem, qual('publicKey'));
     const privk = mkECDSAPrivateKey(privatePem);
     const signedVal =
-      mkECDSASignedValue(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', qual('signed'));
+      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', qual('signed'));
     expect(checkSignature(pubkVal.publicKey, signedVal.signed)).to.be.false;
   });
 });

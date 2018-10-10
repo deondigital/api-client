@@ -187,7 +187,7 @@ export interface PublicKeyValue {
   boundName: QualifiedName;
 }
 
-export const mkECDSAPublicKeyValue = (pem: string, boundName: QualifiedName): PublicKeyValue => ({
+export const newECDSAPublicKeyValue = (pem: string, boundName: QualifiedName): PublicKeyValue => ({
   boundName,
   class: 'PublicKeyValue',
   publicKey: {
@@ -195,6 +195,13 @@ export const mkECDSAPublicKeyValue = (pem: string, boundName: QualifiedName): Pu
     tag: 'ECDSAPublicKey',
     curveName: CurveName.secp256k1,
   },
+});
+
+export const mkPublicKeyValue = (
+  publicKey: PublicKey,
+  boundName: QualifiedName,
+): PublicKeyValue => ({
+  publicKey, boundName, class: 'PublicKeyValue',
 });
 
 export interface ECDSASignature {
@@ -279,7 +286,7 @@ export function checkSignature(pubk: PublicKey, signed: Signed): boolean {
   return pubkdec.verify(hashed, der as any);
 }
 
-export const mkECDSASignedValue = (
+export const signWithECDSA = (
   privk: PrivateKey,
   message: string,
   boundName: QualifiedName,
@@ -302,6 +309,10 @@ export const mkECDSASignedValue = (
     },
   };
 };
+
+export const mkSignedValue = (signed:Signed, boundName: QualifiedName): SignedValue => ({
+  signed, boundName, class: 'SignedValue',
+});
 
 export interface ConstructorValue {
   class: 'ConstructorValue';
