@@ -1,12 +1,17 @@
 import { expect } from 'chai';
 import 'mocha';
 import {
-  qual,
-  newECDSAPublicKeyValue,
+  qual, mkPublicKeyValue,
+} from '../lib/DeonData';
+import {
   mkECDSAPrivateKey,
+  mkECDSAPublicKey,
+} from '../lib/ECDSA';
+
+import {
   signWithECDSA,
   checkSignature,
-} from '../lib/DeonData';
+} from '../lib/Signed';
 
 describe('QualifiedName', () => {
   it('qualified named with no module', () => {
@@ -31,11 +36,11 @@ MHQCAQEEIBLDGd9V/M3AgxCo+O+A6GDDIaIY1QQyYL9x969eioJToAcGBSuBBAAK
 oUQDQgAEFDpOIaItaN2oAaz4bVVMbFSq2jhYbpvSJyFpzshkKrjg1Up82XtpOibz
 mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
 -----END EC PRIVATE KEY-----`;
-    const pubkVal = newECDSAPublicKeyValue(publicPem, qual('publicKey'));
+    const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem), qual('publicKey'));
     const privk = mkECDSAPrivateKey(privatePem);
-    const signedVal =
-      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', qual('signed'));
-    expect(checkSignature(pubkVal.publicKey, signedVal.signed)).to.be.true;
+    const signed =
+      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!');
+    expect(checkSignature(pubkVal.publicKey, signed)).to.be.true;
   });
 
   it('correctly rejects data signed with public and private keys that are not paired', () => {
@@ -52,10 +57,10 @@ oUQDQgAEdy9CBHRkqwhP4IfQFmj386JU1bB4R15fKVW8MmIObtREFJ4cYDWHo7Ju
 vSQCx5o2XUXD2t82qOY8J3/ByehWSQ==
 -----END EC PRIVATE KEY-----`;
 
-    const pubkVal = newECDSAPublicKeyValue(publicPem, qual('publicKey'));
+    const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem), qual('publicKey'));
     const privk = mkECDSAPrivateKey(privatePem);
-    const signedVal =
-      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', qual('signed'));
-    expect(checkSignature(pubkVal.publicKey, signedVal.signed)).to.be.false;
+    const signed =
+      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!');
+    expect(checkSignature(pubkVal.publicKey, signed)).to.be.false;
   });
 });
