@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [3.5.0] - 2018-10-12
+
+* Added `SignedValue` and `PublicKeyValue` that models signed data. There are also functions to construct such values using OpenSSL generated keys in the PEM format.
+
 ### [3.4.0] - 2018-10-04
 
 * Added a `ContractIdValue` that holds information about instantiated contracts. This value is returned from `POST /contracts`.
