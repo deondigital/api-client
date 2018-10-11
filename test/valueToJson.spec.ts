@@ -3,6 +3,7 @@ import { Duration } from '../lib/ISO8601Duration';
 import { expect } from 'chai';
 import 'mocha';
 import * as D from '../lib/DeonData';
+import { CurveName } from '../lib/ECDSA';
 
 describe('Fully typed to JSON typed', () => {
   it('works for IntValue', () => { expect(valueToJson(D.mkIntValue(42))).to.equal(42); });
@@ -132,7 +133,7 @@ JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
       class: 'PublicKeyValue',
       publicKey: {
         pem,
-        curveName: D.CurveName.secp256k1,
+        curveName: CurveName.secp256k1,
         tag: 'ECDSAPublicKey',
       },
       boundName: D.qual('a'),
