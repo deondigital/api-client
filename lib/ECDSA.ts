@@ -33,7 +33,10 @@ export interface ECDSASignature {
 
 const globalEC = new Elliptic.ec(CurveName.secp256k1);
 
-function decodeASN1PublicPem(pem: string) {
+/**
+ * @returns a binary buffer or a string failure
+ */
+function decodeASN1PublicPem(pem: string): Buffer | string {
   /*
   Informal ASN.1 Schema of openssl elliptic curve private keys (undocumented).
   You can find it (or something like it) by running `openssl asn1parse -in [PUBLIC_KEY] -dump`
@@ -45,19 +48,26 @@ function decodeASN1PublicPem(pem: string) {
     publicKey   BIT STRING
   }
   */
-  const decoded = lapo_asn1js.decode(unarmor(pem));
-  if (!decoded.sub) {
-    throw `Unexpected ASN.1 decode result:\n ${decoded}`;
-  }
-  const publicKey = decoded.sub[1];
+  try {
+    const decoded = lapo_asn1js.decode(unarmor(pem));
+    if (!decoded.sub || !decoded.sub[1]) {
+      return `Unexpected ASN.1 decode result:\n ${decoded}`;
+    }
+    const publicKey = decoded.sub[1];
 
-  // hexdump the bitstring of the public key
-  const bits =
-    publicKey.stream.hexDump(publicKey.posContent(), publicKey.posEnd(), true).substring(2);
-  return Buffer.from(bits, 'hex');
+    // hexdump the bitstring of the public key
+    const bits =
+      publicKey.stream.hexDump(publicKey.posContent(), publicKey.posEnd(), true).substring(2);
+    return Buffer.from(bits, 'hex');
+  } catch (err) {
+    return err.toString();
+  }
 }
 
-function decodeASN1PrivatePem(pem: string) {
+/**
+ * @returns a binary buffer or a string failure
+ */
+function decodeASN1PrivatePem(pem: string): Buffer | string {
   /*
   ASN.1 Schema of openssl elliptic curve private keys (https://tools.ietf.org/html/rfc5915):
     ECPrivateKey ::= SEQUENCE {
@@ -67,23 +77,41 @@ function decodeASN1PrivatePem(pem: string) {
       publicKey  [1] BIT STRING OPTIONAL
     }
   */
-  const decoded = lapo_asn1js.decode(unarmor(pem));
-  if (!decoded.sub) {
-    throw `Unexpected ASN.1 decode result:\n ${decoded}`;
+  try {
+    const decoded = lapo_asn1js.decode(unarmor(pem));
+    if (!decoded.sub || !decoded.sub[1]) {
+      return `Unexpected ASN.1 decode result:\n ${decoded}`;
+    }
+    const privateKey = decoded.sub[1];
+    const hexstr = privateKey.stream.hexDump(privateKey.posContent(), privateKey.posEnd(), true);
+    return Buffer.from(hexstr, 'hex');
+  } catch (err) {
+    return err.toString();
   }
-  const privateKey = decoded.sub[1];
-  const hexstr = privateKey.stream.hexDump(privateKey.posContent(), privateKey.posEnd(), true);
-  return Buffer.from(hexstr, 'hex');
 }
 
 export function decodePublicKey(pem: string, ec = globalEC) {
   const buffer = decodeASN1PublicPem(pem);
-  return ec.keyFromPublic(buffer);
+  if (typeof buffer === 'string') {
+    return buffer;
+  }
+  try {
+    return ec.keyFromPublic(buffer);
+  } catch (err) {
+    return err.toString();
+  }
 }
 
 export function decodePrivateKey(pem: string, ec = globalEC) {
   const buffer = decodeASN1PrivatePem(pem);
-  return ec.keyFromPrivate(buffer);
+  if (typeof buffer === 'string') {
+    return buffer;
+  }
+  try {
+    return ec.keyFromPrivate(buffer);
+  } catch (err) {
+    return err.toString();
+  }
 }
 
 export const mkECDSAPublicKey = (pem: string): ECDSAPublicKey => ({
