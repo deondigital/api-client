@@ -40,6 +40,9 @@ mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
     const privk = mkECDSAPrivateKey(privatePem);
     const signed =
       signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!');
+    if (typeof signed === 'string') {
+      throw signed;
+    }
     expect(checkSignature(pubkVal.publicKey, signed)).to.be.true;
   });
 
@@ -61,6 +64,49 @@ vSQCx5o2XUXD2t82qOY8J3/ByehWSQ==
     const privk = mkECDSAPrivateKey(privatePem);
     const signed =
       signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!');
+    if (typeof signed === 'string') {
+      throw signed;
+    }
     expect(checkSignature(pubkVal.publicKey, signed)).to.be.false;
+  });
+
+  it('fails when attempting to sign with a malformed private key', () => {
+
+    const privatePem = `
+-----BEGIN EC PRIVATE KEY-----
+MHQCAQEEIGDnTVzZgLvGiri2wbLpzrAjKæ+FdE/Q8D9O7UO4DhroRoAcGBSuBBAAK
+oUQDQgAEdy9CBHRkqwhP4IfQFmj386JU1bB4R15fKVW8MmIObtREFJ4cYDWHo7Ju
+vSQCx5o2XUXD2t82qOY8J3/ByehWSQ==
+-----END EC PRIVATE KEY-----`;
+
+    const privk = mkECDSAPrivateKey(privatePem);
+    const signed =
+      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!');
+    expect(typeof signed).to.equal('string');
+  });
+
+  it('fails when attempting to check signature with a malformed public key', () => {
+    const publicPem = `
+-----BEGIN PUBLIC KEY-----
+MFYwEAYHKoZIzj0CAQYFKfoo4EEAAoDQgAEFDpOIaItaN2oAaz4bVVMbFSq2jhYbpvS
+JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
+-----END PUBLIC KEY-----`;
+
+    const privatePem = `
+-----BEGIN EC PRIVATE KEY-----
+MHQCAQEEIBLDGd9V/M3AgxCo+O+A6GDDIaIY1QQyYL9x969eioJToAcGBSuBBAAK
+oUQDQgAEFDpOIaItaN2oAaz4bVVMbFSq2jhYbpvSJyFpzshkKrjg1Up82XtpOibz
+mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
+-----END EC PRIVATE KEY-----`;
+    const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem), qual('publicKey'));
+    const privk = mkECDSAPrivateKey(privatePem);
+    const signed =
+      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!');
+    if (typeof signed === 'string') {
+      throw signed;
+    }
+    const check = checkSignature(pubkVal.publicKey, signed);
+    console.log(check);
+    expect(typeof check).to.equal('string');
   });
 });
