@@ -22,4 +22,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    node_js: '10'
+    node: '10'
