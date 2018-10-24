@@ -133,7 +133,7 @@ JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
       class: 'PublicKeyValue',
       publicKey: {
         pem,
-        curveName: CurveName.secp256k1,
+        curveName: CurveName.SEC_p256k1,
         tag: 'ECDSAPublicKey',
       },
       boundName: D.qual('a'),
