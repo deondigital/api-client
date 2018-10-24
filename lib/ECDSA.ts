@@ -2,7 +2,14 @@ import * as Elliptic from 'elliptic';
 import * as lapo_asn1js from '@lapo/asn1js';
 import { unarmor } from '@lapo/asn1js/base64';
 
-export enum CurveName { secp256k1 = 'secp256k1' }
+export enum CurveName { SEC_p256k1 = 'SEC_p256k1' }
+
+export function jsCurveName(cn: CurveName): string {
+  switch (cn) {
+    case CurveName.SEC_p256k1:
+      return 'secp256k1';
+  }
+}
 
 export interface ECDSAPublicKey {
   tag: 'ECDSAPublicKey';
@@ -21,7 +28,7 @@ export interface ECDSAPrivateKey {
 export const mkECDSAPrivateKey = (pem: string): ECDSAPrivateKey => ({
   pem,
   tag: 'ECDSAPrivateKey',
-  curveName: CurveName.secp256k1,
+  curveName: CurveName.SEC_p256k1,
 });
 
 export interface ECDSASignature {
@@ -31,7 +38,7 @@ export interface ECDSASignature {
   };
 }
 
-const globalEC = new Elliptic.ec(CurveName.secp256k1);
+const globalEC = new Elliptic.ec(jsCurveName(CurveName.SEC_p256k1));
 
 /**
  * @returns a binary buffer or a string failure
@@ -117,5 +124,5 @@ export function decodePrivateKey(pem: string): Elliptic.ec.KeyPair | string {
 export const mkECDSAPublicKey = (pem: string): ECDSAPublicKey => ({
   pem,
   tag: 'ECDSAPublicKey',
-  curveName: CurveName.secp256k1,
+  curveName: CurveName.SEC_p256k1,
 });
