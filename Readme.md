@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [3.5.1] - 2018-10-25
+
+* Fixed a bug when (de)serializing elliptic curve names
+
 ### [3.5.0] - 2018-10-12
 
 * Added `SignedValue` and `PublicKeyValue` that models signed data. There are also functions to construct such values using OpenSSL generated keys in the PEM format.
@@ -25,6 +29,7 @@
 
 ---
 
+[3.5.1]: https://github.com/deondigital/api-client/compare/v3.5.0...v3.5.1
 [3.5.0]: https://github.com/deondigital/api-client/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/deondigital/api-client/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/deondigital/api-client/compare/v3.2.0...v3.3.0
