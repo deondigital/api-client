@@ -1,4 +1,5 @@
 import * as D from './DeonData';
+import { Pseudo } from './Pseudo';
 
 /**
  * Interface for Deon REST service.
@@ -12,14 +13,24 @@ interface DeonApi {
 
 interface ContractsApi {
   getAll(): Promise<D.Contract[]>;
-  get(id: string | D.ContractIdValue): Promise<D.Contract>;
-  tree(id: string | D.ContractIdValue): Promise<D.ContractTree>;
-  src(id: string | D.ContractIdValue, simplified: boolean): Promise<D.ResidualSource>;
-  nextEvents(id: string | D.ContractIdValue): Promise<D.EventPredicate[]>;
+  get(id: string | D.PseudoValue<Pseudo.ContractId>): Promise<D.Contract>;
+  tree(id: string | D.PseudoValue<Pseudo.ContractId>): Promise<D.ContractTree>;
+  src(
+    id: string | D.PseudoValue<Pseudo.ContractId>,
+    simplified: boolean,
+  ): Promise<D.ResidualSource>;
+  nextEvents(id: string | D.PseudoValue<Pseudo.ContractId>): Promise<D.EventPredicate[]>;
   instantiate(i: D.InstantiationInput): Promise<D.InstantiationOutput>;
-  applyEvent(id: string | D.ContractIdValue, event: D.Event, tag?: D.Tag): Promise<D.Tag | void>;
+  applyEvent(
+    id: string | D.PseudoValue<Pseudo.ContractId>,
+    event: D.Event,
+    tag?: D.Tag,
+  ): Promise<D.Tag | void>;
   report(i: D.EvaluateExpressionInput): Promise<D.Value>;
-  reportOnContract(id: string | D.ContractIdValue, i: D.EvaluateExpressionInput): Promise<D.Value>;
+  reportOnContract(
+    id: string | D.PseudoValue<Pseudo.ContractId>,
+    i: D.EvaluateExpressionInput,
+  ): Promise<D.Value>;
 }
 
 interface DeclarationsApi {
@@ -36,7 +47,7 @@ interface CslApi {
 
 interface InfoApi {
   get(): Promise<D.NodeInfoOutput>;
-  getAgents(): Promise<D.AgentValue[]>;
+  getAgents(): Promise<D.PseudoValue<Pseudo.Agent>[]>;
 }
 
 /**
