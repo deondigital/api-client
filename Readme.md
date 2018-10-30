@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [4.0.0] - 2018-10-29
+
+* Breaking: Use new `PseudoValue` constructor to represent pseudo-syntactic values
+
 ### [3.5.1] - 2018-10-25
 
 * Fixed a bug when (de)serializing elliptic curve names
@@ -29,6 +33,7 @@
 
 ---
 
+[4.0.0]: https://github.com/deondigital/api-client/compare/v3.5.1...v4.0.0
 [3.5.1]: https://github.com/deondigital/api-client/compare/v3.5.0...v3.5.1
 [3.5.0]: https://github.com/deondigital/api-client/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/deondigital/api-client/compare/v3.3.0...v3.4.0
