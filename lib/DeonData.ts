@@ -109,36 +109,42 @@ export type Value =
   | ConstructorValue
   | RecordValue
   | ListValue
-  | PseudoValue;
+  | PseudoValue<any>;
 
-export interface PseudoValue {
+export interface PseudoValue<P extends Pseudo> {
   class: 'PseudoValue';
-  pseudo: Pseudo;
+  pseudo: P;
   boundName: QualifiedName;
 }
 
-export const mkPseudoValue = (
-  pseudo: Pseudo,
+export const mkPseudoValue = <P extends Pseudo>(
+  pseudo: P,
   boundName: QualifiedName,
-): PseudoValue => ({
+): PseudoValue<P> => ({
   pseudo, boundName, class: 'PseudoValue',
 });
 
 export const mkPublicKeyValue = (
   publicKey: PublicKey,
   boundName: QualifiedName,
-): PseudoValue => mkPseudoValue(
+): PseudoValue<Pseudo.PublicKey> => mkPseudoValue(
   { publicKey, tag: 'PseudoPublicKey' },
   boundName,
 );
 
-export const mkSignedValue = (signed:Signed, boundName: QualifiedName): PseudoValue =>
+export const mkSignedValue = (
+  signed:Signed,
+  boundName: QualifiedName,
+): PseudoValue<Pseudo.Signed> =>
   mkPseudoValue(
     { signed, tag: 'PseudoSigned' },
     boundName,
   );
 
-export const mkContractIdValue = (id: string, boundName: QualifiedName): PseudoValue =>
+export const mkContractIdValue = (
+  id: string,
+  boundName: QualifiedName,
+): PseudoValue<Pseudo.ContractId> =>
   mkPseudoValue(
     { identifier: { id }, tag: 'PseudoContractId' },
     boundName,
