@@ -12,6 +12,7 @@ import {
   signWithECDSA,
   checkSignature,
 } from '../lib/Signed';
+import { Pseudo } from '../lib/Pseudo';
 
 describe('QualifiedName', () => {
   it('qualified named with no module', () => {
@@ -43,7 +44,7 @@ mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
     if (typeof signed === 'string') {
       throw signed;
     }
-    expect(checkSignature(pubkVal.publicKey, signed)).to.be.true;
+    expect(checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed)).to.be.true;
   });
 
   it('correctly rejects data signed with public and private keys that are not paired', () => {
@@ -67,7 +68,7 @@ vSQCx5o2XUXD2t82qOY8J3/ByehWSQ==
     if (typeof signed === 'string') {
       throw signed;
     }
-    expect(checkSignature(pubkVal.publicKey, signed)).to.be.false;
+    expect(checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed)).to.be.false;
   });
 
   it('fails when attempting to sign with a malformed private key', () => {
@@ -105,8 +106,7 @@ mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
     if (typeof signed === 'string') {
       throw signed;
     }
-    const check = checkSignature(pubkVal.publicKey, signed);
-    console.log(check);
+    const check = checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed);
     expect(typeof check).to.equal('string');
   });
 });

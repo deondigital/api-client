@@ -24,21 +24,11 @@ export const valueToJson = (value: Value): {} => {
                 k => ({ [k]: valueToJson(value.fields[k]) }))),
     };
     case 'ListValue': return value.elements.map(e => valueToJson(e));
-    case 'AgentValue': return {
-      identifier: value.identifier,
-      boundName: value.boundName,
-    };
-    case 'ContractIdValue': return {
-      identifier: value.identifier,
-      boundName: value.boundName,
-    };
-    case 'SignedValue': return {
-      signed: Object.assign({}, value.signed),
-      boundName: value.boundName,
-    };
-    case 'PublicKeyValue': return {
-      publicKey: Object.assign({}, value.publicKey),
-      boundName: value.boundName,
-    };
+    case 'PseudoValue': {
+      const obj = Object.assign({}, value);
+      delete obj.class;
+      delete obj.pseudo.tag;
+      return obj;
+    }
   }
 };

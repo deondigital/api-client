@@ -1,6 +1,7 @@
 import { Duration, durationToISOString } from './ISO8601Duration';
 import { Signed } from './Signed';
 import { PublicKey } from './Keys';
+import { Pseudo } from './Pseudo';
 
 /* API Input and output wrappers */
 export interface DeclarationInput {
@@ -45,6 +46,10 @@ export interface NodeInfoOutput {
 export interface QualifiedName {
   name: string;
   qualifier: string[];
+}
+
+export interface ContractIdentifier {
+  id: string;
 }
 
 export class QualifiedName {
@@ -104,10 +109,40 @@ export type Value =
   | ConstructorValue
   | RecordValue
   | ListValue
-  | AgentValue
-  | ContractIdValue
-  | SignedValue
-  | PublicKeyValue;
+  | PseudoValue;
+
+export interface PseudoValue {
+  class: 'PseudoValue';
+  pseudo: Pseudo;
+  boundName: QualifiedName;
+}
+
+export const mkPseudoValue = (
+  pseudo: Pseudo,
+  boundName: QualifiedName,
+): PseudoValue => ({
+  pseudo, boundName, class: 'PseudoValue',
+});
+
+export const mkPublicKeyValue = (
+  publicKey: PublicKey,
+  boundName: QualifiedName,
+): PseudoValue => mkPseudoValue(
+  { publicKey, tag: 'PseudoPublicKey' },
+  boundName,
+);
+
+export const mkSignedValue = (signed:Signed, boundName: QualifiedName): PseudoValue =>
+  mkPseudoValue(
+    { signed, tag: 'PseudoSigned' },
+    boundName,
+  );
+
+export const mkContractIdValue = (id: string, boundName: QualifiedName): PseudoValue =>
+  mkPseudoValue(
+    { identifier: { id }, tag: 'PseudoContractId' },
+    boundName,
+  );
 
 export interface IntValue {
   class: 'IntValue';
@@ -153,29 +188,6 @@ export const mkDurationValue = (duration: Duration): DurationValue =>
 export const mkInstantValue = (instant: Date): InstantValue =>
   ({ class: 'InstantValue', instant: instant.toISOString() });
 
-export interface PublicKeyValue {
-  class: 'PublicKeyValue';
-  publicKey: PublicKey;
-  boundName: QualifiedName;
-}
-
-export const mkPublicKeyValue = (
-  publicKey: PublicKey,
-  boundName: QualifiedName,
-): PublicKeyValue => ({
-  publicKey, boundName, class: 'PublicKeyValue',
-});
-
-export interface SignedValue {
-  class: 'SignedValue';
-  signed: Signed;
-  boundName: QualifiedName;
-}
-
-export const mkSignedValue = (signed:Signed, boundName: QualifiedName): SignedValue => ({
-  signed, boundName, class: 'SignedValue',
-});
-
 export interface ConstructorValue {
   class: 'ConstructorValue';
   name: QualifiedName;
@@ -199,29 +211,6 @@ export interface ListValue {
 }
 export const mkListValue = (elements: Value[]): ListValue =>
   ({ elements, class: 'ListValue' });
-
-export interface AgentValue {
-  class: 'AgentValue';
-  identifier: string;
-  boundName: QualifiedName;
-}
-
-export interface ContractIdValue {
-  class: 'ContractIdValue';
-  identifier: ContractIdentifier;
-  boundName: QualifiedName;
-}
-
-export const mkContractIdValue = (id: string, boundName: QualifiedName): ContractIdValue =>
-  ({
-    boundName,
-    identifier: { id },
-    class: 'ContractIdValue',
-  });
-
-export interface ContractIdentifier {
-  id: string;
-}
 
 /* Instantiation arguments */
 export type InstantiationArgument
