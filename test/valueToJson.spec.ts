@@ -111,56 +111,75 @@ describe('Fully typed to JSON typed', () => {
     ]);
     expect(valueToJson(l)).to.deep.equal([[1, 2], [3.5, 4.3]]);
   });
-  it('works on AgentValue', () => {
-    const a: D.AgentValue = ({ identifier: 'foo', boundName: D.qual('a'), class: 'AgentValue' });
-    expect(valueToJson(a)).to.deep.equal({ identifier: 'foo', boundName: D.qual('a') });
+  it('works on Agents', () => {
+    const a: D.PseudoValue = {
+      boundName: D.qual('a'),
+      class: 'PseudoValue',
+      pseudo: { tag: 'PseudoAgent', identifier: 'foo' },
+    };
+    expect(valueToJson(a)).to.deep.equal({
+      boundName: D.qual('a'),
+      pseudo: { identifier: 'foo' },
+    });
   });
-  it('works on ContractIdValue', () => {
-    const c: D.ContractIdValue =
-    ({ class: 'ContractIdValue',
-      identifier: { id: 'foo' },
-      boundName: D.qual('a') });
-    expect(valueToJson(c)).to.deep.equal({ identifier: { id: 'foo' }, boundName: D.qual('a') });
+  it('works on ContractIds', () => {
+    const c: D.PseudoValue = {
+      class: 'PseudoValue',
+      boundName: D.qual('a'),
+      pseudo: { tag: 'PseudoContractId', identifier: { id: 'foo' } },
+    };
+    expect(valueToJson(c)).to.deep.equal({
+      pseudo: { identifier: { id: 'foo' } },
+      boundName: D.qual('a'),
+    });
   });
 
-  it('works on PublicKeyValue', () => {
+  it('works on PublicKeys', () => {
     const pem = `
 -----BEGIN PUBLIC KEY-----
 MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEFDpOIaItaN2oAaz4bVVMbFSq2jhYbpvS
 JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
 -----END PUBLIC KEY-----`;
-    const pubk: D.PublicKeyValue = {
-      class: 'PublicKeyValue',
-      publicKey: {
-        pem,
-        curveName: CurveName.SEC_p256k1,
-        tag: 'ECDSAPublicKey',
-      },
+    const pubk: D.PseudoValue = {
+      class: 'PseudoValue',
       boundName: D.qual('a'),
+      pseudo: {
+        publicKey: {
+          pem,
+          curveName: CurveName.SEC_p256k1,
+          tag: 'ECDSAPublicKey',
+        },
+        tag: 'PseudoPublicKey',
+      },
     };
 
     const epubk = Object.assign({}, pubk);
     delete epubk.class;
+    delete epubk.pseudo.tag;
 
     expect(valueToJson(pubk)).to.deep.equal(epubk);
   });
 
-  it('works on SignedValue', () => {
-    const signed: D.SignedValue = {
-      class: 'SignedValue',
-      signed: {
-        message: 'We attack at dawn!',
-        sig: {
-          tag: 'ECDSASignature',
-          signature: {
-            bytes: '8BADF00DCAFEC0DED00DBABEDEADBEEF',
+  it('works on Signed', () => {
+    const signed: D.PseudoValue = {
+      class: 'PseudoValue',
+      boundName: D.qual('a'),
+      pseudo: {
+        signed: {
+          message: 'We attack at dawn!',
+          sig: {
+            tag: 'ECDSASignature',
+            signature: {
+              bytes: '8BADF00DCAFEC0DED00DBABEDEADBEEF',
+            },
           },
         },
+        tag: 'PseudoSigned',
       },
-      boundName: D.qual('a'),
     };
 
     const esigned = Object.assign({}, signed);
+    delete esigned.pseudo.tag;
     delete esigned.class;
 
     expect(valueToJson(signed)).to.deep.equal(esigned);
