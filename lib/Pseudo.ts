@@ -1,3 +1,7 @@
+/**
+ * Pseudo-syntactical values -- that is, values that have no syntactical representation
+ * */
+
 import { ContractIdentifier } from './DeonData'; // cyclic deps here
 import * as Keys from './Keys';
 import * as SignedData from './Signed';
