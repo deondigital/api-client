@@ -8,5 +8,5 @@ import * as ISO8601Duration from './ISO8601Duration';
 export * from './Signed';
 export * from './ECDSA';
 export * from './Keys';
-
+export { Pseudo } from './Pseudo';
 export { ISO8601Duration };
