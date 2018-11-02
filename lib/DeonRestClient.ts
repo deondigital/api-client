@@ -17,10 +17,9 @@ import {
   DeclarationInput,
   Event,
   Tag,
-  PseudoValue,
+  ContractIdValue,
 } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
-import { Pseudo } from './Pseudo';
 
 const throwIfNotFound = (r: Response, data: any) => {
   if (r.status === 404 && data && data.message) {
@@ -99,7 +98,7 @@ const possiblyBadRequestOrNotFound = async (r: Response) => {
   throwUnexpected(r, data);
 };
 
-const idString = (id: string | PseudoValue<Pseudo.ContractId>): string => {
+const idString = (id: string | ContractIdValue): string => {
   if (typeof(id) === 'string') {
     return id;
   }
@@ -126,21 +125,21 @@ class DeonRestClient implements DeonApi {
     getAll: () => this.http.get('/contracts')
       .then(noKnownExceptions),
 
-    get: (id: string | PseudoValue<Pseudo.ContractId>) =>
+    get: (id: string | ContractIdValue) =>
       this.http.get(`/contracts/${idString(id)}`)
         .then(possiblyNotFound),
 
-    tree: (id: string | PseudoValue<Pseudo.ContractId>) =>
+    tree: (id: string | ContractIdValue) =>
       this.http.get(`/contracts/${idString(id)}/tree`)
         .then(possiblyNotFound),
 
-    src: (id: string | PseudoValue<Pseudo.ContractId>, simplified: boolean) => {
+    src: (id: string | ContractIdValue, simplified: boolean) => {
       const url = simplified ? `/contracts/${idString(id)}/src/?simplified=true`
                              : `/contracts/${idString(id)}/src`;
       return this.http.get(url).then(possiblyNotFound);
     },
 
-    nextEvents: (id: string | PseudoValue<Pseudo.ContractId>) =>
+    nextEvents: (id: string | ContractIdValue) =>
       this.http.get(`/contracts/${idString(id)}/next-events`)
         .then(possiblyNotFound),
 
@@ -148,7 +147,7 @@ class DeonRestClient implements DeonApi {
       this.http.post('/contracts', instantiateInput)
         .then(possiblyBadRequest),
 
-    applyEvent: (id: string | PseudoValue<Pseudo.ContractId>, event: Event, tag?: Tag) =>
+    applyEvent: (id: string | ContractIdValue, event: Event, tag?: Tag) =>
       this.http.post(`/contracts/${idString(id)}/${tag != null ? `${tag}/` : ''}events`, event)
         .then(possiblyBadRequestOrNotFound),
 
@@ -157,7 +156,7 @@ class DeonRestClient implements DeonApi {
         .then(possiblyBadRequest),
 
     reportOnContract: (
-      id: string | PseudoValue<Pseudo.ContractId>,
+      id: string | ContractIdValue,
       expressionInput: EvaluateExpressionInput,
     ) =>
       this.http.post(`/contracts/${idString(id)}/report`, expressionInput)
