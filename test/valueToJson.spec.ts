@@ -4,7 +4,6 @@ import { expect } from 'chai';
 import 'mocha';
 import * as D from '../lib/DeonData';
 import { CurveName } from '../lib/ECDSA';
-import { Pseudo } from '../lib/Pseudo';
 
 describe('Fully typed to JSON typed', () => {
   it('works for IntValue', () => { expect(valueToJson(D.mkIntValue(42))).to.equal(42); });
@@ -113,7 +112,7 @@ describe('Fully typed to JSON typed', () => {
     expect(valueToJson(l)).to.deep.equal([[1, 2], [3.5, 4.3]]);
   });
   it('works on Agents', () => {
-    const a: D.PseudoValue<Pseudo.Agent> = {
+    const a: D.AgentValue = {
       boundName: D.qual('a'),
       class: 'PseudoValue',
       pseudo: { tag: 'PseudoAgent', identifier: 'foo' },
@@ -124,7 +123,7 @@ describe('Fully typed to JSON typed', () => {
     });
   });
   it('works on ContractIds', () => {
-    const c: D.PseudoValue<Pseudo.ContractId> = {
+    const c: D.ContractIdValue = {
       class: 'PseudoValue',
       boundName: D.qual('a'),
       pseudo: { tag: 'PseudoContractId', identifier: { id: 'foo' } },
@@ -141,7 +140,7 @@ describe('Fully typed to JSON typed', () => {
 MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEFDpOIaItaN2oAaz4bVVMbFSq2jhYbpvS
 JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
 -----END PUBLIC KEY-----`;
-    const pubk: D.PseudoValue<Pseudo.PublicKey> = {
+    const pubk: D.PublicKeyValue = {
       class: 'PseudoValue',
       boundName: D.qual('a'),
       pseudo: {
@@ -162,7 +161,7 @@ JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
   });
 
   it('works on Signed', () => {
-    const signed: D.PseudoValue<Pseudo.Signed> = {
+    const signed: D.SignedValue = {
       class: 'PseudoValue',
       boundName: D.qual('a'),
       pseudo: {
