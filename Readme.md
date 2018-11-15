@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [5.0.0] - Unreleased
+
+* Breaking: `PseudoValue`s now take `string` as `boundName` instead of `QualifiedName`
+
 ### [4.0.0] - 2018-10-29
 
 * Breaking: Use new `PseudoValue` constructor to represent pseudo-syntactic values

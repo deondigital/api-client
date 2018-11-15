@@ -1,5 +1,5 @@
 
 import { ECDSAPrivateKey, ECDSAPublicKey } from './ECDSA';
 
-export type PublicKey = ECDSAPublicKey;
-export type PrivateKey = ECDSAPrivateKey;
+export interface PublicKey extends ECDSAPublicKey {}
+export interface PrivateKey extends ECDSAPrivateKey {}
