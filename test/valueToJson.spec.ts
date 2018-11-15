@@ -113,24 +113,24 @@ describe('Fully typed to JSON typed', () => {
   });
   it('works on Agents', () => {
     const a: D.AgentValue = {
-      boundName: D.qual('a'),
+      boundName: 'a',
       class: 'PseudoValue',
       pseudo: { tag: 'PseudoAgent', identifier: 'foo' },
     };
     expect(valueToJson(a)).to.deep.equal({
-      boundName: D.qual('a'),
+      boundName: 'a',
       pseudo: { identifier: 'foo' },
     });
   });
   it('works on ContractIds', () => {
     const c: D.ContractIdValue = {
       class: 'PseudoValue',
-      boundName: D.qual('a'),
+      boundName: 'a',
       pseudo: { tag: 'PseudoContractId', identifier: { id: 'foo' } },
     };
     expect(valueToJson(c)).to.deep.equal({
       pseudo: { identifier: { id: 'foo' } },
-      boundName: D.qual('a'),
+      boundName: 'a',
     });
   });
 
@@ -142,7 +142,7 @@ JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
 -----END PUBLIC KEY-----`;
     const pubk: D.PublicKeyValue = {
       class: 'PseudoValue',
-      boundName: D.qual('a'),
+      boundName: 'a',
       pseudo: {
         publicKey: {
           pem,
@@ -163,7 +163,7 @@ JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
   it('works on Signed', () => {
     const signed: D.SignedValue = {
       class: 'PseudoValue',
-      boundName: D.qual('a'),
+      boundName: 'a',
       pseudo: {
         signed: {
           message: 'We attack at dawn!',

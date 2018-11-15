@@ -119,19 +119,19 @@ export type PublicKeyValue = PseudoValue<Pseudo.PublicKey>;
 export interface PseudoValue<P extends Pseudo> {
   class: 'PseudoValue';
   pseudo: P;
-  boundName: QualifiedName;
+  boundName: string;
 }
 
 export const mkPseudoValue = <P extends Pseudo>(
   pseudo: P,
-  boundName: QualifiedName,
+  boundName: string,
 ): PseudoValue<P> => ({
   pseudo, boundName, class: 'PseudoValue',
 });
 
 export const mkPublicKeyValue = (
   publicKey: PublicKey,
-  boundName: QualifiedName,
+  boundName: string,
 ): PseudoValue<Pseudo.PublicKey> => mkPseudoValue(
   { publicKey, tag: 'PseudoPublicKey' },
   boundName,
@@ -139,7 +139,7 @@ export const mkPublicKeyValue = (
 
 export const mkSignedValue = (
   signed:Signed,
-  boundName: QualifiedName,
+  boundName: string,
 ): PseudoValue<Pseudo.Signed> =>
   mkPseudoValue(
     { signed, tag: 'PseudoSigned' },
@@ -148,7 +148,7 @@ export const mkSignedValue = (
 
 export const mkContractIdValue = (
   id: string,
-  boundName: QualifiedName,
+  boundName: string,
 ): PseudoValue<Pseudo.ContractId> =>
   mkPseudoValue(
     { identifier: { id }, tag: 'PseudoContractId' },
@@ -230,10 +230,10 @@ export type InstantiationArgument
 
 export interface SelfContractId {
   class: 'SelfContractId';
-  boundName: QualifiedName;
+  boundName: string;
 }
 
-export const selfContractId = (boundName: QualifiedName): SelfContractId => {
+export const selfContractId = (boundName: string): SelfContractId => {
   return { boundName, class: 'SelfContractId' };
 };
 
