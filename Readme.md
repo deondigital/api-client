@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### [5.0.0] - Unreleased
+### [5.0.0] - 2018-11-21
 
 * Breaking: `PseudoValue`s now take `string` as `boundName` instead of `QualifiedName`
 
