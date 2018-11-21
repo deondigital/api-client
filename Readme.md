@@ -37,6 +37,7 @@
 
 ---
 
+[5.0.0]: https://github.com/deondigital/api-client/compare/v4.0.0...v5.0.0
 [4.0.0]: https://github.com/deondigital/api-client/compare/v3.5.1...v4.0.0
 [3.5.1]: https://github.com/deondigital/api-client/compare/v3.5.0...v3.5.1
 [3.5.0]: https://github.com/deondigital/api-client/compare/v3.4.0...v3.5.0
