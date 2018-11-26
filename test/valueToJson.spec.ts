@@ -166,7 +166,7 @@ JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
       boundName: 'a',
       pseudo: {
         signed: {
-          message: 'We attack at dawn!',
+          message: D.mkStringValue('We attack at dawn!'),
           sig: {
             tag: 'ECDSASignature',
             signature: {

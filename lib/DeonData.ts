@@ -138,7 +138,7 @@ export const mkPublicKeyValue = (
 );
 
 export const mkSignedValue = (
-  signed:Signed,
+  signed:Signed<Value>,
   boundName: string,
 ): PseudoValue<Pseudo.Signed> =>
   mkPseudoValue(

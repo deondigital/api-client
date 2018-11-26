@@ -14,6 +14,8 @@ import {
 } from '../lib/Signed';
 import { Pseudo } from '../lib/Pseudo';
 
+const id = <T>(x:T) => x;
+
 describe('QualifiedName', () => {
   it('qualified named with no module', () => {
     expect(qual('A')).to.deep.equal({ name: 'A', qualifier: [] });
@@ -40,11 +42,11 @@ mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
     const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem), 'publicKey');
     const privk = mkECDSAPrivateKey(privatePem);
     const signed =
-      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!');
+      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', id);
     if (typeof signed === 'string') {
       throw signed;
     }
-    expect(checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed)).to.be.true;
+    expect(checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed, id)).to.be.true;
   });
 
   it('correctly rejects data signed with public and private keys that are not paired', () => {
@@ -64,11 +66,11 @@ vSQCx5o2XUXD2t82qOY8J3/ByehWSQ==
     const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem), 'publicKey');
     const privk = mkECDSAPrivateKey(privatePem);
     const signed =
-      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!');
+      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', id);
     if (typeof signed === 'string') {
       throw signed;
     }
-    expect(checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed)).to.be.false;
+    expect(checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed, id)).to.be.false;
   });
 
   it('fails when attempting to sign with a malformed private key', () => {
@@ -82,7 +84,7 @@ vSQCx5o2XUXD2t82qOY8J3/ByehWSQ==
 
     const privk = mkECDSAPrivateKey(privatePem);
     const signed =
-      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!');
+      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', id);
     expect(typeof signed).to.equal('string');
   });
 
@@ -102,11 +104,11 @@ mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
     const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem), 'publicKey');
     const privk = mkECDSAPrivateKey(privatePem);
     const signed =
-      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!');
+      signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', id);
     if (typeof signed === 'string') {
       throw signed;
     }
-    const check = checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed);
+    const check = checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed, id);
     expect(typeof check).to.equal('string');
   });
 });
