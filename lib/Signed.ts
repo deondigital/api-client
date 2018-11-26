@@ -5,20 +5,21 @@ import { PublicKey } from './Keys';
 
 export type Signature = ECDSASignature;
 
-export interface Signed {
-  message: string;
+export interface Signed<T> {
+  message: T;
   sig: Signature;
 }
 
-export const signWithECDSA = (
+export const signWithECDSA = <T>(
   privk: ECDSAPrivateKey,
-  message: string,
-): Signed | string => {
+  message: T,
+  serializer: (msg:T) => string,
+): Signed<T> | string => {
   const key = decodePrivateKey(privk.pem);
   if (typeof key === 'string') {
     return key;
   }
-  const hashedMessage = sha3_256(message);
+  const hashedMessage = sha3_256(serializer(message));
   const signature = key.sign(hashedMessage);
   const pem = base64Js.fromByteArray(signature.toDER());
   return {
@@ -32,12 +33,16 @@ export const signWithECDSA = (
   };
 };
 
-export function checkSignature(pubk: PublicKey, signed: Signed): boolean | string {
+export function checkSignature<T>(
+  pubk: PublicKey,
+  signed: Signed<T>,
+  serializer: ((msg:T) => string),
+): boolean | string {
   const pubkdec = decodePublicKey(pubk.pem);
   if (typeof pubkdec === 'string') {
     return pubkdec;
   }
-  const hashed = sha3_256(signed.message);
+  const hashed = sha3_256(serializer(signed.message));
   const der = base64Js.toByteArray(signed.sig.signature.bytes);
   return pubkdec.verify(hashed, der as any);
 }

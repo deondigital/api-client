@@ -4,17 +4,22 @@
 
 ## Changelog
 
+### [6.0.0] - 2018-11-26
+
+* Breaking: `Signed` is now generic since its CSL type is polymorphic.
+* TODO: Implement canonicalized json and use it to make a helper function for signing `Value`s.
+
 ### [5.0.0] - 2018-11-21
 
-* Breaking: `PseudoValue`s now take `string` as `boundName` instead of `QualifiedName`
+* Breaking: `PseudoValue`s now take `string` as `boundName` instead of `QualifiedName`.
 
 ### [4.0.0] - 2018-10-29
 
-* Breaking: Use new `PseudoValue` constructor to represent pseudo-syntactic values
+* Breaking: Use new `PseudoValue` constructor to represent pseudo-syntactic values.
 
 ### [3.5.1] - 2018-10-25
 
-* Fixed a bug when (de)serializing elliptic curve names
+* Fixed a bug when (de)serializing elliptic curve names.
 
 ### [3.5.0] - 2018-10-12
 
