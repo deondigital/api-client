@@ -16,7 +16,7 @@ export const signWithECDSA = <T>(
   serializer: (msg:T) => string,
 ): Signed<T> | string => {
   const key = decodePrivateKey(privk.pem);
-  if (typeof key === 'string') {
+  if (typeof key === 'string') { // error
     return key;
   }
   const hashedMessage = sha3_256(serializer(message));
@@ -39,7 +39,7 @@ export function checkSignature<T>(
   serializer: ((msg:T) => string),
 ): boolean | string {
   const pubkdec = decodePublicKey(pubk.pem);
-  if (typeof pubkdec === 'string') {
+  if (typeof pubkdec === 'string') { // error
     return pubkdec;
   }
   const hashed = sha3_256(serializer(signed.message));
