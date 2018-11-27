@@ -30,10 +30,10 @@ export function noExponents(num: number) {
 
 const opts = {
   stringify(obj:any) {
-    if (typeof obj !== 'number') {
-      return JSON.stringify(obj);
+    if (typeof obj === 'number') {
+      return noExponents(obj);
     }
-    return noExponents(obj);
+    return JSON.stringify(obj);
   },
 };
 

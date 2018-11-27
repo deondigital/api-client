@@ -219,8 +219,23 @@ export interface DurationValue {
 export const mkDurationValue = (duration: Duration): DurationValue =>
   ({ class: 'DurationValue', duration: durationToISOString(duration) });
 
+function pad2(num:string) {
+  const s = `000000000${num}`;
+  return s.substr(s.length - 2);
+}
+
+function instantToIsoStringNoTrailingZeros(instant: Date): string {
+  const s = instant.toISOString();
+  return s.replace(
+    /(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:)(\d{2}\.\d{3})Z/,
+    (_, prefix, seconds) => {
+      return `${prefix}${pad2(Number.parseFloat(seconds).toString())}Z`;
+    },
+  );
+}
+
 export const mkInstantValue = (instant: Date): InstantValue =>
-  ({ class: 'InstantValue', instant: instant.toISOString() });
+  ({ class: 'InstantValue', instant: instantToIsoStringNoTrailingZeros(instant) });
 
 export interface ConstructorValue {
   class: 'ConstructorValue';
