@@ -18,7 +18,7 @@ describe('Fully typed to JSON typed', () => {
   });
   it('works for InstantValue', () => {
     const then = new Date('December 17, 1995 03:24:21');
-    expect(valueToJson(D.mkInstantValue(then))).to.equal(then.toISOString());
+    expect(valueToJson(D.mkInstantValue(then))).to.equal(D.instantToIsoStringNoTrailingZeros(then));
   });
   it('works for DurationValue', () => {
     const dur: Duration = {

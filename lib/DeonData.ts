@@ -224,7 +224,7 @@ function pad2(num:string) {
   return s.substr(s.length - 2);
 }
 
-function instantToIsoStringNoTrailingZeros(instant: Date): string {
+export function instantToIsoStringNoTrailingZeros(instant: Date): string {
   const s = instant.toISOString();
   return s.replace(
     /(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:)(\d{2}\.\d{3})Z/,
