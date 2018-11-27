@@ -1,5 +1,5 @@
 import { Duration, durationToISOString } from './ISO8601Duration';
-import { Signed, signWithECDSA } from './Signed';
+import { Signed, signWithECDSA, checkSignature } from './Signed';
 import { PublicKey, PrivateKey } from './Keys';
 import { Pseudo } from './Pseudo';
 import { stringifyCanonically } from './CanonicalJSON';
@@ -152,6 +152,17 @@ export const signValue = (
   value: Value,
 ): Signed<Value> => {
   const r = signWithECDSA(privateKey, value, stringifyCanonically);
+  if (typeof r === 'string') {
+    throw r;
+  }
+  return r;
+};
+
+export const checkValueSignature = (
+  publicKey: PublicKey,
+  signed: Signed<Value>,
+): boolean => {
+  const r = checkSignature(publicKey, signed, stringifyCanonically);
   if (typeof r === 'string') {
     throw r;
   }
