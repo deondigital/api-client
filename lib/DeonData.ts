@@ -1,7 +1,8 @@
 import { Duration, durationToISOString } from './ISO8601Duration';
-import { Signed } from './Signed';
-import { PublicKey } from './Keys';
+import { Signed, signWithECDSA } from './Signed';
+import { PublicKey, PrivateKey } from './Keys';
 import { Pseudo } from './Pseudo';
+import { stringifyCanonically } from './CanonicalJSON';
 
 /* API Input and output wrappers */
 export interface DeclarationInput {
@@ -145,6 +146,17 @@ export const mkSignedValue = (
     { signed, tag: 'PseudoSigned' },
     boundName,
   );
+
+export const signValue = (
+  privateKey: PrivateKey,
+  value: Value,
+): Signed<Value> => {
+  const r = signWithECDSA(privateKey, value, stringifyCanonically);
+  if (typeof r === 'string') {
+    throw r;
+  }
+  return r;
+};
 
 export const mkContractIdValue = (
   id: string,
