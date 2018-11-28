@@ -4,6 +4,7 @@ export * from './DeonRestClient';
 export * from './DeonWebSocketClient';
 export * from './DeonApiMock';
 export * from './valueToJson';
+export * from './CanonicalJSON';
 import * as ISO8601Duration from './ISO8601Duration';
 export * from './Signed';
 export * from './ECDSA';
