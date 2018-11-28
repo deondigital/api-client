@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### [6.0.0] - 2018-11-26
+### [6.0.0] - 2018-11-28
 
 * Breaking: `Signed` is now generic since its CSL type is polymorphic.
 * TODO: Implement canonicalized json and use it to make a helper function for signing `Value`s.
@@ -42,6 +42,7 @@
 
 ---
 
+[6.0.0]: https://github.com/deondigital/api-client/compare/v5.0.0...v6.0.0
 [5.0.0]: https://github.com/deondigital/api-client/compare/v4.0.0...v5.0.0
 [4.0.0]: https://github.com/deondigital/api-client/compare/v3.5.1...v4.0.0
 [3.5.1]: https://github.com/deondigital/api-client/compare/v3.5.0...v3.5.1
