@@ -219,9 +219,19 @@ export interface DurationValue {
 export const mkDurationValue = (duration: Duration): DurationValue =>
   ({ class: 'DurationValue', duration: durationToISOString(duration) });
 
-function pad2(num:string) {
-  const s = `000000000${num}`;
-  return s.substr(s.length - 2);
+/**
+ * Format a number that is part of a date.
+ * The output string has two integral digits and no redundant fractional zeros
+ * @param n
+ */
+export function fmtdatenum(m: number) {
+  if (m < 10 && m >= 0) {
+    return `0${m}`;
+  }
+  if (m > -10 && m < 0) {
+    return `-0${Math.abs(m)}`;
+  }
+  return m.toString();
 }
 
 export function instantToIsoStringNoTrailingZeros(instant: Date): string {
@@ -229,7 +239,7 @@ export function instantToIsoStringNoTrailingZeros(instant: Date): string {
   return s.replace(
     /(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:)(\d{2}\.\d{3})Z/,
     (_, prefix, seconds) => {
-      return `${prefix}${pad2(Number.parseFloat(seconds).toString())}Z`;
+      return `${prefix}${fmtdatenum(Number.parseFloat(seconds))}Z`;
     },
   );
 }

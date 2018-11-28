@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import 'mocha';
 import {
-  qual, mkPublicKeyValue,
+  qual, mkPublicKeyValue, instantToIsoStringNoTrailingZeros,
 } from '../lib/DeonData';
 import {
   mkECDSAPrivateKey,
@@ -22,6 +22,35 @@ describe('QualifiedName', () => {
   });
   it('qualified name with module', () => {
     expect(qual('A::a')).to.deep.equal({ name: 'a', qualifier: ['A'] });
+  });
+});
+
+describe('instantToIsoStringNoTrailingZeros', () => {
+  it('works', () => {
+    {
+      const d = new Date('2018-11-28T08:42:42.420Z');
+      expect(instantToIsoStringNoTrailingZeros(d)).equals('2018-11-28T08:42:42.42Z');
+    }
+    {
+      const d = new Date('2018-11-28T08:42:42.000Z');
+      expect(instantToIsoStringNoTrailingZeros(d)).equals('2018-11-28T08:42:42Z');
+    }
+    {
+      const d = new Date('2018-11-28T08:42:01.010Z');
+      expect(instantToIsoStringNoTrailingZeros(d)).equals('2018-11-28T08:42:01.01Z');
+    }
+    {
+      const d = new Date('2018-11-28T08:42:00.000Z');
+      expect(instantToIsoStringNoTrailingZeros(d)).equals('2018-11-28T08:42:00Z');
+    }
+    {
+      const d = new Date('2018-11-28T08:42:00Z');
+      expect(instantToIsoStringNoTrailingZeros(d)).equals('2018-11-28T08:42:00Z');
+    }
+    {
+      const d = new Date('2018-11-28T08:42:00.001Z');
+      expect(instantToIsoStringNoTrailingZeros(d)).equals('2018-11-28T08:42:00.001Z');
+    }
   });
 });
 
