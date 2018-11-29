@@ -4,10 +4,9 @@
 
 ## Changelog
 
-### [6.0.0] - 2018-11-28
+### [6.0.0] - 2018-11-29
 
 * Breaking: `Signed` is now generic since its CSL type is polymorphic.
-* TODO: Implement canonicalized json and use it to make a helper function for signing `Value`s.
 
 ### [5.0.0] - 2018-11-21
 
