@@ -110,6 +110,7 @@ export type Value =
   | ConstructorValue
   | RecordValue
   | ListValue
+  | TupleValue
   | PseudoValue<any>;
 
 export type ContractIdValue = PseudoValue<Pseudo.ContractId>;
@@ -270,6 +271,13 @@ export interface ListValue {
 }
 export const mkListValue = (elements: Value[]): ListValue =>
   ({ elements, class: 'ListValue' });
+
+  export interface TupleValue {
+  class: 'TupleValue';
+  values: Value[];
+}
+export const mkTupleValue = (values: Value[]): TupleValue =>
+  ({ class: 'TupleValue', values})
 
 /* Instantiation arguments */
 export type InstantiationArgument
