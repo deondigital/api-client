@@ -23,8 +23,8 @@ export const valueToJson = (value: Value): {} => {
       fields: Object.assign({}, ...Object.keys(value.fields).map(
                 k => ({ [k]: valueToJson(value.fields[k]) }))),
     };
-    case 'ListValue': return value.elements.map(e => valueToJson(e));
-    case 'TupleValue': return value.values.map(e => valueToJson(e));
+    case 'ListValue': return value.elements.map(valueToJson);
+    case 'TupleValue': return value.values.map(valueToJson);
     case 'PseudoValue': {
       const obj = Object.assign({}, value);
       delete obj.class;
