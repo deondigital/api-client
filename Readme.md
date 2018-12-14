@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* Added `TupleValue` that handle tupled-values in CSL.
+
 ### [6.0.0] - 2018-11-29
 
 * Breaking: `Signed` is now generic since its CSL type is polymorphic.
