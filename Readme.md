@@ -6,7 +6,7 @@
 
 ### Unreleased
 
-* Added `TupleValue` that handle tupled-values in CSL.
+* Added `TupleValue` that handles tupled-values in CSL.
 
 ### [6.0.0] - 2018-11-29
 
