@@ -272,12 +272,12 @@ export interface ListValue {
 export const mkListValue = (elements: Value[]): ListValue =>
   ({ elements, class: 'ListValue' });
 
-  export interface TupleValue {
+export interface TupleValue {
   class: 'TupleValue';
   values: Value[];
 }
 export const mkTupleValue = (values: Value[]): TupleValue =>
-  ({ class: 'TupleValue', values})
+  ({ values, class: 'TupleValue' });
 
 /* Instantiation arguments */
 export type InstantiationArgument
