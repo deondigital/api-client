@@ -111,6 +111,21 @@ describe('Fully typed to JSON typed', () => {
     ]);
     expect(valueToJson(l)).to.deep.equal([[1, 2], [3.5, 4.3]]);
   });
+  it('works on simple pair', () => {
+    const p = D.mkTupleValue([D.mkIntValue(1), D.mkIntValue(2)]);
+    expect(valueToJson(p)).to.deep.equal([1, 2]);
+  });
+  it('works on triple', () => {
+    const p = D.mkTupleValue([D.mkIntValue(1), D.mkIntValue(2), D.mkIntValue(3)]);
+    expect(valueToJson(p)).to.deep.equal([1, 2, 3]);
+  });
+  it('works on nested tuple', () => {
+    const p = D.mkTupleValue([
+      D.mkTupleValue([D.mkIntValue(1), D.mkIntValue(2)]),
+      D.mkIntValue(3),
+    ]);
+    expect(valueToJson(p)).to.deep.equal([[1, 2], 3]);
+  });
   it('works on Agents', () => {
     const a: D.AgentValue = {
       boundName: 'a',
