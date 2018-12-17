@@ -111,12 +111,6 @@ describe('Fully typed to JSON typed', () => {
     ]);
     expect(valueToJson(l)).to.deep.equal([[1, 2], [3.5, 4.3]]);
   });
-  it('throws on tuple with no values', () => {
-    expect(() => D.mkTupleValue([])).to.throw();
-  });
-  it('throws on tuple with only one value', () => {
-    expect(() => D.mkTupleValue([D.mkIntValue(1)])).to.throw();
-  });
   it('works on simple pair', () => {
     const p = D.mkTupleValue([D.mkIntValue(1), D.mkIntValue(2)]);
     expect(valueToJson(p)).to.deep.equal([1, 2]);

@@ -276,7 +276,7 @@ export interface TupleValue {
   class: 'TupleValue';
   values: Value[];
 }
-export const mkTupleValue = (values: Value[]): TupleValue => {
+export const mkTupleValue = (values: { 0: Value, 1: Value} & Value[]): TupleValue => {
   if (values.length < 2) {
     throw new Error('Cannot make tuple with less than 2 values');
   }
