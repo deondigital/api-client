@@ -97,7 +97,19 @@ function decodeASN1PrivatePem(pem: string): Buffer | string {
   }
 }
 
-export function decodePublicKey(pem: string): Elliptic.ec.KeyPair | string {
+interface ECPrivateKey {
+  sign(input: string): Signature;
+}
+
+interface ECPublicKey {
+  verify(hashed: string, der: any): string | boolean;
+}
+
+interface Signature {
+  toDER(): any;
+}
+
+export function decodePublicKey(pem: string): ECPublicKey | string {
   const buffer = decodeASN1PublicPem(pem);
   if (typeof buffer === 'string') {
     return buffer;
@@ -109,7 +121,7 @@ export function decodePublicKey(pem: string): Elliptic.ec.KeyPair | string {
   }
 }
 
-export function decodePrivateKey(pem: string): Elliptic.ec.KeyPair | string {
+export function decodePrivateKey(pem: string): ECPrivateKey | string {
   const buffer = decodeASN1PrivatePem(pem);
   if (typeof buffer === 'string') {
     return buffer;
