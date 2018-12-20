@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [6.1.1] - 2018-12-20
+
+* Corrected error when publishing npm package
+
 ### [6.1.0] - 2018-12-20
 
 * Added `TupleValue` that handles tupled-values in CSL.
@@ -44,6 +48,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[6.1.1]: https://github.com/deondigital/api-client/compare/v6.1.0...v6.1.1
 [6.1.0]: https://github.com/deondigital/api-client/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/deondigital/api-client/compare/v5.0.0...v6.0.0
 [5.0.0]: https://github.com/deondigital/api-client/compare/v4.0.0...v5.0.0
