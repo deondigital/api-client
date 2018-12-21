@@ -86,15 +86,13 @@ export class BadRequestError extends ResponseError {
 
 type CheckErrors
   = { class: 'ParseCheckErrors', parseErrors: ParseError[] }
-  | { class: 'TypeCheckErrors', typeErrors: GeneralTypingError[] }
-  | { class: 'SanityCheckError', sanityError: string };
+  | { class: 'TypeCheckErrors', typeErrors: GeneralTypingError[] };
 
 export const isCheckErrors = (x: any): x is CheckErrors[] =>
   Array.isArray(x)
   && x.every(y => typeof y === 'object' &&
              (y.class === 'ParseCheckErrors' ||
-              y.class === 'TypeCheckErrors' ||
-              y.class === 'SanityCheckError'));
+              y.class === 'TypeCheckErrors'));
 
 interface ParseError {
   msg: string;
