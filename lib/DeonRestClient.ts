@@ -35,7 +35,6 @@ const errorsMessage = (errors: CheckErrors[]): string => {
     switch (checkErrors.class) {
       case 'ParseCheckErrors': return extract(checkErrors.parseErrors);
       case 'TypeCheckErrors': return extract(checkErrors.typeErrors);
-      case 'SanityCheckError': return checkErrors.sanityError;
     }
   };
   return errors.map(message).join('\n');
