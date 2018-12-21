@@ -2,7 +2,7 @@
  * Pseudo-syntactical values -- that is, values that have no syntactical representation
  * */
 
-import { ContractIdentifier, Value } from './DeonData'; // cyclic deps here
+import { ContractIdentifier, AgentIdentifier, Value } from './DeonData'; // cyclic deps here
 import * as Keys from './Keys';
 import * as SignedData from './Signed';
 
@@ -10,7 +10,7 @@ export namespace Pseudo {
 
   export interface Agent {
     tag: 'PseudoAgent';
-    identifier: string;
+    identifier: AgentIdentifier;
   }
   export interface PublicKey {
     tag: 'PseudoPublicKey';
