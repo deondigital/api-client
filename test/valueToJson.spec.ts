@@ -130,11 +130,11 @@ describe('Fully typed to JSON typed', () => {
     const a: D.AgentValue = {
       boundName: 'a',
       class: 'PseudoValue',
-      pseudo: { tag: 'PseudoAgent', identifier: 'foo' },
+      pseudo: { tag: 'PseudoAgent', identifier: { id: 'foo' } },
     };
     expect(valueToJson(a)).to.deep.equal({
       boundName: 'a',
-      pseudo: { identifier: 'foo' },
+      pseudo: { identifier: { id : 'foo' } },
     });
   });
   it('works on ContractIds', () => {

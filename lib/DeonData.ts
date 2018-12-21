@@ -53,6 +53,10 @@ export interface ContractIdentifier {
   id: string;
 }
 
+export interface AgentIdentifier {
+  id: string;
+}
+
 export class QualifiedName {
   static equals(qn1: QualifiedName, qn2: QualifiedName) {
     return qn1.name === qn2.name
