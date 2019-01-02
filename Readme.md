@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [6.1.2] - Unreleased
+
+* `AgentValue` now has a proper `AgentIdentifier` instead of a string.
+
 ### [6.1.1] - 2018-12-20
 
 * Corrected error when publishing npm package
