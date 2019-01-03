@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### [6.1.2] - Unreleased
+### [7.0.0] - 2019-01-03
 
 * `AgentValue` now has a proper `AgentIdentifier` instead of a string.
 
@@ -52,6 +52,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[7.0.0]: https://github.com/deondigital/api-client/compare/v6.1.1...v7.0.0
 [6.1.1]: https://github.com/deondigital/api-client/compare/v6.1.0...v6.1.1
 [6.1.0]: https://github.com/deondigital/api-client/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/deondigital/api-client/compare/v5.0.0...v6.0.0
