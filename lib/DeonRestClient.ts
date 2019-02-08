@@ -108,11 +108,7 @@ const idString = (id: string | ContractIdValue): string => {
  * Constructs a Deon REST client.
  */
 class DeonRestClient implements DeonApi {
-  private http: HttpClient;
-
-  constructor(http: HttpClient) {
-    this.http = http;
-  }
+  constructor(private http: HttpClient) {}
 
   static create = (
     fetch: (url: any, init: any) => Promise<Response>,
@@ -176,9 +172,9 @@ class DeonRestClient implements DeonApi {
     check: (i: CheckExpressionInput) => this.http.post('/csl/check', i)
       .then(r => r.ok ? [] : r.json()),
 
-    checkExpression: (i: CheckExpressionInput, id?: string) => {
-      return this.http.post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i)
-        .then(r => r.ok ? [] : r.json());
+    checkExpression: async (i: CheckExpressionInput, id?: string) => {
+      const r = await this.http.post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i);
+      return r.ok ? [] : r.json();
     },
   };
 

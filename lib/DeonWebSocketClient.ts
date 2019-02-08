@@ -15,23 +15,15 @@ class DeonWebSocketClient {
   constructor(
     host: string,
     protocol : string,
-    wsCtor: (url : string) => WebSocket,
-    messageHandler: (msg: ContractUpdate) => void,
-    offlineHook: () => void,
+    private wsCtor: (url : string) => WebSocket,
+    private messageHandler: (msg: ContractUpdate) => void,
+    private offlineHook: () => void,
   ) {
     this.url = `${protocol}://${host}/contractUpdates`;
-    this.wsCtor = wsCtor;
-    this.messageHandler = messageHandler;
-    this.offlineHook = offlineHook;
     this.start();
   }
 
-  private wsCtor : (url : string) => WebSocket;
-  private messageHandler: (msg: ContractUpdate) => void;
-  private offlineHook: () => void;
-
   private url: string;
-
   private ws: WebSocket | undefined;
 
   close(): void {
