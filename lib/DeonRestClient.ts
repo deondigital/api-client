@@ -172,9 +172,9 @@ class DeonRestClient implements DeonApi {
     check: (i: CheckExpressionInput) => this.http.post('/csl/check', i)
       .then(r => r.ok ? [] : r.json()),
 
-    checkExpression: async (i: CheckExpressionInput, id?: string) => {
-      const r = await this.http.post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i);
-      return r.ok ? [] : r.json();
+    checkExpression: (i: CheckExpressionInput, id?: string) => {
+      return this.http.post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i)
+        .then(r => r.ok ? [] : r.json());
     },
   };
 
