@@ -3,19 +3,11 @@ export type RequestInit = any;
 export type Request = any;
 
 export class HttpClient {
-  private fetch: (url: string | Request, init?: RequestInit) => Promise<Response>;
-  private hook: (r: Response) => PromiseLike<Response> | Response;
-  private serverUrl: string;
-
   constructor(
-    fetch : (url: string | Request, init?: RequestInit) => Promise<Response>,
-    hook: (r: Response) => PromiseLike<Response> | Response,
-    serverUrl: string,
-  ) {
-    this.fetch = fetch;
-    this.hook = hook;
-    this.serverUrl = serverUrl;
-  }
+    private fetch : (url: string | Request, init?: RequestInit) => Promise<Response>,
+    private hook: (r: Response) => PromiseLike<Response> | Response,
+    private serverUrl: string,
+  ) {}
 
   get = (url: string): Promise<Response> => this.fetch(this.serverUrl + url).then(this.hook);
 
