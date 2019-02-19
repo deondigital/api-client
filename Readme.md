@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### Unreleased
+### [8.0.0] - Unreleased
 
 * API change for `DeonRestClient` constructor: hook now has type `(r: Promise<Response>) => Promise<Response>` and can catch rejected promises.
 
