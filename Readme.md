@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* API change for `DeonRestClient` constructor: hook now has type `(r: Promise<Response>) => Promise<Response>` and can catch rejected promises.
+
 ### [7.0.0] - 2019-01-03
 
 * `AgentValue` now has a proper `AgentIdentifier` instead of a string.
