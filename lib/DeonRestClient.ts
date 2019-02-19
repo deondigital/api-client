@@ -113,7 +113,7 @@ class DeonRestClient implements DeonApi {
   static create = (
     fetch: (url: any, init: any) => Promise<Response>,
     serverUrl: string = '',
-    hook: (r: Response) => PromiseLike<Response> | Response = r => r,
+    hook: (r: Promise<Response>) => Promise<Response> = r => r,
   ) => new DeonRestClient(new HttpClient(fetch, hook, serverUrl))
 
   contracts: ContractsApi = {
