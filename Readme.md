@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### [8.0.0] - Unreleased
+### [8.0.0] - 2019-02-19
 
 * API change for `DeonRestClient` constructor: hook now has type `(r: Promise<Response>) => Promise<Response>` and can catch rejected promises.
 
@@ -56,6 +56,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[8.0.0]: https://github.com/deondigital/api-client/compare/v7.0.0...v8.0.0
 [7.0.0]: https://github.com/deondigital/api-client/compare/v6.1.1...v7.0.0
 [6.1.1]: https://github.com/deondigital/api-client/compare/v6.1.0...v6.1.1
 [6.1.0]: https://github.com/deondigital/api-client/compare/v6.0.0...v6.1.0
