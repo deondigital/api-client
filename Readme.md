@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [9.0.0] - Unreleased
+
+* Use new data model for `CheckError` from Deon API `v0.29.0`.
+
 ### [8.0.0] - 2019-02-19
 
 * API change for `DeonRestClient` constructor: hook now has type `(r: Promise<Response>) => Promise<Response>` and can catch rejected promises.
@@ -56,6 +60,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[9.0.0]: https://github.com/deondigital/api-client/compare/v8.0.0...v9.0.0
 [8.0.0]: https://github.com/deondigital/api-client/compare/v7.0.0...v8.0.0
 [7.0.0]: https://github.com/deondigital/api-client/compare/v6.1.1...v7.0.0
 [6.1.1]: https://github.com/deondigital/api-client/compare/v6.1.0...v6.1.1
