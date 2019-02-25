@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### [9.0.0] - Unreleased
+### [9.0.0] - 2019-02-25
 
 * Use new data model for `CheckError` from Deon API `v0.29.0`.
 
