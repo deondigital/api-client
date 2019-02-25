@@ -127,13 +127,11 @@ const hasTag = (x: unknown): x is { tag: unknown } =>
 export const isCheckError = (x: unknown): x is CheckError =>
   hasTag(x)
   && typeof x.tag === 'string'
-  && [
-    'ParseError',
-    'TypeError',
-    'ArgumentTypeError',
-    'GuardError',
-    'EventTypeError',
-  ].includes(x.tag);
+  && (x.tag ===  'ParseError'
+      || x.tag ===  'TypeError'
+      || x.tag ===  'ArgumentTypeError'
+      || x.tag ===  'GuardError'
+      || x.tag ===  'EventTypeError');
 
 export const isCheckErrors = (x: unknown): x is CheckError[] =>
   Array.isArray(x) && x.every(isCheckError);
