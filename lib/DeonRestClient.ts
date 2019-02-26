@@ -93,6 +93,12 @@ const possiblyBadRequestOrNotFound = async (r: Response) => {
   throwUnexpected(r, data);
 };
 
+const checkHandler = async (r: Response): Promise<CheckError[]> => {
+  if (r.ok) { return []; }
+  if (r.status === 400) { return await r.json(); }
+  throw new ResponseError(r.status, JSON.stringify(r));
+};
+
 const idString = (id: string | ContractIdValue): string => {
   if (typeof(id) === 'string') {
     return id;
@@ -165,13 +171,13 @@ class DeonRestClient implements DeonApi {
   };
 
   csl: CslApi = {
-    check: (i: CheckExpressionInput) => this.http.post('/csl/check', i)
-      .then(r => r.ok ? [] : r.json()),
+    check: (i: CheckExpressionInput) => this.http
+      .post('/csl/check', i)
+      .then(checkHandler),
 
-    checkExpression: (i: CheckExpressionInput, id?: string) => {
-      return this.http.post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i)
-        .then(r => r.ok ? [] : r.json());
-    },
+    checkExpression: (i: CheckExpressionInput, id?: string) => this.http
+      .post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i)
+      .then(checkHandler),
   };
 
   info: InfoApi = {
