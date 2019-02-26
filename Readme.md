@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* Improved error handling for `CslApi.check` and `CslApi.checkExpression`.
+
 ### [9.0.0] - 2019-02-25
 
 * Use new data model for `CheckError` from Deon API `v0.29.0`.
