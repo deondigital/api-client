@@ -192,9 +192,9 @@ export const mkIntValue = (n: number): IntValue =>
 
 export interface FloatValue {
   class: 'FloatValue';
-  d: number;
+  d: string;
 }
-export const mkFloatValue = (n: number): FloatValue =>
+export const mkFloatValue = (n: string): FloatValue =>
   ({ class: 'FloatValue', d: n });
 
 export interface StringValue {
