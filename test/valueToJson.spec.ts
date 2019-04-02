@@ -8,7 +8,7 @@ import { CurveName } from '../lib/ECDSA';
 describe('Fully typed to JSON typed', () => {
   it('works for IntValue', () => { expect(valueToJson(D.mkIntValue(42))).to.equal(42); });
   it('works for FloatValue', () => {
-    expect(valueToJson(D.mkFloatValue(42.422))).to.equal(42.422);
+    expect(valueToJson(D.mkFloatValue('42.422'))).to.equal('42.422');
   });
   it('works for StringValue', () => {
     expect(valueToJson(D.mkStringValue('hello there!'))).to.equal('hello there!');
@@ -40,7 +40,7 @@ describe('Fully typed to JSON typed', () => {
       D.mkIntValue(42),
       D.mkConstructorValue(
         { name: 'C1', qualifier: ['A', 'B'] },
-        [D.mkFloatValue(1.3)])]);
+        [D.mkFloatValue('1.3')])]);
     expect(valueToJson(c)).to.deep.equal(
       {
         name: D.qual('C2'),
@@ -48,7 +48,7 @@ describe('Fully typed to JSON typed', () => {
           42,
           {
             name: { name: 'C1', qualifier: ['A', 'B'] },
-            args: [1.3],
+            args: ['1.3'],
           },
         ],
       },
@@ -68,7 +68,7 @@ describe('Fully typed to JSON typed', () => {
       D.qual('R'),
       {
         a: D.mkRecordValue({ name: 'R2', qualifier: ['ModA', 'Mod2'] }, { a: D.mkIntValue(42) }),
-        b: D.mkFloatValue(789.43),
+        b: D.mkFloatValue('789.43'),
         c: D.mkBooleanValue(false),
         d: D.mkConstructorValue(D.qual('C'), [D.mkStringValue('d')]),
       },
@@ -86,7 +86,7 @@ describe('Fully typed to JSON typed', () => {
               a: 42,
             },
           },
-          b: 789.43,
+          b: '789.43',
           c: false,
           d: {
             name: D.qual('C'),
@@ -107,9 +107,9 @@ describe('Fully typed to JSON typed', () => {
   it('works on nested ListValue', () => {
     const l = D.mkListValue([
       D.mkListValue([D.mkIntValue(1), D.mkIntValue(2)]),
-      D.mkListValue([D.mkFloatValue(3.5), D.mkFloatValue(4.3)]),
+      D.mkListValue([D.mkFloatValue('3.5'), D.mkFloatValue('4.3')]),
     ]);
-    expect(valueToJson(l)).to.deep.equal([[1, 2], [3.5, 4.3]]);
+    expect(valueToJson(l)).to.deep.equal([[1, 2], ['3.5', '4.3']]);
   });
   it('works on simple pair', () => {
     const p = D.mkTupleValue([D.mkIntValue(1), D.mkIntValue(2)]);
