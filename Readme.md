@@ -4,9 +4,10 @@
 
 ## Changelog
 
-### Unreleased
+### [10.0.0] - 2019-02-25
 
 * Improved error handling for `CslApi.check` and `CslApi.checkExpression`.
+* Changed the representation of floating point values to be string rather than number. With version v0.35.0 of the server we use decimal128 rather than binary64 for floating point numbers, and `decimal128` cannot be represented in a TypeScript number.
 
 ### [9.0.0] - 2019-02-25
 
