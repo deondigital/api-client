@@ -3,6 +3,7 @@ import { Signed, signWithECDSA, checkSignature } from './Signed';
 import { PublicKey, PrivateKey } from './Keys';
 import { Pseudo } from './Pseudo';
 import { stringifyCanonically } from './CanonicalJSON';
+import { DatabaseCheckpoint } from './DatabaseCheckpoint';
 
 /* API Input and output wrappers */
 export interface DeclarationInput {
@@ -180,6 +181,15 @@ export const mkContractIdValue = (
 ): PseudoValue<Pseudo.ContractId> =>
   mkPseudoValue(
     { identifier: { id }, tag: 'PseudoContractId' },
+    boundName,
+  );
+
+export const mkDatabaseValue = (
+  dbCheckpoint: DatabaseCheckpoint,
+  boundName: string,
+): PseudoValue<Pseudo.Database> =>
+  mkPseudoValue(
+    { dbCheckpoint, tag: 'PseudoDatabase' },
     boundName,
   );
 
