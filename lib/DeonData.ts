@@ -121,7 +121,7 @@ export type ContractIdValue = PseudoValue<Pseudo.ContractId>;
 export type AgentValue = PseudoValue<Pseudo.Agent>;
 export type SignedValue = PseudoValue<Pseudo.Signed>;
 export type PublicKeyValue = PseudoValue<Pseudo.PublicKey>;
-
+export type DatabaseValue = PseudoValue<Pseudo.Database>;
 export interface PseudoValue<P extends Pseudo> {
   class: 'PseudoValue';
   pseudo: P;

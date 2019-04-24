@@ -30,6 +30,7 @@ interface ContractsApi {
     id: string | D.ContractIdValue,
     i: D.EvaluateExpressionInput,
   ): Promise<D.Value>;
+  database(): Promise<D.DatabaseValue>
 }
 
 interface DeclarationsApi {
