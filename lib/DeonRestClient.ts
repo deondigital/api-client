@@ -158,6 +158,8 @@ class DeonRestClient implements DeonApi {
     ) =>
       this.http.post(`/contracts/${idString(id)}/report`, expressionInput)
         .then(possiblyBadRequestOrNotFound),
+
+    database: () => this.http.get(`/contracts/database`).then(possiblyBadRequest),
   };
 
   declarations: DeclarationsApi = {
