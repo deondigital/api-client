@@ -2,7 +2,9 @@
 
 # REST client for Deon Digital's API
 
-## Changelog
+### [10.1.0] - 2019-05-15
+
+* Added support for the database values used in the new query language.
 
 ### [10.0.0] - 2019-02-25
 
@@ -65,6 +67,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[10.1.0]: https://github.com/deondigital/api-client/compare/v9.0.0...v10.1.0
 [10.0.0]: https://github.com/deondigital/api-client/compare/v9.0.0...v10.0.0
 [9.0.0]: https://github.com/deondigital/api-client/compare/v8.0.0...v9.0.0
 [8.0.0]: https://github.com/deondigital/api-client/compare/v7.0.0...v8.0.0
