@@ -5,7 +5,6 @@
 import { ContractIdentifier, AgentIdentifier, Value } from './DeonData'; // cyclic deps here
 import * as Keys from './Keys';
 import * as SignedData from './Signed';
-import { DatabaseCheckpoint } from './DatabaseCheckpoint';
 
 export namespace Pseudo {
 
@@ -25,15 +24,10 @@ export namespace Pseudo {
     tag: 'PseudoContractId';
     identifier: ContractIdentifier;
   }
-  export interface Database {
-    tag: 'PseudoDatabase';
-    dbCheckpoint: DatabaseCheckpoint;
-  }
 }
 
 export type Pseudo
   = Pseudo.Agent
   | Pseudo.ContractId
   | Pseudo.PublicKey
-  | Pseudo.Signed
-  | Pseudo.Database;
+  | Pseudo.Signed;

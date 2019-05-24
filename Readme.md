@@ -2,6 +2,10 @@
 
 # REST client for Deon Digital's API
 
+### [10.2.0] - 2019-05-24
+
+* Removed support for database values as they were removed from the query language.
+
 ### [10.1.0] - 2019-05-15
 
 * Added support for the database values used in the new query language.
