@@ -30,6 +30,7 @@ interface ContractsApi {
     id: string | D.ContractIdValue,
     i: D.EvaluateExpressionInput,
   ): Promise<D.Value>;
+  getEvents(id: string | D.ContractIdValue): Promise<D.Value[]>;
 }
 
 interface DeclarationsApi {

@@ -31,6 +31,7 @@ export const contractsApiMock : ContractsApi = {
   report: (_1: EvaluateExpressionInput) => Promise.reject(),
   reportOnContract: (_1: string, _2: EvaluateExpressionInput) => Promise.reject(),
   instantiate: (_1: InstantiationInput) => Promise.reject(),
+  getEvents: (_1: string) => Promise.reject(),
 };
 
 export const declarationsApiMock : DeclarationsApi = {
