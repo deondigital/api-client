@@ -2,6 +2,10 @@
 
 # REST client for Deon Digital's API
 
+### [Unreleased]
+
+* Added `Contracts.getEvents` for the new `GET /contracts/{id}/events` endpoint.
+
 ### [10.2.0] - 2019-05-24
 
 * Removed support for database values as they were removed from the query language.
@@ -71,6 +75,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[Unreleased]: https://github.com/deondigital/api-client/compare/v10.2.0...master
 [10.2.0]: https://github.com/deondigital/api-client/compare/v10.1.0...v10.2.0
 [10.1.0]: https://github.com/deondigital/api-client/compare/v10.0.0...v10.1.0
 [10.0.0]: https://github.com/deondigital/api-client/compare/v9.0.0...v10.0.0
