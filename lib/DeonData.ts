@@ -17,7 +17,7 @@ export interface DeclarationOutput {
 export interface InstantiationInput {
   declarationId: string;
   name: string;
-  declarationExpressionArguments: InstantiationArgument[];
+  declarationExpressionArguments: Value[];
   entryPoint: QualifiedName;
   peers: string[];
 }
@@ -284,20 +284,6 @@ export const mkTupleValue = (values: { 0: Value, 1: Value} & Value[]): TupleValu
     throw new Error('Cannot make tuple with less than 2 values');
   }
   return { values, class: 'TupleValue' };
-};
-
-/* Instantiation arguments */
-export type InstantiationArgument
-  = Value
-  | SelfContractId;
-
-export interface SelfContractId {
-  class: 'SelfContractId';
-  boundName: string;
-}
-
-export const selfContractId = (boundName: string): SelfContractId => {
-  return { boundName, class: 'SelfContractId' };
 };
 
 /* Contract AST tree */
