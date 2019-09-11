@@ -12,7 +12,7 @@ import {
   signWithECDSA,
   checkSignature,
 } from '../lib/Signed';
-import { Pseudo } from '../lib/Pseudo';
+import { ExternalObject } from '../lib/ExternalObject';
 
 const id = <T>(x:T) => x;
 
@@ -68,14 +68,16 @@ MHQCAQEEIBLDGd9V/M3AgxCo+O+A6GDDIaIY1QQyYL9x969eioJToAcGBSuBBAAK
 oUQDQgAEFDpOIaItaN2oAaz4bVVMbFSq2jhYbpvSJyFpzshkKrjg1Up82XtpOibz
 mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
 -----END EC PRIVATE KEY-----`;
-    const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem), 'publicKey');
+    const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem));
     const privk = mkECDSAPrivateKey(privatePem);
     const signed =
       signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', id);
     if (typeof signed === 'string') {
       throw signed;
     }
-    expect(checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed, id)).to.be.true;
+    const pubk = (pubkVal.externalObject as ExternalObject.PublicKey).publicKey;
+    const checkResult = checkSignature(pubk, signed, id);
+    expect(checkResult).to.be.true;
   });
 
   it('correctly rejects data signed with public and private keys that are not paired', () => {
@@ -92,14 +94,15 @@ oUQDQgAEdy9CBHRkqwhP4IfQFmj386JU1bB4R15fKVW8MmIObtREFJ4cYDWHo7Ju
 vSQCx5o2XUXD2t82qOY8J3/ByehWSQ==
 -----END EC PRIVATE KEY-----`;
 
-    const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem), 'publicKey');
+    const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem));
     const privk = mkECDSAPrivateKey(privatePem);
     const signed =
       signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', id);
     if (typeof signed === 'string') {
       throw signed;
     }
-    expect(checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed, id)).to.be.false;
+    const pubk = (pubkVal.externalObject as ExternalObject.PublicKey).publicKey;
+    expect(checkSignature(pubk, signed, id)).to.be.false;
   });
 
   it('fails when attempting to sign with a malformed private key', () => {
@@ -130,14 +133,15 @@ MHQCAQEEIBLDGd9V/M3AgxCo+O+A6GDDIaIY1QQyYL9x969eioJToAcGBSuBBAAK
 oUQDQgAEFDpOIaItaN2oAaz4bVVMbFSq2jhYbpvSJyFpzshkKrjg1Up82XtpOibz
 mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
 -----END EC PRIVATE KEY-----`;
-    const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem), 'publicKey');
+    const pubkVal = mkPublicKeyValue(mkECDSAPublicKey(publicPem));
     const privk = mkECDSAPrivateKey(privatePem);
     const signed =
       signWithECDSA(privk, 'Help me Obi-Wan Kenobi, you\'re my only hope!', id);
     if (typeof signed === 'string') {
       throw signed;
     }
-    const check = checkSignature((pubkVal.pseudo as Pseudo.PublicKey).publicKey, signed, id);
+    const pubk = (pubkVal.externalObject as ExternalObject.PublicKey).publicKey;
+    const check = checkSignature(pubk, signed, id);
     expect(typeof check).to.equal('string');
   });
 });
