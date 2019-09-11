@@ -128,24 +128,20 @@ describe('Fully typed to JSON typed', () => {
   });
   it('works on Agents', () => {
     const a: D.AgentValue = {
-      boundName: 'a',
-      class: 'PseudoValue',
-      pseudo: { tag: 'PseudoAgent', identifier: { id: 'foo' } },
+      class: 'ExternalObjectValue',
+      externalObject: { tag: 'Agent', agentIdentifier: 'foo' },
     };
     expect(valueToJson(a)).to.deep.equal({
-      boundName: 'a',
-      pseudo: { identifier: { id : 'foo' } },
+      externalObject: { agentIdentifier: 'foo' },
     });
   });
   it('works on ContractIds', () => {
-    const c: D.ContractIdValue = {
-      class: 'PseudoValue',
-      boundName: 'a',
-      pseudo: { tag: 'PseudoContractId', identifier: { id: 'foo' } },
+    const c: D.ContractValue = {
+      class: 'ExternalObjectValue',
+      externalObject: { tag: 'Contract', contractIdentifier: 'foo' },
     };
     expect(valueToJson(c)).to.deep.equal({
-      pseudo: { identifier: { id: 'foo' } },
-      boundName: 'a',
+      externalObject: { contractIdentifier: 'foo' },
     });
   });
 
@@ -156,31 +152,29 @@ MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEFDpOIaItaN2oAaz4bVVMbFSq2jhYbpvS
 JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
 -----END PUBLIC KEY-----`;
     const pubk: D.PublicKeyValue = {
-      class: 'PseudoValue',
-      boundName: 'a',
-      pseudo: {
+      class: 'ExternalObjectValue',
+      externalObject: {
         publicKey: {
           pem,
           curveName: CurveName.SEC_p256k1,
           tag: 'ECDSAPublicKey',
         },
-        tag: 'PseudoPublicKey',
+        tag: 'PublicKey',
       },
     };
 
     const epubk = Object.assign({}, pubk);
     delete epubk.class;
-    delete epubk.pseudo.tag;
+    delete epubk.externalObject.tag;
 
     expect(valueToJson(pubk)).to.deep.equal(epubk);
   });
 
   it('works on Signed', () => {
     const signed: D.SignedValue = {
-      class: 'PseudoValue',
-      boundName: 'a',
-      pseudo: {
-        signed: {
+      class: 'ExternalObjectValue',
+      externalObject: {
+        signedValue: {
           message: D.mkStringValue('We attack at dawn!'),
           sig: {
             tag: 'ECDSASignature',
@@ -189,12 +183,12 @@ JyFpzshkKrjg1Up82XtpOibzmfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
             },
           },
         },
-        tag: 'PseudoSigned',
+        tag: 'SignedValue',
       },
     };
 
     const esigned = Object.assign({}, signed);
-    delete esigned.pseudo.tag;
+    delete esigned.externalObject.tag;
     delete esigned.class;
 
     expect(valueToJson(signed)).to.deep.equal(esigned);
