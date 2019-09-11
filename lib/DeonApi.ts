@@ -12,25 +12,25 @@ interface DeonApi {
 
 interface ContractsApi {
   getAll(): Promise<D.Contract[]>;
-  get(id: string | D.ContractIdValue): Promise<D.Contract>;
-  tree(id: string | D.ContractIdValue): Promise<D.ContractTree>;
+  get(id: string | D.ContractValue): Promise<D.Contract>;
+  tree(id: string | D.ContractValue): Promise<D.ContractTree>;
   src(
-    id: string | D.ContractIdValue,
+    id: string | D.ContractValue,
     simplified: boolean,
   ): Promise<D.ResidualSource>;
-  nextEvents(id: string | D.ContractIdValue): Promise<D.EventPredicate[]>;
+  nextEvents(id: string | D.ContractValue): Promise<D.EventPredicate[]>;
   instantiate(i: D.InstantiationInput): Promise<D.InstantiationOutput>;
   applyEvent(
-    id: string | D.ContractIdValue,
+    id: string | D.ContractValue,
     event: D.Event,
     tag?: D.Tag,
   ): Promise<D.Tag | void>;
   report(i: D.EvaluateExpressionInput): Promise<D.Value>;
   reportOnContract(
-    id: string | D.ContractIdValue,
+    id: string | D.ContractValue,
     i: D.EvaluateExpressionInput,
   ): Promise<D.Value>;
-  getEvents(id: string | D.ContractIdValue): Promise<D.Value[]>;
+  getEvents(id: string | D.ContractValue): Promise<D.Value[]>;
 }
 
 interface DeclarationsApi {
@@ -47,7 +47,7 @@ interface CslApi {
 
 interface InfoApi {
   get(): Promise<D.NodeInfoOutput>;
-  getAgents(): Promise<D.AgentValue[]>;
+  getAgents(): Promise<D.NamedAgents>;
 }
 
 /**
