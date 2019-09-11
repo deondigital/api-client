@@ -1,7 +1,7 @@
 import { Duration, durationToISOString } from './ISO8601Duration';
 import { Signed, signWithECDSA, checkSignature } from './Signed';
 import { PublicKey, PrivateKey } from './Keys';
-import { Pseudo } from './Pseudo';
+import { ExternalObject } from './ExternalObject';
 import { stringifyCanonically } from './CanonicalJSON';
 
 /* API Input and output wrappers */
@@ -43,18 +43,14 @@ export interface NodeInfoOutput {
   peers: string[];
 }
 
+export interface NamedAgents {
+  [id: string]: string;
+}
+
 /* Qualified names */
 export interface QualifiedName {
   name: string;
   qualifier: string[];
-}
-
-export interface ContractIdentifier {
-  id: string;
-}
-
-export interface AgentIdentifier {
-  id: string;
 }
 
 export class QualifiedName {
@@ -115,41 +111,31 @@ export type Value =
   | RecordValue
   | ListValue
   | TupleValue
-  | PseudoValue<any>;
+  | ExternalObjectValue<any>;
 
-export type ContractIdValue = PseudoValue<Pseudo.ContractId>;
-export type AgentValue = PseudoValue<Pseudo.Agent>;
-export type SignedValue = PseudoValue<Pseudo.Signed>;
-export type PublicKeyValue = PseudoValue<Pseudo.PublicKey>;
-export interface PseudoValue<P extends Pseudo> {
-  class: 'PseudoValue';
-  pseudo: P;
-  boundName: string;
-}
+export type ContractValue = ExternalObjectValue<ExternalObject.Contract>;
+export type AgentValue = ExternalObjectValue<ExternalObject.Agent>;
+export type PublicKeyValue = ExternalObjectValue<ExternalObject.PublicKey>;
+export type SignedValue = ExternalObjectValue<ExternalObject.SignedValue>;
 
-export const mkPseudoValue = <P extends Pseudo>(
-  pseudo: P,
-  boundName: string,
-): PseudoValue<P> => ({
-  pseudo, boundName, class: 'PseudoValue',
-});
+export const mkContractValue = (
+  id: string,
+): ContractValue =>
+  mkExternalObjectValue(ExternalObject.mkContract(id));
+
+export const mkAgentValue = (
+  id: string,
+): AgentValue =>
+  mkExternalObjectValue(ExternalObject.mkAgent(id));
 
 export const mkPublicKeyValue = (
   publicKey: PublicKey,
-  boundName: string,
-): PseudoValue<Pseudo.PublicKey> => mkPseudoValue(
-  { publicKey, tag: 'PseudoPublicKey' },
-  boundName,
-);
+): PublicKeyValue => mkExternalObjectValue(ExternalObject.mkPublicKey(publicKey));
 
 export const mkSignedValue = (
   signed:Signed<Value>,
-  boundName: string,
-): PseudoValue<Pseudo.Signed> =>
-  mkPseudoValue(
-    { signed, tag: 'PseudoSigned' },
-    boundName,
-  );
+): SignedValue =>
+  mkExternalObjectValue(ExternalObject.mkSignedValue(signed));
 
 export const signValue = (
   privateKey: PrivateKey,
@@ -172,15 +158,6 @@ export const checkValueSignature = (
   }
   return r;
 };
-
-export const mkContractIdValue = (
-  id: string,
-  boundName: string,
-): PseudoValue<Pseudo.ContractId> =>
-  mkPseudoValue(
-    { identifier: { id }, tag: 'PseudoContractId' },
-    boundName,
-  );
 
 export interface IntValue {
   class: 'IntValue';
@@ -285,6 +262,14 @@ export const mkTupleValue = (values: { 0: Value, 1: Value} & Value[]): TupleValu
   }
   return { values, class: 'TupleValue' };
 };
+
+export interface ExternalObjectValue<E extends ExternalObject> {
+  class: 'ExternalObjectValue';
+  externalObject: E;
+}
+export const mkExternalObjectValue =
+  <E extends ExternalObject> (externalObject: E): ExternalObjectValue<E> =>
+    ({ externalObject, class: 'ExternalObjectValue' });
 
 /* Contract AST tree */
 export type ContractTree

@@ -25,10 +25,10 @@ export const valueToJson = (value: Value): {} => {
     };
     case 'ListValue': return value.elements.map(valueToJson);
     case 'TupleValue': return value.values.map(valueToJson);
-    case 'PseudoValue': {
+    case 'ExternalObjectValue': {
       const obj = Object.assign({}, value);
       delete obj.class;
-      delete obj.pseudo.tag;
+      delete obj.externalObject.tag;
       return obj;
     }
   }
