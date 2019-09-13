@@ -78,6 +78,7 @@ export interface EventPredicate {
   type: QualifiedName;
   agent?: string;
   exp: string;
+  symbols: { [id: string] : ExternalObject };
 }
 
 /* Contracts */
