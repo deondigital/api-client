@@ -2,6 +2,10 @@
 
 # REST client for Deon Digital's API
 
+### Unreleased
+
+* Remove `InstantiationArgument` and `SelfContractId` as this is not supported with the removal of getEvents.
+
 ### [10.3.0] - 2019-08-05
 
 * Added `Contracts.getEvents` for the new `GET /contracts/{id}/events` endpoint.
