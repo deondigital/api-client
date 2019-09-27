@@ -2,7 +2,7 @@
 
 # REST client for Deon Digital's API
 
-### Unreleased
+### [11.0.0] - 2019-09-27
 
 * Remove `InstantiationArgument` and `SelfContractId` as this is not supported with the removal of getEvents.
 
@@ -79,6 +79,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[11.0.0]: https://github.com/deondigital/api-client/compare/v10.3.0...v11.0.0
 [10.3.0]: https://github.com/deondigital/api-client/compare/v10.2.0...v10.3.0
 [10.2.0]: https://github.com/deondigital/api-client/compare/v10.1.0...v10.2.0
 [10.1.0]: https://github.com/deondigital/api-client/compare/v10.0.0...v10.1.0
