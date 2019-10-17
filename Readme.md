@@ -2,6 +2,12 @@
 
 # REST client for Deon Digital's API
 
+### Unreleased
+
+* Remove `Pseudo` and replace it with `ExternalObject` which is equivalent except that it doesn't require the specification of "bound names" which was an ill-defined concept.
+* Change `ContractId` to `Contract` everywhere for consistency with `Agent`.
+* Remove `ContractIdentifier` and `AgentIdentifier`. Where type safety is wanted, use `ExternalObject.Contract` and `ExternalObject.Agent`.
+
 ### [11.0.0] - 2019-09-27
 
 * Remove `InstantiationArgument` and `SelfContractId` as this is not supported with the removal of getEvents.
