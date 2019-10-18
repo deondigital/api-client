@@ -2,7 +2,7 @@
 
 # REST client for Deon Digital's API
 
-### Unreleased
+### [12.0.0] - 2019-10-18
 
 * Remove `Pseudo` and replace it with `ExternalObject` which is equivalent except that it doesn't require the specification of "bound names".
 * Change `ContractId` to `Contract` everywhere for consistency with `Agent`.
@@ -85,6 +85,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[12.0.0]: https://github.com/deondigital/api-client/compare/v11.0.0...v12.0.0
 [11.0.0]: https://github.com/deondigital/api-client/compare/v10.3.0...v11.0.0
 [10.3.0]: https://github.com/deondigital/api-client/compare/v10.2.0...v10.3.0
 [10.2.0]: https://github.com/deondigital/api-client/compare/v10.1.0...v10.2.0
