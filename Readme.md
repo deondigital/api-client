@@ -4,9 +4,9 @@
 
 ### Unreleased
 
-* Remove `Pseudo` and replace it with `ExternalObject` which is equivalent except that it doesn't require the specification of "bound names" which was an ill-defined concept.
+* Remove `Pseudo` and replace it with `ExternalObject` which is equivalent except that it doesn't require the specification of "bound names".
 * Change `ContractId` to `Contract` everywhere for consistency with `Agent`.
-* Remove `ContractIdentifier` and `AgentIdentifier`. Where type safety is wanted, use `ExternalObject.Contract` and `ExternalObject.Agent`.
+* Remove `ContractIdentifier` and `AgentIdentifier`. Where type safety is wanted, use `ExternalObject.StringContract` and `ExternalObject.StringAgent`.
 
 ### [11.0.0] - 2019-09-27
 

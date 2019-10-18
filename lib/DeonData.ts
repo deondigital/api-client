@@ -114,8 +114,8 @@ export type Value =
   | TupleValue
   | ExternalObjectValue<any>;
 
-export type ContractValue = ExternalObjectValue<ExternalObject.Contract>;
-export type AgentValue = ExternalObjectValue<ExternalObject.Agent>;
+export type ContractValue = ExternalObjectValue<ExternalObject.StringContract>;
+export type AgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
 export type PublicKeyValue = ExternalObjectValue<ExternalObject.PublicKey>;
 export type SignedValue = ExternalObjectValue<ExternalObject.SignedValue>;
 

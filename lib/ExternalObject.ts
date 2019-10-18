@@ -8,12 +8,12 @@ import * as SignedData from './Signed';
 
 export namespace ExternalObject {
 
-  export interface Agent {
-    tag: 'Agent';
+  export interface StringAgent {
+    tag: 'StringAgent';
     agentIdentifier: string;
   }
-  export const mkAgent = (agentIdentifier: string): ExternalObject.Agent =>
-    ({ agentIdentifier, tag: 'Agent' });
+  export const mkAgent = (agentIdentifier: string): ExternalObject.StringAgent =>
+    ({ agentIdentifier, tag: 'StringAgent' });
 
   export interface PublicKey {
     tag: 'PublicKey';
@@ -30,16 +30,16 @@ export namespace ExternalObject {
     (signedValue: SignedData.Signed<Value>): ExternalObject.SignedValue =>
       ({ signedValue, tag: 'SignedValue' });
 
-  export interface Contract {
-    tag: 'Contract';
+  export interface StringContract {
+    tag: 'StringContract';
     contractIdentifier: string;
   }
-  export const mkContract = (contractIdentifier: string): ExternalObject.Contract =>
-    ({ contractIdentifier, tag: 'Contract' });
+  export const mkContract = (contractIdentifier: string): ExternalObject.StringContract =>
+    ({ contractIdentifier, tag: 'StringContract' });
 }
 
 export type ExternalObject
-  = ExternalObject.Agent
-  | ExternalObject.Contract
+  = ExternalObject.StringAgent
+  | ExternalObject.StringContract
   | ExternalObject.PublicKey
   | ExternalObject.SignedValue;

@@ -129,7 +129,7 @@ describe('Fully typed to JSON typed', () => {
   it('works on Agents', () => {
     const a: D.AgentValue = {
       class: 'ExternalObjectValue',
-      externalObject: { tag: 'Agent', agentIdentifier: 'foo' },
+      externalObject: { tag: 'StringAgent', agentIdentifier: 'foo' },
     };
     expect(valueToJson(a)).to.deep.equal({
       externalObject: { agentIdentifier: 'foo' },
@@ -138,7 +138,7 @@ describe('Fully typed to JSON typed', () => {
   it('works on ContractIds', () => {
     const c: D.ContractValue = {
       class: 'ExternalObjectValue',
-      externalObject: { tag: 'Contract', contractIdentifier: 'foo' },
+      externalObject: { tag: 'StringContract', contractIdentifier: 'foo' },
     };
     expect(valueToJson(c)).to.deep.equal({
       externalObject: { contractIdentifier: 'foo' },
