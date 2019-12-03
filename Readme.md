@@ -2,6 +2,11 @@
 
 # REST client for Deon Digital's API
 
+### [12.1.0] - Unreleased
+
+* Add `CallError` to possible `CheckError` types.
+* Handle the more structured `BadRequestError` from Deon API `v0.53.0`
+
 ### [12.0.0] - 2019-10-18
 
 * Remove `Pseudo` and replace it with `ExternalObject` which is equivalent except that it doesn't require the specification of "bound names".
