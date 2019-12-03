@@ -9,6 +9,7 @@ import {
   ResponseError,
   CheckError,
   isCheckErrors,
+  isBadRequest,
 } from './DeonApi';
 import {
   InstantiationInput,
@@ -27,18 +28,10 @@ const throwIfNotFound = (r: Response, data: any) => {
   }
 };
 
-const errorMessage = (error: CheckError): string => {
-  switch (error.tag) {
-    case 'GuardError':
-      return `Guardedness error on contract ${error.contractName}`;
-    default:
-      return error.message;
-  }
-};
-
 const throwIfBadRequest = (r: Response, data: any) => {
   if (r.status === 400) {
-    if (isCheckErrors(data)) throw new BadRequestError(data.map(errorMessage).join('\n'));
+    if (isBadRequest(data)) throw new BadRequestError(data.errors);
+    if (isCheckErrors(data)) throw new BadRequestError(data);
     if (data && data.message) throw new BadRequestError(data.message);
   }
 };
@@ -95,7 +88,9 @@ const possiblyBadRequestOrNotFound = async (r: Response) => {
 
 const checkHandler = async (r: Response): Promise<CheckError[]> => {
   if (r.ok) { return []; }
-  if (r.status === 400) { return await r.json(); }
+  if (r.status === 400) {
+    return r.json().then((json: {errors: CheckError[]}) => json.errors);
+  }
   throw new ResponseError(r.status, JSON.stringify(r));
 };
 
