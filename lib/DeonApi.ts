@@ -77,9 +77,18 @@ export class NotFoundError extends ResponseError {
   }
 }
 
+const errorMessage = (error: CheckError): string => {
+  switch (error.tag) {
+    case 'GuardError':
+      return `Guardedness error on contract ${error.contractName}`;
+    default:
+      return error.message;
+  }
+};
+
 export class BadRequestError extends ResponseError {
-  constructor(message: string) {
-    super(400, message);
+  constructor(public errors: CheckError[]) {
+    super(400, `Bad request: ${errors.map(errorMessage).join('\n')}`);
   }
 }
 
@@ -89,6 +98,7 @@ export type CheckError =
   | ArgumentTypeError
   | GuardError
   | EventTypeError
+  | CallError
 ;
 
 export interface ParseError {
@@ -122,6 +132,12 @@ export interface EventTypeError {
   message: string;
 }
 
+export interface CallError {
+  tag: 'CallError';
+  message: string;
+  argumentIndex: number | undefined;
+}
+
 const hasTag = (x: unknown): x is { tag: unknown } =>
   typeof x === 'object' && x != null && 'tag' in x;
 
@@ -136,6 +152,9 @@ export const isCheckError = (x: unknown): x is CheckError =>
 
 export const isCheckErrors = (x: unknown): x is CheckError[] =>
   Array.isArray(x) && x.every(isCheckError);
+
+export const isBadRequest = (x: unknown): x is { errors: any[]} =>
+  (x as { errors: any[]}).errors.every(isCheckError);
 
 export type Frame =
   | Call
