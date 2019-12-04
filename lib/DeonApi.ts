@@ -99,6 +99,7 @@ export type CheckError =
   | GuardError
   | EventTypeError
   | CallError
+  | CSLError
 ;
 
 export interface ParseError {
@@ -136,6 +137,11 @@ export interface CallError {
   tag: 'CallError';
   message: string;
   argumentIndex: number | undefined;
+}
+
+export interface CSLError {
+  tag: 'CSLError';
+  message: string;
 }
 
 const hasTag = (x: unknown): x is { tag: unknown } =>
