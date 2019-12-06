@@ -100,6 +100,7 @@ export type CheckError =
   | EventTypeError
   | CallError
   | CSLError
+  | SerializationError
 ;
 
 export interface ParseError {
@@ -144,6 +145,11 @@ export interface CSLError {
   message: string;
 }
 
+export interface SerializationError {
+  tag: 'SerializationError';
+  message: string;
+}
+
 const hasTag = (x: unknown): x is { tag: unknown } =>
   typeof x === 'object' && x != null && 'tag' in x;
 
@@ -154,7 +160,10 @@ export const isCheckError = (x: unknown): x is CheckError =>
       || x.tag ===  'TypeError'
       || x.tag ===  'ArgumentTypeError'
       || x.tag ===  'GuardError'
-      || x.tag ===  'EventTypeError');
+      || x.tag ===  'EventTypeError'
+      || x.tag ===  'CallError'
+      || x.tag ===  'CSLError'
+      || x.tag ===  'SerializationError');
 
 export const isCheckErrors = (x: unknown): x is CheckError[] =>
   Array.isArray(x) && x.every(isCheckError);
