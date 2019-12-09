@@ -6,7 +6,7 @@
 
 * Add `CallError`, `CSLError`, and `SerializationError` to possible `CheckError` types.
 * Handle the more structured `BadRequestError` from Deon API `v0.53.0`.
-* Correct the `Duration` validation logic to match the intended format. Now supports `PnDTnHnMnS` instead of `PnYnMnDTnHnMnS`.
+* Correct the `Duration` validation logic to match the intended format. Now supports `PnDTnHnMnS` instead of `PnYnMnDTnHnMnS`, to follow the duration libraries in Java and Haskell.
 
 ### [12.0.0] - 2019-10-18
 
