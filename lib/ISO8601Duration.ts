@@ -7,28 +7,26 @@
  */
 
 export interface Duration {
-  years: number;
-  months: number;
   days: number;
   hours: number;
   minutes: number;
   seconds: number;
 }
 /**
- * The pattern used for parsing ISO8601 duration (PnYnMnDTnHnMnS).
+ * The pattern used for parsing ISO8601 duration (PnDTnHnMnS).
  * This does not cover the week format PnW.
  */
 
-// PnYnMnDTnHnMnS
+// PnDTnHnMnS
 const numbers = '\\d+(?:[\\.,]\\d{0,3})?';
-const datePattern = `(${numbers}Y)?(${numbers}M)?(${numbers}D)?`;
+const datePattern = `(${numbers}D)?`;
 const timePattern = `T(${numbers}H)?(${numbers}M)?(${numbers}S)?`;
 
 const iso8601 = `P(?:${datePattern}(?:${timePattern})?)`;
-const objMap:(keyof Duration)[] = ['years', 'months', 'days', 'hours', 'minutes', 'seconds'];
+const objMap:(keyof Duration)[] = ['days', 'hours', 'minutes', 'seconds'];
 
 const defaultDuration = (): Duration => ({
-  years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0,
+  days: 0, hours: 0, minutes: 0, seconds: 0,
 });
 
 /**
@@ -62,16 +60,12 @@ export const parse = (durationString: string): Duration | undefined => {
  * @return
  */
 export const toSeconds = (duration: Duration): number => {
-  const { years, months, days, hours, minutes, seconds } = duration;
+  const { days, hours, minutes, seconds } = duration;
   const minScale = 60;
   const hourScale = minScale * 60;
   const dayScale = hourScale * 24;
-  const monthScale = dayScale * 30;
-  const yearScale = dayScale * 365;
   return (
-      years * yearScale
-    + months * monthScale
-    + days * dayScale
+      days * dayScale
     + hours * hourScale
     + minutes * minScale
     + seconds
@@ -85,8 +79,8 @@ export const toSeconds = (duration: Duration): number => {
  */
 export const durationToISOString = (d: Duration): string => {
   const fmt = (f: string) => (x: number) => x !== 0 ? x.toString() + f : '';
-  const { years, months, days, hours, minutes, seconds } = d;
-  const datestr = fmt('Y')(years) + fmt('M')(months) + fmt('D')(days);
+  const { days, hours, minutes, seconds } = d;
+  const datestr = fmt('D')(days);
   const timestr = fmt('H')(hours) + fmt('M')(minutes) + fmt('S')(seconds);
   const ret = datestr + (timestr.length > 0 ? `T${timestr}` : '') ;
   return `P${ret.length > 0 ? ret : '0S'}`;
