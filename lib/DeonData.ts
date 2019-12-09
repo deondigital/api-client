@@ -241,6 +241,7 @@ export interface RecordValue {
   class: 'RecordValue';
   recordTag: QualifiedName;
   fields: { [key: string]: Value };
+  upcastTag?: QualifiedName;
 }
 export const mkRecordValue =
   (recordTag: QualifiedName, fields: { [key: string]: Value }): RecordValue =>
