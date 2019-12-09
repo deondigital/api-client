@@ -2,7 +2,7 @@
 
 # REST client for Deon Digital's API
 
-### [12.1.0] - Unreleased
+### Unreleased
 
 * Add `CallError`, `CSLError`, and `SerializationError` to possible `CheckError` types.
 * Handle the more structured `BadRequestError` from Deon API `v0.53.0`.
