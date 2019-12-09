@@ -4,7 +4,7 @@
 
 ### [12.1.0] - Unreleased
 
-* Add `CallError` and `CSLError` to possible `CheckError` types.
+* Add `CallError`, `CSLError`, and `SerializationError` to possible `CheckError` types.
 * Handle the more structured `BadRequestError` from Deon API `v0.53.0`.
 
 ### [12.0.0] - 2019-10-18
