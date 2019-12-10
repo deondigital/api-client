@@ -49,4 +49,10 @@ describe('stringifyCanonically', () => {
       small: 0.000000123456789,
     })).equals('{"small":0.000000123456789}');
   });
+  it('undefined fields are removed', () => {
+    expect(stringifyCanonically({
+      a: 1,
+      b: undefined,
+    })).equals('{"a":1}');
+  });
 });
