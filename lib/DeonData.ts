@@ -241,13 +241,10 @@ export interface RecordValue {
   class: 'RecordValue';
   recordTag: QualifiedName;
   fields: { [key: string]: Value };
-  upcastTag: QualifiedName | null;
 }
 export const mkRecordValue =
-  (recordTag: QualifiedName,
-   fields: { [key: string]: Value },
-   upcastTag: QualifiedName | null = null): RecordValue =>
-    ({ recordTag, fields, upcastTag, class: 'RecordValue' });
+  (recordTag: QualifiedName, fields: { [key: string]: Value }): RecordValue =>
+    ({ recordTag, fields, class: 'RecordValue' });
 
 export interface ListValue {
   class: 'ListValue';
