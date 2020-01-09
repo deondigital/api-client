@@ -2,7 +2,7 @@
 
 # REST client for Deon Digital's API
 
-### Unreleased
+### [12.2.0] - 2020-01-09
 
 * Add `CallError`, `CSLError`, and `SerializationError` to possible `CheckError` types.
 * Handle the more structured `BadRequestError` from Deon API `v0.53.0`.
@@ -91,6 +91,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[12.2.0]: https://github.com/deondigital/api-client/compare/v12.0.0...v12.2.0
 [12.0.0]: https://github.com/deondigital/api-client/compare/v11.0.0...v12.0.0
 [11.0.0]: https://github.com/deondigital/api-client/compare/v10.3.0...v11.0.0
 [10.3.0]: https://github.com/deondigital/api-client/compare/v10.2.0...v10.3.0
