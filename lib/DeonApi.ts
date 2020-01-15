@@ -25,11 +25,6 @@ interface ContractsApi {
     event: D.Event,
     tag?: D.Tag,
   ): Promise<D.Tag | void>;
-  report(i: D.EvaluateExpressionInput): Promise<D.Value>;
-  reportOnContract(
-    id: string | D.ContractValue,
-    i: D.EvaluateExpressionInput,
-  ): Promise<D.Value>;
   getEvents(id: string | D.ContractValue): Promise<D.Value[]>;
 }
 
@@ -38,6 +33,11 @@ interface DeclarationsApi {
   get(id: string): Promise<D.Declaration>;
   add(declarationInput: D.DeclarationInput): Promise<D.DeclarationOutput>;
   ontology(id: string): Promise<D.Ontology>;
+  report(i: D.EvaluateExpressionInput): Promise<D.Value>;
+  reportOnDeclaration(
+    id: string,
+    i: D.EvaluateExpressionInput,
+  ): Promise<D.Value>;
 }
 
 interface CslApi {
