@@ -143,17 +143,6 @@ class DeonRestClient implements DeonApi {
       this.http.post(`/contracts/${idString(id)}/${tag != null ? `${tag}/` : ''}events`, event)
         .then(possiblyBadRequestOrNotFound),
 
-    report: (expressionInput: EvaluateExpressionInput) =>
-      this.http.post('/contracts/report', expressionInput)
-        .then(possiblyBadRequest),
-
-    reportOnContract: (
-      id: string | ContractValue,
-      expressionInput: EvaluateExpressionInput,
-    ) =>
-      this.http.post(`/contracts/${idString(id)}/report`, expressionInput)
-        .then(possiblyBadRequestOrNotFound),
-
     getEvents: (id: string | ContractValue) =>
         this.http.get(`/contracts/${idString(id)}/events`)
           .then(possiblyNotFound),
@@ -167,6 +156,17 @@ class DeonRestClient implements DeonApi {
     add: (i: DeclarationInput) => this.http.post('/declarations', i).then(possiblyBadRequest),
 
     ontology: (id: string) => this.http.get(`/declarations/${id}/ontology`).then(possiblyNotFound),
+
+    report: (expressionInput: EvaluateExpressionInput) =>
+      this.http.post('/declarations/report', expressionInput)
+        .then(possiblyBadRequest),
+
+    reportOnDeclaration: (
+      id: string,
+      expressionInput: EvaluateExpressionInput,
+    ) =>
+      this.http.post(`/declarations/${id}/report`, expressionInput)
+        .then(possiblyBadRequestOrNotFound),
   };
 
   csl: CslApi = {
