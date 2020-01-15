@@ -28,8 +28,6 @@ export const contractsApiMock : ContractsApi = {
   src: (_1: string, _2: boolean) => Promise.reject(),
   nextEvents: (_1: string) => Promise.reject(),
   applyEvent: (_1: string, _2: Event, _3?: Tag) => Promise.reject(),
-  report: (_1: EvaluateExpressionInput) => Promise.reject(),
-  reportOnContract: (_1: string, _2: EvaluateExpressionInput) => Promise.reject(),
   instantiate: (_1: InstantiationInput) => Promise.reject(),
   getEvents: (_1: string) => Promise.reject(),
 };
@@ -39,6 +37,8 @@ export const declarationsApiMock : DeclarationsApi = {
   get : (_1: string) => Promise.reject(),
   add : (_1: DeclarationInput) => Promise.reject(),
   ontology : (_1: string) => Promise.reject(),
+  report: (_1: EvaluateExpressionInput) => Promise.reject(),
+  reportOnDeclaration: (_1: string, _2: EvaluateExpressionInput) => Promise.reject(),
 };
 
 export const cslApiMock : CslApi = {
