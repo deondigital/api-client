@@ -2,6 +2,12 @@
 
 # REST client for Deon Digital's API
 
+## Changelog
+
+### Unreleased
+
+* The functions for calling reports, `report` and `reportOnContract` have been moved to the `DeclarationsApi`.  The latter has been renamed `reportOnDeclaration` and now takes a declaration id instead of a contract id.
+
 ### [12.2.0] - 2020-01-09
 
 * Add `CallError`, `CSLError`, and `SerializationError` to possible `CheckError` types.
