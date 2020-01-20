@@ -7,6 +7,7 @@
 ### Unreleased
 
 * The functions for calling reports, `report` and `reportOnContract`, have been moved to the `DeclarationsApi`.  The latter has been renamed `reportOnDeclaration` and now takes a declaration id instead of a contract id.
+* The `Contract` interface now contains the list of participants that the contract was instantiated with.
 
 ### [12.2.0] - 2020-01-09
 
