@@ -87,6 +87,7 @@ export interface Contract {
   declarationId: string;
   name: string;
   instantiationTimestamp: Date;
+  participants: string[];
 }
 
 export interface ResidualSource {
