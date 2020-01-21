@@ -40,7 +40,6 @@ export interface NodeInfoOutput {
   ledgerType: string;
   nodeName: string;
   serviceVersion: string;
-  peers: string[];
 }
 
 export interface NamedAgents {
