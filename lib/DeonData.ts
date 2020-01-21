@@ -19,7 +19,7 @@ export interface InstantiationInput {
   name: string;
   declarationExpressionArguments: Value[];
   entryPoint: QualifiedName;
-  peers: string[];
+  peers: ExternalObject[];
 }
 
 export interface InstantiationOutput {
@@ -86,7 +86,7 @@ export interface Contract {
   declarationId: string;
   name: string;
   instantiationTimestamp: Date;
-  participants: string[];
+  participants: ExternalObject[];
 }
 
 export interface ResidualSource {
