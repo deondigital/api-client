@@ -111,6 +111,7 @@ export type Value =
   | ConstructorValue
   | RecordValue
   | ListValue
+  | MapValue
   | TupleValue
   | ExternalObjectValue<any>;
 
@@ -252,6 +253,13 @@ export interface ListValue {
 }
 export const mkListValue = (elements: Value[]): ListValue =>
   ({ elements, class: 'ListValue' });
+
+export interface MapValue {
+  class: 'MapValue';
+  elements: [Value, Value][];
+}
+export const mkMapValue = (elements: [Value, Value][]): MapValue =>
+  ({ elements, class: 'MapValue' });
 
 export interface TupleValue {
   class: 'TupleValue';

@@ -111,6 +111,51 @@ describe('Fully typed to JSON typed', () => {
     ]);
     expect(valueToJson(l)).to.deep.equal([[1, 2], ['3.5', '4.3']]);
   });
+  it('works on empty MapValue', () => {
+    const m = D.mkMapValue([]);
+    expect(valueToJson(m)).to.deep.equal(new Map());
+  });
+  it('works on simple MapValue', () => {
+    const m = D.mkMapValue([
+      [D.mkStringValue('a'), D.mkIntValue(1)],
+      [D.mkStringValue('b'), D.mkIntValue(2)]]);
+    const expected = new Map();
+    expected.set('a', 1).set('b', 2);
+    expect(valueToJson(m)).to.deep.equal(expected);
+  });
+  it('works on nested MapValue', () => {
+    const k1 = D.mkMapValue([[D.mkIntValue(1), D.mkFloatValue('1.0')]]);
+    const k2 = D.mkMapValue([[D.mkIntValue(2), D.mkFloatValue('2.0')]]);
+    const v1 = D.mkMapValue([[D.mkStringValue('a'), D.mkBooleanValue(true)]]);
+    const v2 = D.mkMapValue([[D.mkStringValue('b'), D.mkBooleanValue(false)]]);
+    const m = D.mkMapValue([[k1, v1], [k2, v2]]);
+    const expKey1 = new Map();
+    const expKey2 = new Map();
+    const expVal1 = new Map();
+    const expVal2 = new Map();
+    expKey1.set(1, '1.0');
+    expKey2.set(2, '2.0');
+    expVal1.set('a', true);
+    expVal2.set('b', false);
+    // We cannot use expect(..) on nested Maps.
+    const obj = valueToJson(m) as Map<Map<any, any>, Map<any, any>>;
+    const keys = Array.from(obj.keys());
+    const values = Array.from(obj.values());
+    function mapEq(lhs : Map<any, any>, rhs : Map<any, any>) {
+      const leftKeys = Array.from(lhs.keys());
+      const rightKeys = Array.from(rhs.keys());
+      const leftVals = Array.from(lhs.values());
+      const rightVals = Array.from(rhs.values());
+      expect(leftKeys).to.deep.equal(rightKeys);
+      expect(leftVals).to.deep.equal(rightVals);
+    }
+    expect(keys.length).to.equal(2);
+    expect(values.length).to.equal(2);
+    mapEq(keys[0], expKey1);
+    mapEq(keys[1], expKey2);
+    mapEq(values[0], expVal1);
+    mapEq(values[1], expVal2);
+  });
   it('works on simple pair', () => {
     const p = D.mkTupleValue([D.mkIntValue(1), D.mkIntValue(2)]);
     expect(valueToJson(p)).to.deep.equal([1, 2]);
