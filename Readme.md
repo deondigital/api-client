@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### Unreleased
+### [13.0.0] - 2020-01-28
 
 * The functions for calling reports, `report` and `reportOnContract`, have been moved to the `DeclarationsApi`.  The latter has been renamed `reportOnDeclaration` and now takes a declaration id instead of a contract id.
 * The `Contract` interface now contains the list of participants that the contract was instantiated with.
@@ -100,6 +100,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[13.0.0]: https://github.com/deondigital/api-client/compare/v12.2.0...v13.0.0
 [12.2.0]: https://github.com/deondigital/api-client/compare/v12.0.0...v12.2.0
 [12.0.0]: https://github.com/deondigital/api-client/compare/v11.0.0...v12.0.0
 [11.0.0]: https://github.com/deondigital/api-client/compare/v10.3.0...v11.0.0
