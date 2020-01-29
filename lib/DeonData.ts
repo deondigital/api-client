@@ -403,3 +403,192 @@ export interface OntologyUnionConstructor {
 export type OntologyTypeIdentifier
   = { tag: 'Var', identifier: string }
   | { tag: 'Apply', name: QualifiedName, params: OntologyTypeIdentifier[] };
+
+export type AgentMatcher
+  = AnyAgent
+  | MatchAgent;
+
+export interface AnyAgent {
+  tag: 'AnyAgent';
+}
+
+export interface MatchAgent {
+  tag: 'MatchAgent';
+  expression: Exp;
+}
+
+export interface Case {
+  pattern: Pattern;
+  expression: Exp;
+}
+
+export type Constant
+  = CInt
+  | CString
+  | CFloat
+  | CDateTime
+  | CDuration
+  | CQuote;
+
+export interface CInt {
+  tag: 'CInt';
+  value: number;
+}
+
+export interface CString {
+  tag: 'CInt';
+  value: string;
+}
+
+export interface CFloat {
+  tag: 'CInt';
+  value: string;
+}
+
+export interface CDateTime {
+  tag: 'CInt';
+  value: string;
+}
+
+export interface CDuration {
+  tag: 'CInt';
+  value: string;
+}
+
+export interface CQuote {
+  tag: 'CQuote';
+  value: ExternalObject;
+}
+
+export interface PField {
+  name: string;
+  pattern: Pattern;
+}
+
+export interface Field {
+  name: string;
+  expression: Exp;
+}
+
+export type Pattern
+  = PWildcard
+  | PConstant
+  | PRecord
+  | PAlias
+  | PApp
+  | PTuple;
+
+export interface PWildcard {
+  tag: 'PWildcard';
+}
+
+export interface PConstant {
+  tag: 'PConstant';
+  constant: Constant;
+}
+
+export interface PRecord {
+  tag: 'PRecord';
+  type: Type;
+  fields: PField[];
+}
+
+export interface PAlias {
+  tag: 'PAlias';
+  aliased: Pattern;
+  alias: string;
+}
+
+export interface PApp {
+  tag: 'PApp';
+  constructor: QualifiedName;
+  args: Pattern[];
+}
+
+export interface PTuple {
+  tag: 'PTuple';
+  args: Pattern[];
+}
+
+export type Exp
+  = EConstant
+  | EVar
+  | EConstructor
+  | ETuple
+  | ELambda
+  | EApp
+  | EBuiltInApp
+  | ERecord
+  | EProject
+  | EQuery;
+
+export interface EConstant {
+  tag: 'EConstant';
+  constant: Constant;
+}
+
+export interface EVar {
+  tag: 'EVar';
+  qualifiedName: QualifiedName;
+}
+
+export interface EConstructor {
+  tag: 'EConstructor';
+  constructorName: QualifiedName;
+}
+
+export interface ETuple {
+  tag: 'ETuple';
+  values: Exp[];
+}
+
+export interface ELambda {
+  tag: 'ELambda';
+  cases: Case[];
+}
+
+export interface EApp {
+  tag: 'EApp';
+  expression: Exp;
+  arg: Exp;
+}
+
+export interface EBuiltInApp {
+  tag: 'EBuiltInApp';
+  builtInName: string;
+  args: Exp[];
+}
+
+export interface ERecord {
+  tag: 'ERecord';
+  type: Type;
+  fields: Field[];
+}
+
+export interface EProject {
+  tag: 'EProject';
+  expression: Exp;
+  field: Field;
+}
+
+export interface EQuery {
+  tag: 'EQuery';
+  // ruleTerm: AtomTerm;
+  ruleName: QualifiedName;
+  bodyExp: Exp;
+}
+
+export type Type
+ = TVar
+ | TApply;
+
+export interface TVar {
+  tag: 'TVar';
+  name: string;
+}
+
+export interface TApply {
+  tag: 'TApply';
+  typeName: QualifiedName;
+  args: Type[];
+}
