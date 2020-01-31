@@ -47,6 +47,7 @@ interface DeclarationsApi {
 interface CslApi {
   check(i: D.CheckExpressionInput): Promise<CheckError[]>;
   checkExpression(i: D.CheckExpressionInput, id?: string): Promise<CheckError[]>;
+  prettyPrintExp(i: D.Exp): Promise<string>;
 }
 
 interface InfoApi {

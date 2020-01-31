@@ -13,6 +13,7 @@ import {
   DeclarationInput,
   CheckExpressionInput,
   EvaluateReportInput,
+  Exp,
   } from './DeonData';
 
 /**
@@ -46,6 +47,7 @@ export const declarationsApiMock : DeclarationsApi = {
 export const cslApiMock : CslApi = {
   check : (_1: CheckExpressionInput) => Promise.reject(),
   checkExpression : (_1: CheckExpressionInput, _2?: string) => Promise.reject(),
+  prettyPrintExp : (_1: Exp) => Promise.reject(),
 };
 
 export const infoApiMock : InfoApi = {

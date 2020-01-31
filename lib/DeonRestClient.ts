@@ -20,6 +20,7 @@ import {
   Tag,
   ContractValue,
   EvaluateReportInput,
+  Exp,
 } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
 
@@ -185,6 +186,10 @@ class DeonRestClient implements DeonApi {
     checkExpression: (i: CheckExpressionInput, id?: string) => this.http
       .post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i)
       .then(checkHandler),
+
+    prettyPrintExp: (i: Exp) => this.http
+      .post('/csl/prettyPrintExp', i)
+      .then(noKnownExceptions),
   };
 
   info: InfoApi = {
