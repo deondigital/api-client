@@ -38,6 +38,10 @@ interface DeclarationsApi {
     id: string,
     i: D.EvaluateExpressionInput,
   ): Promise<D.Value>;
+  reportWithName(
+    id: string,
+    i: D.EvaluateReportInput,
+  ): Promise<D.Value>;
 }
 
 interface CslApi {

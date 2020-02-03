@@ -36,6 +36,11 @@ export interface EvaluateExpressionInput {
   values?: Value[];
 }
 
+export interface EvaluateReportInput {
+  reportName: QualifiedName;
+  arguments: Value[];
+}
+
 export interface NodeInfoOutput {
   ledgerType: string;
   nodeName: string;
