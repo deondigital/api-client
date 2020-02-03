@@ -12,6 +12,7 @@ import {
   InstantiationInput,
   DeclarationInput,
   CheckExpressionInput,
+  EvaluateReportInput,
   } from './DeonData';
 
 /**
@@ -39,6 +40,7 @@ export const declarationsApiMock : DeclarationsApi = {
   ontology : (_1: string) => Promise.reject(),
   report: (_1: EvaluateExpressionInput) => Promise.reject(),
   reportOnDeclaration: (_1: string, _2: EvaluateExpressionInput) => Promise.reject(),
+  reportWithName: (_1: string, _2: EvaluateReportInput) => Promise.reject(),
 };
 
 export const cslApiMock : CslApi = {

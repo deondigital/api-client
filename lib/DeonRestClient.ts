@@ -19,6 +19,7 @@ import {
   Event,
   Tag,
   ContractValue,
+  EvaluateReportInput,
 } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
 
@@ -166,6 +167,13 @@ class DeonRestClient implements DeonApi {
       expressionInput: EvaluateExpressionInput,
     ) =>
       this.http.post(`/declarations/${id}/report`, expressionInput)
+        .then(possiblyBadRequestOrNotFound),
+
+    reportWithName: (
+      id: string,
+      reportInput: EvaluateReportInput,
+    ) =>
+      this.http.post(`/declarations/${id}/namedReport`, reportInput)
         .then(possiblyBadRequestOrNotFound),
   };
 
