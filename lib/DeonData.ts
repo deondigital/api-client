@@ -79,9 +79,9 @@ export interface Event {
 export type Tag = string;
 
 export interface EventPredicate {
-  type: QualifiedName;
-  agent?: string;
-  exp: string;
+  type: Type;
+  agent: AgentMatcher;
+  exp: Exp;
   symbols: { [id: string] : ExternalObject };
 }
 
