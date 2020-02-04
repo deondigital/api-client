@@ -594,41 +594,41 @@ export interface TApply {
 }
 
 export type AtomTerm
-  = QWildcard
-  | QVar
-  | QRecord
-  | QConstant
-  | QApp
-  | QTuple
+  = ATWildcard
+  | ATVar
+  | ATRecord
+  | ATConstant
+  | ATApp
+  | ATTuple;
 
-export interface QWildcard {
-  tag: 'QWildcard';
+export interface ATWildcard {
+  tag: 'Wildcard';
   wildcardId: string;
 }
 
-export interface QVar {
-  tag: 'QVar';
+export interface ATVar {
+  tag: 'Var';
   variableId: string;
 }
 
-export interface QRecord {
-  tag: 'QRecord';
+export interface ATRecord {
+  tag: 'Record';
   name: QualifiedName;
   fields: { [id: string] : AtomTerm };
 }
 
-export interface QConstant {
-  tag: 'QConstant';
+export interface ATConstant {
+  tag: 'Constant';
   constant: Constant;
 }
 
-export interface QApp {
-  tag: 'QApp';
+export interface ATApp {
+  tag: 'App';
   name: QualifiedName;
   arguments: AtomTerm[];
 }
 
-export interface QTuple {
-  tag: 'QTuple';
+export interface ATTuple {
+  tag: 'Tuple';
   elements: AtomTerm[];
 }
