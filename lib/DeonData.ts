@@ -573,7 +573,7 @@ export interface EProject {
 
 export interface EQuery {
   tag: 'EQuery';
-  // ruleTerm: AtomTerm;
+  ruleTerm: AtomTerm;
   ruleName: QualifiedName;
   bodyExp: Exp;
 }
@@ -591,4 +591,44 @@ export interface TApply {
   tag: 'TApply';
   typeName: QualifiedName;
   args: Type[];
+}
+
+export type AtomTerm
+  = QWildcard
+  | QVar
+  | QRecord
+  | QConstant
+  | QApp
+  | QTuple
+
+export interface QWildcard {
+  tag: 'QWildcard';
+  wildcardId: string;
+}
+
+export interface QVar {
+  tag: 'QVar';
+  variableId: string;
+}
+
+export interface QRecord {
+  tag: 'QRecord';
+  name: QualifiedName;
+  fields: { [id: string] : AtomTerm };
+}
+
+export interface QConstant {
+  tag: 'QConstant';
+  constant: Constant;
+}
+
+export interface QApp {
+  tag: 'QApp';
+  name: QualifiedName;
+  arguments: AtomTerm[];
+}
+
+export interface QTuple {
+  tag: 'QTuple';
+  elements: AtomTerm[];
 }
