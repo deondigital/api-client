@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* Added the function `reportWithName` in the `DeclarationsApi` for calling the new endpoint `/declarations/${id}/namedReport`.
+
 ### [13.0.0] - 2020-01-28
 
 * The functions for calling reports, `report` and `reportOnContract`, have been moved to the `DeclarationsApi`.  The latter has been renamed `reportOnDeclaration` and now takes a declaration id instead of a contract id.
