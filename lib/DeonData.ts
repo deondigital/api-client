@@ -90,7 +90,7 @@ export interface Contract {
   id: string;
   declarationId: string;
   name: string;
-  instantiationTimestamp: Date;
+  instantiationTime: Date;
   participants: ExternalObject[];
 }
 
