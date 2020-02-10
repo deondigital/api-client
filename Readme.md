@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### Unreleased
+### [14.0.0] - 2020-02-10
 
 * Added the function `reportWithName` in the `DeclarationsApi` for calling the new endpoint `/declarations/${id}/namedReport`.
 
@@ -104,6 +104,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[14.0.0]: https://github.com/deondigital/api-client/compare/v13.0.0...v14.0.0
 [13.0.0]: https://github.com/deondigital/api-client/compare/v12.2.0...v13.0.0
 [12.2.0]: https://github.com/deondigital/api-client/compare/v12.0.0...v12.2.0
 [12.0.0]: https://github.com/deondigital/api-client/compare/v11.0.0...v12.0.0
