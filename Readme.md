@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* Support for builtin CSL `Map` type.
+
 ### [14.0.0] - 2020-02-10
 
 * Added the function `reportWithName` in the `DeclarationsApi` for calling the new endpoint `/declarations/${id}/namedReport`.
