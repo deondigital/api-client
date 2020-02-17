@@ -6,7 +6,7 @@
 
 ### Unreleased
 
-* Support for builtin CSL `Map` type.
+* Support for built-in CSL `Map` type.
 
 ### [14.0.0] - 2020-02-10
 
