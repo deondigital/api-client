@@ -24,7 +24,7 @@ interface ContractsApi {
     id: string | D.ContractValue,
     event: D.Event,
     tag?: D.Tag,
-  ): Promise<D.Tag | void>;
+  ): Promise<D.Tag>;
   getEvents(id: string | D.ContractValue): Promise<D.Value[]>;
 }
 
