@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [14.1.1] - 2020-03-09
+
+* Tags are now always returned when applying events.
+
 ### [14.1.0] - 2020-02-21
 
 * Support for built-in CSL `Map` type.
@@ -109,6 +113,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[14.1.1]: https://github.com/deondigital/api-client/compare/v14.1.0...v14.1.1
 [14.1.0]: https://github.com/deondigital/api-client/compare/v14.0.0...v14.1.0
 [14.0.0]: https://github.com/deondigital/api-client/compare/v13.0.0...v14.0.0
 [13.0.0]: https://github.com/deondigital/api-client/compare/v12.2.0...v13.0.0
