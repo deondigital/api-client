@@ -102,7 +102,8 @@ export type CheckError =
   | TypeError
   | ArgumentTypeError
   | GuardError
-  | EventTypeError
+  | ValueTypeError
+  | ApplyError
   | CallError
   | CSLError
   | SerializationError
@@ -134,8 +135,13 @@ export interface GuardError {
   trace: Frame[];
 }
 
-export interface EventTypeError {
-  tag: 'EventTypeError';
+export interface ValueTypeError {
+  tag: 'ValueTypeError';
+  message: string;
+}
+
+export interface ApplyError {
+  tag: 'ApplyError';
   message: string;
 }
 
@@ -165,7 +171,8 @@ export const isCheckError = (x: unknown): x is CheckError =>
       || x.tag ===  'TypeError'
       || x.tag ===  'ArgumentTypeError'
       || x.tag ===  'GuardError'
-      || x.tag ===  'EventTypeError'
+      || x.tag ===  'ValueTypeError'
+      || x.tag ===  'ApplyError'
       || x.tag ===  'CallError'
       || x.tag ===  'CSLError'
       || x.tag ===  'SerializationError');
