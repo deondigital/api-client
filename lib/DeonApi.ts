@@ -145,6 +145,11 @@ export interface ApplyError {
   message: string;
 }
 
+export interface ApplyError {
+  tag: 'ApplyError';
+  message: string;
+}
+
 export interface CallError {
   tag: 'CallError';
   message: string;
