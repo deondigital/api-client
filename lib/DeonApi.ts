@@ -103,6 +103,7 @@ export type CheckError =
   | ArgumentTypeError
   | GuardError
   | ValueTypeError
+  | InstantiationError
   | ApplyError
   | CallError
   | CSLError
@@ -137,6 +138,11 @@ export interface GuardError {
 
 export interface ValueTypeError {
   tag: 'ValueTypeError';
+  message: string;
+}
+
+export interface InstantiationError {
+  tag: 'InstantiationError';
   message: string;
 }
 
@@ -178,6 +184,7 @@ export const isCheckError = (x: unknown): x is CheckError =>
       || x.tag ===  'GuardError'
       || x.tag ===  'ValueTypeError'
       || x.tag ===  'ApplyError'
+      || x.tag ===  'InstantiationError'
       || x.tag ===  'CallError'
       || x.tag ===  'CSLError'
       || x.tag ===  'SerializationError');
