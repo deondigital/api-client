@@ -159,7 +159,6 @@ export interface ApplyError {
 export interface CallError {
   tag: 'CallError';
   message: string;
-  argumentIndex: number | undefined;
 }
 
 export interface CSLError {
