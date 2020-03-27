@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [14.1.2] - 2020-03-27
+
+* Aligned error codes with current version of the API webservice.
+
 ### [14.1.1] - 2020-03-09
 
 * Tags are now always returned when applying events.
