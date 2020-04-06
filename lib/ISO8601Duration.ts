@@ -53,7 +53,7 @@ const numbers = '\\d+(?:[\\.,]\\d{0,3})?';
 const datePattern = `(${numbers}D)?`;
 const timePattern = `T(${numbers}H)?(${numbers}M)?(${numbers}S)?`;
 
-const iso8601 = `P(?:${datePattern}(?:${timePattern})?)`;
+const iso8601 = `^P(?:${datePattern}(?:${timePattern})?)$`;
 
 /**
  * The ISO8601 regex for matching / testing durations
