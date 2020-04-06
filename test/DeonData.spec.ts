@@ -158,4 +158,12 @@ describe('Duration', () => {
   it('Can render Duration as ISO8601 strings', () => {
     expect(durationToISOString(duration)).to.equal(durStr);
   });
+  it('Cannot parse duration strings with prefix/suffix', () => {
+    const prefixStr = `abc${durStr}`;
+    const suffixStr = `${durStr}def`;
+    const presuffixStr = `abc${durStr}def`;
+    expect(parse(prefixStr)).to.be.undefined;
+    expect(parse(suffixStr)).to.be.undefined;
+    expect(parse(presuffixStr)).to.be.undefined;
+  })
 });
