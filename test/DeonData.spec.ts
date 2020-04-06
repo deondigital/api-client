@@ -162,8 +162,11 @@ describe('Duration', () => {
     const prefixStr = `abc${durStr}`;
     const suffixStr = `${durStr}def`;
     const presuffixStr = `abc${durStr}def`;
+    const tooManyDecimalPlaces = 'P1DT2H33M15.1234S';
     expect(parse(prefixStr)).to.be.undefined;
     expect(parse(suffixStr)).to.be.undefined;
     expect(parse(presuffixStr)).to.be.undefined;
-  })
+    expect(parse(tooManyDecimalPlaces)).to.be.undefined;
+  });
+
 });

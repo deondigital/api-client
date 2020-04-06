@@ -17,7 +17,7 @@ export class Duration {
     this.days = days;
     this.hours = hours;
     this.minutes = minutes;
-    this.seconds = seconds; // TODO Throw exception if decimal count > 3?
+    this.seconds = seconds;
   }
 
   static construct(r: { days: number; hours: number; minutes: number; seconds: number }) {
@@ -62,10 +62,7 @@ export const pattern = new RegExp(iso8601);
 
 /**
  * Parse PnYnMnDTnHnMnS format to object.  Note that the 'seconds' component only
- * allows for a precision of up to three decimal places.  If you supply a string
- * that contains a 'seconds' component with a higher precision it will be parsed as
- * 0 seconds.  I.e., 'P1DT2H33M15.123S' will be parsed as expected but 'P1DT2H33M15.1234S'
- * will be parsed as if it was the string 'P1DT2H33M0S'.
+ * allows for a precision of up to three decimal places.
  *
  * @param  durationString - PnYnMnDTnHnMnS formatted string
  * @return With a property for each part of the pattern
@@ -105,7 +102,7 @@ export const toSeconds = (duration: Duration): number => {
 
 /**
  * Takes a Duration object and turns into an ISO8601 duration string, e.g.
- * P1DT2H33M15.0001S (1 day, 2 hours, 33 minutes, 15.0001 seconds)
+ * P1DT2H33M15.001S (1 day, 2 hours, 33 minutes, 15.001 seconds)
  * @param d
  */
 export const durationToISOString = (d: Duration): string => {
