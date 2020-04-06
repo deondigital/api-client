@@ -17,7 +17,7 @@ export class Duration {
     this.days = days;
     this.hours = hours;
     this.minutes = minutes;
-    this.seconds = seconds;
+    this.seconds = seconds; // TODO Throw exception if decimal count > 3?
   }
 
   static construct(r: { days: number; hours: number; minutes: number; seconds: number }) {
