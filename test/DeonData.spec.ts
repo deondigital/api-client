@@ -13,6 +13,7 @@ import {
   checkSignature,
 } from '../lib/Signed';
 import { ExternalObject } from '../lib/ExternalObject';
+import { parse, Duration, durationToISOString } from '../lib/ISO8601Duration';
 
 const id = <T>(x:T) => x;
 
@@ -143,5 +144,18 @@ mfQTPF+h5iOq9dC/P+BqQwKkVUkU+A==
     const pubk = (pubkVal.externalObject as ExternalObject.PublicKey).publicKey;
     const check = checkSignature(pubk, signed, id);
     expect(typeof check).to.equal('string');
+  });
+});
+
+describe('Duration', () => {
+  const durStr = 'P1DT2H33M15.123S';
+  const duration = Duration.construct({ days: 1, hours: 2, minutes: 33, seconds: 15.123 });
+  it('Can parse ISO8601 duration strings', () => {
+    const dur = parse(durStr);
+    expect(dur).to.not.be.undefined;
+    expect(dur).to.deep.equal(duration);
+  });
+  it('Can render Duration as ISO8601 strings', () => {
+    expect(durationToISOString(duration)).to.equal(durStr);
   });
 });

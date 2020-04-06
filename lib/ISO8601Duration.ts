@@ -1,17 +1,48 @@
 /**
  * @description A module for parsing ISO8601 durations
  * @author Tobias Lunding (original)
- * @author Adam Schønemann
+ * @author Adam Schønemann, Bjørn Bugge Grathwohl
  * I've adapted it to typescript. Could not use as dependency as downstream
  * deps would not include the typescript defs.
+ * Changed Duration representation to be a class.
  */
 
-export interface Duration {
+export class Duration {
   days: number;
   hours: number;
   minutes: number;
   seconds: number;
+
+  constructor(days: number, hours: number, minutes: number, seconds: number) {
+    this.days = days;
+    this.hours = hours;
+    this.minutes = minutes;
+    this.seconds = seconds;
+  }
+
+  static construct(r: { days: number; hours: number; minutes: number; seconds: number }) {
+    return new Duration(r.days, r.hours, r.minutes, r.seconds);
+  }
+
+  equals(other: any): boolean {
+    if (other === this) return true;
+    if (other instanceof Duration) {
+      return this.days === other.days
+        && this.hours === other.hours
+        && this.minutes === other.minutes
+        && this.seconds === other.seconds;
+    }
+    return false;
+  }
+
+  hashCode(): number {
+    let hash = this.days | 0;
+    hash = ((hash << 5) - hash + this.hours) | 0;
+    hash = ((hash << 5) - hash + this.minutes) | 0;
+    return ((hash << 5) - hash + this.seconds) | 0;
+  }
 }
+
 /**
  * The pattern used for parsing ISO8601 duration (PnDTnHnMnS).
  * This does not cover the week format PnW.
@@ -23,18 +54,19 @@ const datePattern = `(${numbers}D)?`;
 const timePattern = `T(${numbers}H)?(${numbers}M)?(${numbers}S)?`;
 
 const iso8601 = `P(?:${datePattern}(?:${timePattern})?)`;
-const objMap:(keyof Duration)[] = ['days', 'hours', 'minutes', 'seconds'];
-
-const defaultDuration = (): Duration => ({
-  days: 0, hours: 0, minutes: 0, seconds: 0,
-});
 
 /**
  * The ISO8601 regex for matching / testing durations
  */
 export const pattern = new RegExp(iso8601);
 
-/** Parse PnYnMnDTnHnMnS format to object
+/**
+ * Parse PnYnMnDTnHnMnS format to object.  Note that the 'seconds' component only
+ * allows for a precision of up to three decimal places.  If you supply a string
+ * that contains a 'seconds' component with a higher precision it will be parsed as
+ * 0 seconds.  I.e., 'P1DT2H33M15.123S' will be parsed as expected but 'P1DT2H33M15.1234S'
+ * will be parsed as if it was the string 'P1DT2H33M0S'.
+ *
  * @param  durationString - PnYnMnDTnHnMnS formatted string
  * @return With a property for each part of the pattern
  */
@@ -44,13 +76,12 @@ export const parse = (durationString: string): Duration | undefined => {
   if (!matches || matches.filter(x => typeof x !== 'undefined').length < 2) {
     return undefined;
   }
-  return (matches).slice(1).reduce(
-    (prev, next, idx) => {
-      prev[objMap[idx]] = parseFloat(next) || 0;
-      return prev;
-    },
-    defaultDuration(),
-  );
+  return Duration.construct({
+    days: parseFloat(matches[1]) || 0,
+    hours: parseFloat(matches[2]) || 0,
+    minutes: parseFloat(matches[3]) || 0,
+    seconds: parseFloat(matches[4]) || 0,
+  });
 };
 
 /**
@@ -65,7 +96,7 @@ export const toSeconds = (duration: Duration): number => {
   const hourScale = minScale * 60;
   const dayScale = hourScale * 24;
   return (
-      days * dayScale
+    days * dayScale
     + hours * hourScale
     + minutes * minScale
     + seconds
@@ -82,6 +113,6 @@ export const durationToISOString = (d: Duration): string => {
   const { days, hours, minutes, seconds } = d;
   const datestr = fmt('D')(days);
   const timestr = fmt('H')(hours) + fmt('M')(minutes) + fmt('S')(seconds);
-  const ret = datestr + (timestr.length > 0 ? `T${timestr}` : '') ;
+  const ret = datestr + (timestr.length > 0 ? `T${timestr}` : '');
   return `P${ret.length > 0 ? ret : '0S'}`;
 };
