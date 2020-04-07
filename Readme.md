@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* The `Duration` type is now a `class` with `equals` and `hashCode` methods.  This makes it possible to use it with the containers in `immutable-js`.
+
 ### [14.1.2] - 2020-03-27
 
 * Aligned error codes with current version of the API webservice.
