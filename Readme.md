@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### Unreleased
+### [14.2.0] - 2020-04-15
 
 * The `Duration` type is now a `class` with `equals` and `hashCode` methods.  This makes it possible to use it with the containers in `immutable-js`.
 
@@ -121,6 +121,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[14.2.0]: https://github.com/deondigital/api-client/compare/v14.1.2...v14.2.0
 [14.1.2]: https://github.com/deondigital/api-client/compare/v14.1.1...v14.1.2
 [14.1.1]: https://github.com/deondigital/api-client/compare/v14.1.0...v14.1.1
 [14.1.0]: https://github.com/deondigital/api-client/compare/v14.0.0...v14.1.0
