@@ -15,14 +15,13 @@ export class HttpClient {
     : {};
 
   get = (url: string): Promise<Response> => this.hook(this.fetch(this.serverUrl + url, {
-    ...this.idHeader,
+    headers: { ...this.idHeader },
   }))
 
   post = (url: string, data: object): Promise<Response> =>
     this.hook(this.fetch(this.serverUrl + url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...this.idHeader },
       body: JSON.stringify(data),
-      ...this.idHeader,
     }))
 }
