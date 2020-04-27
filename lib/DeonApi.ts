@@ -1,57 +1,58 @@
 import * as D from './DeonData';
+import { ExternalObject } from './ExternalObject';
 
-/**
- * Interface for Deon REST service.
- */
-interface DeonApi {
-  contracts: ContractsApi;
-  declarations: DeclarationsApi;
-  csl: CslApi;
-  info: InfoApi;
+interface AnonymousDeonApi {
+  addDeclaration(declarationInput: D.DeclarationInput): Promise<D.DeclarationOutput>;
+  getDeclarations(): Promise<D.Declaration[]>;
+  getDeclaration(id: string): Promise<D.Declaration>;
+
+  getOntology(id: string): Promise<D.Ontology>;
+
+  checkContract(i: D.CheckExpressionInput): Promise<CheckError[]>;
+  checkExpression(i: D.CheckExpressionInput, id?: string): Promise<CheckError[]>;
+
+  prettyPrintExp(i: D.Exp): Promise<string>;
+
+  getNodeInfo(): Promise<D.NodeInfoOutput>;
+  getAgents(): Promise<D.NamedAgents>;
 }
 
-interface ContractsApi {
-  getAll(): Promise<D.Contract[]>;
-  get(id: string | D.ContractValue): Promise<D.Contract>;
+interface IdentifiedDeonApi {
+  identity(): ExternalObject;
+
+  getContracts(): Promise<D.Contract[]>;
+  getContract(id: string | D.ContractValue): Promise<D.Contract>;
+  addContract(i: D.InstantiationInput): Promise<D.InstantiationOutput>;
+
   src(
     id: string | D.ContractValue,
     simplified: boolean,
   ): Promise<D.ResidualSource>;
+
   nextEvents(id: string | D.ContractValue): Promise<D.EventPredicate[]>;
-  instantiate(i: D.InstantiationInput): Promise<D.InstantiationOutput>;
+  getEvents(id: string | D.ContractValue): Promise<D.Value[]>;
   applyEvent(
     id: string | D.ContractValue,
     event: D.Event,
     tag?: D.Tag,
   ): Promise<D.Tag>;
-  getEvents(id: string | D.ContractValue): Promise<D.Value[]>;
-}
 
-interface DeclarationsApi {
-  getAll(): Promise<D.Declaration[]>;
-  get(id: string): Promise<D.Declaration>;
-  add(declarationInput: D.DeclarationInput): Promise<D.DeclarationOutput>;
-  ontology(id: string): Promise<D.Ontology>;
-  report(i: D.EvaluateExpressionInput): Promise<D.Value>;
-  reportOnDeclaration(
-    id: string,
+  postReport(
     i: D.EvaluateExpressionInput,
+    id?: string,
   ): Promise<D.Value>;
-  reportWithName(
+  postReportWithName(
     id: string,
     i: D.EvaluateReportInput,
   ): Promise<D.Value>;
 }
 
-interface CslApi {
-  check(i: D.CheckExpressionInput): Promise<CheckError[]>;
-  checkExpression(i: D.CheckExpressionInput, id?: string): Promise<CheckError[]>;
-  prettyPrintExp(i: D.Exp): Promise<string>;
-}
-
-interface InfoApi {
-  get(): Promise<D.NodeInfoOutput>;
-  getAgents(): Promise<D.NamedAgents>;
+/**
+ * Interface for Deon REST service.
+ */
+interface DeonApi {
+  anonymous: AnonymousDeonApi;
+  identified: IdentifiedDeonApi;
 }
 
 /**
@@ -216,5 +217,5 @@ export interface NodeRange {
 }
 
 export {
-  DeonApi, ContractsApi, DeclarationsApi, CslApi, InfoApi, ContractUpdate,
+  DeonApi, AnonymousDeonApi, IdentifiedDeonApi, ContractUpdate,
 };
