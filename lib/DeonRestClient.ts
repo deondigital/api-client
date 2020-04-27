@@ -1,15 +1,13 @@
 import {
   DeonApi,
-  ContractsApi,
-  DeclarationsApi,
-  CslApi,
-  InfoApi,
   NotFoundError,
   BadRequestError,
   ResponseError,
   CheckError,
   isCheckErrors,
   isBadRequest,
+  AnonymousDeonApi,
+  IdentifiedDeonApi,
 } from './DeonApi';
 import {
   InstantiationInput,
@@ -17,12 +15,22 @@ import {
   EvaluateExpressionInput,
   DeclarationInput,
   Event,
-  Tag,
   ContractValue,
   EvaluateReportInput,
   Exp,
+  DeclarationOutput,
+  NodeInfoOutput,
+  NamedAgents,
+  Declaration,
+  Ontology,
+  Contract,
+  InstantiationOutput,
+  EventPredicate,
+  Value,
+  ResidualSource,
 } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
+import { ExternalObject } from './ExternalObject';
 
 const throwIfNotFound = (r: Response, data: any) => {
   if (r.status === 404 && data && data.message) {
@@ -103,96 +111,105 @@ const idString = (id: string | ContractValue): string => {
   return id.externalObject.contractIdentifier;
 };
 
-/**
- * Constructs a Deon REST client.
- */
-class DeonRestClient implements DeonApi {
+export class AnonymousDeonRestClient implements AnonymousDeonApi {
   constructor(private http: HttpClient) {}
 
-  static create = (
-    fetch: (url: any, init: any) => Promise<Response>,
-    serverUrl: string = '',
-    hook: (r: Promise<Response>) => Promise<Response> = r => r,
-  ) => new DeonRestClient(new HttpClient(fetch, hook, serverUrl))
-
-  contracts: ContractsApi = {
-    getAll: () => this.http.get('/contracts')
-      .then(noKnownExceptions),
-
-    get: (id: string | ContractValue) =>
-      this.http.get(`/contracts/${idString(id)}`)
-        .then(possiblyNotFound),
-
-    src: (id: string | ContractValue, simplified: boolean) => {
-      const url = simplified ? `/contracts/${idString(id)}/src/?simplified=true`
-                             : `/contracts/${idString(id)}/src`;
-      return this.http.get(url).then(possiblyNotFound);
-    },
-
-    nextEvents: (id: string | ContractValue) =>
-      this.http.get(`/contracts/${idString(id)}/next-events`)
-        .then(possiblyNotFound),
-
-    instantiate: (instantiateInput: InstantiationInput) =>
-      this.http.post('/contracts', instantiateInput)
-        .then(possiblyBadRequest),
-
-    applyEvent: (id: string | ContractValue, event: Event, tag?: Tag) =>
-      this.http.post(`/contracts/${idString(id)}/${tag != null ? `${tag}/` : ''}events`, event)
-        .then(possiblyBadRequestOrNotFound),
-
-    getEvents: (id: string | ContractValue) =>
-        this.http.get(`/contracts/${idString(id)}/events`)
-          .then(possiblyNotFound),
-  };
-
-  declarations: DeclarationsApi = {
-    getAll: () => this.http.get('/declarations').then(noKnownExceptions),
-
-    get: (id: string) => this.http.get(`/declarations/${id}`).then(possiblyNotFound),
-
-    add: (i: DeclarationInput) => this.http.post('/declarations', i).then(possiblyBadRequest),
-
-    ontology: (id: string) => this.http.get(`/declarations/${id}/ontology`).then(possiblyNotFound),
-
-    report: (expressionInput: EvaluateExpressionInput) =>
-      this.http.post('/declarations/report', expressionInput)
-        .then(possiblyBadRequest),
-
-    reportOnDeclaration: (
-      id: string,
-      expressionInput: EvaluateExpressionInput,
-    ) =>
-      this.http.post(`/declarations/${id}/report`, expressionInput)
-        .then(possiblyBadRequestOrNotFound),
-
-    reportWithName: (
-      id: string,
-      reportInput: EvaluateReportInput,
-    ) =>
-      this.http.post(`/declarations/${id}/namedReport`, reportInput)
-        .then(possiblyBadRequestOrNotFound),
-  };
-
-  csl: CslApi = {
-    check: (i: CheckExpressionInput) => this.http
-      .post('/csl/check', i)
-      .then(checkHandler),
-
-    checkExpression: (i: CheckExpressionInput, id?: string) => this.http
-      .post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i)
-      .then(checkHandler),
-
-    prettyPrintExp: (i: Exp) => this.http
-      .post('/csl/prettyPrintExp', i)
-      .then(noKnownExceptions),
-  };
-
-  info: InfoApi = {
-    get: () => this.http.get('/node-info').then(noKnownExceptions),
-    getAgents: () =>
-      this.http.get('/agents').then(possiblyBadRequest),
-  };
+  addDeclaration(i: DeclarationInput): Promise<DeclarationOutput> {
+    return this.http.post('/declarations', i)
+      .then(possiblyBadRequest);
+  }
+  getDeclarations(): Promise<Declaration[]> {
+    return this.http.get('/declarations')
+      .then(noKnownExceptions);
+  }
+  getDeclaration(id: string): Promise<Declaration> {
+    return this.http.get(`/declarations/${id}`)
+      .then(possiblyNotFound);
+  }
+  getOntology(id: string): Promise<Ontology> {
+    return this.http.get(`/declarations/${id}/ontology`)
+      .then(possiblyNotFound);
+  }
+  checkContract(i: CheckExpressionInput): Promise<CheckError[]> {
+    return this.http.post('/csl/check', i)
+      .then(checkHandler);
+  }
+  checkExpression(i: CheckExpressionInput, id?: string | undefined): Promise<CheckError[]> {
+    return this.http.post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i)
+      .then(checkHandler);
+  }
+  prettyPrintExp(i: Exp): Promise<string> {
+    return this.http.post('/csl/prettyPrintExp', i)
+      .then(noKnownExceptions);
+  }
+  getNodeInfo(): Promise<NodeInfoOutput> {
+    return this.http.get('/node-info')
+      .then(noKnownExceptions);
+  }
+  getAgents(): Promise<NamedAgents> {
+    return this.http.get('/agents').then(possiblyBadRequest);
+  }
 }
 
-export { DeonRestClient };
+export class IdentifiedDeonRestClient implements IdentifiedDeonApi {
+  constructor(private http: HttpClient, private id: ExternalObject) {}
+
+  identity(): ExternalObject {
+    return this.id;
+  }
+
+  getContracts(): Promise<Contract[]> {
+    return this.http.get('/contracts').then(noKnownExceptions);
+  }
+  getContract(id: string | ContractValue): Promise<Contract> {
+    return this.http.get(`/contracts/${idString(id)}`).then(possiblyNotFound);
+  }
+  addContract(i: InstantiationInput): Promise<InstantiationOutput> {
+    return this.http.post('/contracts', i).then(possiblyBadRequest);
+  }
+
+  src(id: string | ContractValue, simplified: boolean)
+    : Promise<ResidualSource> {
+    const url = simplified ? `/contracts/${idString(id)}/src/?simplified=true`
+                             : `/contracts/${idString(id)}/src`;
+    return this.http.get(url).then(possiblyNotFound);
+  }
+  nextEvents(id: string | ContractValue)
+    : Promise<EventPredicate[]> {
+    return this.http.get(`/contracts/${idString(id)}/next-events`)
+      .then(possiblyNotFound);
+  }
+  getEvents(id: string | ContractValue): Promise<Value[]> {
+    return this.http.get(`/contracts/${idString(id)}/events`)
+          .then(possiblyNotFound);
+  }
+  applyEvent(id: string | ContractValue, event: Event, tag?: string | undefined): Promise<string> {
+    return this.http.post(`/contracts/${idString(id)}/${tag != null ? `${tag}/` : ''}events`, event)
+      .then(possiblyBadRequestOrNotFound);
+  }
+  postReport(i: EvaluateExpressionInput, id?: string): Promise<Value> {
+    if (id == null) {
+      return this.http.post('/declarations/report', i)
+      .then(possiblyBadRequest);
+    }
+    return this.http.post(`/declarations/${id}/report`, i)
+        .then(possiblyBadRequest);
+  }
+
+  postReportWithName(id: string, i: EvaluateReportInput): Promise<Value> {
+    return this.http.post(`/declarations/${id}/namedReport`, i)
+      .then(possiblyBadRequestOrNotFound);
+  }
+}
+
+export const deonRestClient = (
+  fetch: (url: any, init: any) => Promise<Response>,
+  identity: ExternalObject,
+  serverUrl: string = '',
+  hook: (r: Promise<Response>) => Promise<Response> = r => r,
+) : DeonApi => {
+  const http = new HttpClient(fetch, hook, serverUrl);
+  const anonymous = new AnonymousDeonRestClient(http);
+  const identified = new IdentifiedDeonRestClient(http, identity);
+  return { anonymous, identified };
+};
