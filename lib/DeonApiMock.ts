@@ -1,9 +1,5 @@
 import {
-  ContractsApi,
-  DeclarationsApi,
-  CslApi,
-  InfoApi,
-  DeonApi,
+  DeonApi, AnonymousDeonApi, CheckError, IdentifiedDeonApi,
   } from './DeonApi';
 import {
   Event,
@@ -11,10 +7,23 @@ import {
   EvaluateExpressionInput,
   InstantiationInput,
   DeclarationInput,
-  CheckExpressionInput,
   EvaluateReportInput,
   Exp,
+  DeclarationOutput,
+  Declaration,
+  Ontology,
+  NodeInfoOutput,
+  NamedAgents,
+  Contract,
+  ContractValue,
+  InstantiationOutput,
+  ContractTree,
+  EventPredicate,
+  Value,
+  CheckExpressionInput,
+  ResidualSource,
   } from './DeonData';
+import { ExternalObject } from './ExternalObject';
 
 /**
  * Mock classes for the Deon API.  All API methods return rejected Promises.
@@ -23,41 +32,52 @@ import {
  * and using the stub to inspect calls.
  */
 
-export const contractsApiMock : ContractsApi = {
-  getAll: () => Promise.reject(),
-  get: (_1: string) => Promise.reject(),
-  tree: (_1: string) => Promise.reject(),
-  src: (_1: string, _2: boolean) => Promise.reject(),
-  nextEvents: (_1: string) => Promise.reject(),
-  applyEvent: (_1: string, _2: Event, _3?: Tag) => Promise.reject(),
-  instantiate: (_1: InstantiationInput) => Promise.reject(),
-  getEvents: (_1: string) => Promise.reject(),
+export const anonymousApiMock: AnonymousDeonApi = {
+  addDeclaration: (_0: DeclarationInput): Promise<DeclarationOutput> => Promise.reject(),
+  getDeclarations: (): Promise<Declaration[]> => Promise.reject(),
+  getDeclaration: (_0: string): Promise<Declaration> => Promise.reject(),
+  getOntology: (_0: string): Promise<Ontology> => Promise.reject(),
+  checkContract: (_0: CheckExpressionInput): Promise<CheckError[]> => Promise.reject(),
+  checkExpression: (_0: CheckExpressionInput, _1?: string): Promise<CheckError[]> =>
+    Promise.reject(),
+  prettyPrintExp: (_0: Exp): Promise<string> => Promise.reject(),
+  getNodeInfo: (): Promise<NodeInfoOutput> => Promise.reject(),
+  getAgents: (): Promise<NamedAgents> => Promise.reject(),
 };
 
-export const declarationsApiMock : DeclarationsApi = {
-  getAll : () => Promise.reject(),
-  get : (_1: string) => Promise.reject(),
-  add : (_1: DeclarationInput) => Promise.reject(),
-  ontology : (_1: string) => Promise.reject(),
-  report: (_1: EvaluateExpressionInput) => Promise.reject(),
-  reportOnDeclaration: (_1: string, _2: EvaluateExpressionInput) => Promise.reject(),
-  reportWithName: (_1: string, _2: EvaluateReportInput) => Promise.reject(),
-};
+export const identifiedApiMock: IdentifiedDeonApi = {
+  identity: (): ExternalObject => { throw Error('Not implemented'); },
 
-export const cslApiMock : CslApi = {
-  check : (_1: CheckExpressionInput) => Promise.reject(),
-  checkExpression : (_1: CheckExpressionInput, _2?: string) => Promise.reject(),
-  prettyPrintExp : (_1: Exp) => Promise.reject(),
-};
+  getContracts: (): Promise<Contract[]> => Promise.reject(),
+  getContract: (_0: string | ContractValue): Promise<Contract> => Promise.reject(),
+  addContract: (_0: InstantiationInput): Promise<InstantiationOutput> => Promise.reject(),
 
-export const infoApiMock : InfoApi = {
-  get : () => Promise.reject(),
-  getAgents : () => Promise.reject(),
+  contractTree: (_0: string | ContractValue): Promise<ContractTree> => Promise.reject(),
+
+  src: (
+    _0: string | ContractValue,
+    _1: boolean,
+  ): Promise<ResidualSource> => Promise.reject(),
+
+  nextEvents: (_0: string | ContractValue): Promise<EventPredicate[]> => Promise.reject(),
+  getEvents: (_0: string | ContractValue): Promise<Value[]> => Promise.reject(),
+  applyEvent: (
+    _0: string | ContractValue,
+    _1: Event,
+    _2?: Tag,
+  ): Promise<Tag> => Promise.reject(),
+
+  postReport: (
+    _0: EvaluateExpressionInput,
+    _1?: string,
+  ): Promise<Value> => Promise.reject(),
+  postReportWithName: (
+    _0: string,
+    _1: EvaluateReportInput,
+  ): Promise<Value> => Promise.reject(),
 };
 
 export const deonApiMock : DeonApi = {
-  contracts: contractsApiMock,
-  declarations: declarationsApiMock,
-  csl: cslApiMock,
-  info: infoApiMock,
+  anonymous: anonymousApiMock,
+  identified: identifiedApiMock,
 };

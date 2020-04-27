@@ -7,14 +7,22 @@ export class HttpClient {
     private fetch : (url: string | Request, init?: RequestInit) => Promise<Response>,
     private hook: (r: Promise<Response>) => Promise<Response>,
     private serverUrl: string,
+    private identityHeader: string = '',
   ) {}
 
-  get = (url: string): Promise<Response> => this.hook(this.fetch(this.serverUrl + url));
+  private idHeader = this.identityHeader !== ''
+    ? { 'Deon-Digital-Identity': this.identityHeader }
+    : {};
+
+  get = (url: string): Promise<Response> => this.hook(this.fetch(this.serverUrl + url, {
+    ...this.idHeader,
+  }))
 
   post = (url: string, data: object): Promise<Response> =>
     this.hook(this.fetch(this.serverUrl + url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
+      ...this.idHeader,
     }))
 }
