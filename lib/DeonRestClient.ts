@@ -213,7 +213,9 @@ export const deonRestClient = (
   serverUrl: string = '',
   hook: (r: Promise<Response>) => Promise<Response> = r => r,
 ) : DeonApi => {
-  const http = new HttpClient(fetch, hook, serverUrl);
+  const http = new HttpClient(
+      fetch, hook, serverUrl,
+      JSON.stringify(identity));
   const anonymous = new AnonymousDeonRestClient(http);
   const identified = new IdentifiedDeonRestClient(http, identity);
   return { anonymous, identified };
