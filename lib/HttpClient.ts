@@ -1,4 +1,4 @@
-import { ExternalObject } from "./ExternalObject";
+import { ExternalObject } from './ExternalObject';
 
 export type Response = any;
 export type RequestInit = any;
