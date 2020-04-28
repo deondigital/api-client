@@ -152,12 +152,15 @@ export class AnonymousDeonRestClient implements AnonymousDeonApi {
 }
 
 export class IdentifiedDeonRestClient implements IdentifiedDeonApi {
-  constructor(private http: HttpClient, private id: ExternalObject) {}
-
-  identity(): ExternalObject {
-    return this.id;
+  constructor(private http: HttpClient) {
+    if (http.identity == null) {
+      throw Error('HTTP connection for IdentifiedDeonRestClient cannot be anonymous.');
+    }
   }
 
+  identity(): ExternalObject {
+    return this.http.identity!; // null check in ctor
+  }
   getContracts(): Promise<Contract[]> {
     return this.http.get('/contracts').then(noKnownExceptions);
   }
@@ -202,16 +205,35 @@ export class IdentifiedDeonRestClient implements IdentifiedDeonApi {
   }
 }
 
-export const deonRestClient = (
+export function deonRestClient(
   fetch: (url: any, init: any) => Promise<Response>,
   identity: ExternalObject,
   serverUrl: string = '',
   hook: (r: Promise<Response>) => Promise<Response> = r => r,
-) : DeonApi => {
-  const http = new HttpClient(
-      fetch, hook, serverUrl,
-      JSON.stringify(identity));
-  const anonymous = new AnonymousDeonRestClient(http);
-  const identified = new IdentifiedDeonRestClient(http, identity);
+) : DeonApi {
+  const anonymous = new AnonymousDeonRestClient(new HttpClient(fetch, hook, serverUrl));
+  const identified = new IdentifiedDeonRestClient(new HttpClient(fetch, hook, serverUrl, identity));
   return { anonymous, identified };
-};
+}
+
+function lookupKeyForValue<T>(m: {[id: string]: T}, val: T): string {
+  for (const k of Object.keys(m)) {
+    if (m[k] === val) {
+      return k;
+    }
+  }
+  throw Error(`Value ${JSON.stringify(val)} not found in ${JSON.stringify(m)}`);
+}
+
+export async function deonRestClientLookupAgent(
+  fetch: (url: any, init: any) => Promise<Response>,
+  identity: string,
+  serverUrl: string = '',
+  hook: (r: Promise<Response>) => Promise<Response> = r => r,
+) : Promise<DeonApi> {
+  const anonymous = new AnonymousDeonRestClient(new HttpClient(fetch, hook, serverUrl));
+  const agents = await anonymous.getAgents();
+  const myId = ExternalObject.mkAgent(lookupKeyForValue(agents, identity));
+  const identified = new IdentifiedDeonRestClient(new HttpClient(fetch, hook, serverUrl, myId));
+  return { anonymous, identified };
+}

@@ -1,3 +1,5 @@
+import { ExternalObject } from "./ExternalObject";
+
 export type Response = any;
 export type RequestInit = any;
 export type Request = any;
@@ -7,11 +9,11 @@ export class HttpClient {
     private fetch : (url: string | Request, init?: RequestInit) => Promise<Response>,
     private hook: (r: Promise<Response>) => Promise<Response>,
     private serverUrl: string,
-    private identityHeader: string = '',
+    public identity?: ExternalObject,
   ) {}
 
-  private idHeader = this.identityHeader !== ''
-    ? { 'Deon-Digital-Identity': this.identityHeader }
+  private idHeader = this.identity != null
+    ? { 'Deon-Digital-Identity': JSON.stringify(this.identity) }
     : {};
 
   get = (url: string): Promise<Response> => this.hook(this.fetch(this.serverUrl + url, {
