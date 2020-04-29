@@ -12,8 +12,21 @@ export namespace ExternalObject {
     tag: 'StringAgent';
     agentIdentifier: string;
   }
-  export const mkAgent = (agentIdentifier: string): ExternalObject.StringAgent =>
+  export const mkStringAgent = (agentIdentifier: string): ExternalObject.StringAgent =>
     ({ agentIdentifier, tag: 'StringAgent' });
+
+  export interface CordaAgent {
+    tag: 'CordaAgent';
+    publicKeyBase58: string;
+    confidential: boolean;
+  }
+  export const mkCordaAgent = (
+    publicKeyBase58: string,
+    confidential: boolean,
+  ): ExternalObject.CordaAgent =>
+    ({ publicKeyBase58, confidential, tag: 'CordaAgent' });
+
+  export type Agent = StringAgent | CordaAgent;
 
   export interface PublicKey {
     tag: 'PublicKey';
@@ -41,5 +54,6 @@ export namespace ExternalObject {
 export type ExternalObject
   = ExternalObject.StringAgent
   | ExternalObject.StringContract
+  | ExternalObject.CordaAgent
   | ExternalObject.PublicKey
   | ExternalObject.SignedValue;
