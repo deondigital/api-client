@@ -122,6 +122,7 @@ export type Value =
 
 export type ContractValue = ExternalObjectValue<ExternalObject.StringContract>;
 export type AgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
+export type CordaAgentValue = ExternalObjectValue<ExternalObject.CordaAgent>;
 export type PublicKeyValue = ExternalObjectValue<ExternalObject.PublicKey>;
 export type SignedValue = ExternalObjectValue<ExternalObject.SignedValue>;
 
@@ -130,10 +131,10 @@ export const mkContractValue = (
 ): ContractValue =>
   mkExternalObjectValue(ExternalObject.mkContract(id));
 
-export const mkAgentValue = (
+export const mkStringAgentValue = (
   id: string,
 ): AgentValue =>
-  mkExternalObjectValue(ExternalObject.mkAgent(id));
+  mkExternalObjectValue(ExternalObject.mkStringAgent(id));
 
 export const mkPublicKeyValue = (
   publicKey: PublicKey,
