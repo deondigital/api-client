@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import 'mocha';
 import * as D from '../lib/DeonData';
 import { CurveName } from '../lib/ECDSA';
+import { ExternalObject } from '../lib';
 
 describe('Fully typed to JSON typed', () => {
   it('works for IntValue', () => { expect(valueToJson(D.mkIntValue(42))).to.equal(42); });
@@ -174,7 +175,7 @@ describe('Fully typed to JSON typed', () => {
   it('works on Agents', () => {
     const a: D.AgentValue = {
       class: 'ExternalObjectValue',
-      externalObject: { tag: 'StringAgent', agentIdentifier: 'foo' },
+      externalObject: ExternalObject.mkStringAgent('foo'),
     };
     expect(valueToJson(a)).to.deep.equal({
       externalObject: { agentIdentifier: 'foo' },
@@ -183,7 +184,7 @@ describe('Fully typed to JSON typed', () => {
   it('works on CordaAgents', () => {
     const a: D.CordaAgentValue = {
       class: 'ExternalObjectValue',
-      externalObject: { tag: 'CordaAgent', publicKeyBase58: 'foo', confidential: true },
+      externalObject: ExternalObject.mkCordaAgent('foo', true),
     };
     expect(valueToJson(a)).to.deep.equal({
       externalObject: { publicKeyBase58: 'foo', confidential: true },
@@ -192,7 +193,7 @@ describe('Fully typed to JSON typed', () => {
   it('works on ContractIds', () => {
     const c: D.ContractValue = {
       class: 'ExternalObjectValue',
-      externalObject: { tag: 'StringContract', contractIdentifier: 'foo' },
+      externalObject: ExternalObject.mkContract('foo'),
     };
     expect(valueToJson(c)).to.deep.equal({
       externalObject: { contractIdentifier: 'foo' },

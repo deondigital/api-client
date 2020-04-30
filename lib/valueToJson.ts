@@ -1,5 +1,21 @@
 import { Value } from './DeonData';
+import { ExternalObject } from './ExternalObject';
 
+const externalObjectValueToJson = (value: ExternalObject): {} => {
+  switch (value.tag) {
+    case 'StringAgent': return ({ agentIdentifier: value.agentIdentifier });
+    case 'CordaAgent': return ({
+      publicKeyBase58: value.publicKeyBase58,
+      confidential: value.confidential,
+    });
+    case 'StringContract': return ({ contractIdentifier: value.contractIdentifier });
+    default: {
+      const obj = Object.assign({}, value);
+      delete obj.tag;
+      return obj;
+    }
+  }
+};
 /**
  * Flatten a `Value` object to its untyped JSON version,
  * stripping away type tags.
@@ -31,10 +47,7 @@ export const valueToJson = (value: Value): {} => {
     }
     case 'TupleValue': return value.values.map(valueToJson);
     case 'ExternalObjectValue': {
-      const obj = Object.assign({}, value);
-      delete obj.class;
-      delete obj.externalObject.tag;
-      return obj;
+      return ({ externalObject: externalObjectValueToJson(value.externalObject) });
     }
   }
 };
