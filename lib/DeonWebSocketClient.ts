@@ -1,4 +1,5 @@
 import { ContractUpdate } from './DeonApi';
+import { ExternalObject } from './ExternalObject';
 
 /**
  * Constructs a Deon WebSocket client, and returns object wrapping the connection,
@@ -18,6 +19,7 @@ class DeonWebSocketClient {
     private wsCtor: (url : string) => WebSocket,
     private messageHandler: (msg: ContractUpdate) => void,
     private offlineHook: () => void,
+    private identity: ExternalObject,
   ) {
     this.url = `${protocol}://${host}/contractUpdates`;
     this.start();
@@ -42,6 +44,7 @@ class DeonWebSocketClient {
       if (e.type === 'close') {
         this.offlineHook();
       }
+      this.ws!.send(`Deon-Digital-Identity: ${JSON.stringify(this.identity)}`);
     };
   }
 
@@ -59,6 +62,7 @@ interface WebSocket {
   onopen: ((this: WebSocket, ev: Event) => any) | null;
   readonly readyState: number;
   close(code?: number, reason?: string): void;
+  send(data: string): void;
   readonly CLOSED: number;
 }
 
