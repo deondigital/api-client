@@ -121,8 +121,7 @@ export type Value =
   | ExternalObjectValue<any>;
 
 export type ContractValue = ExternalObjectValue<ExternalObject.StringContract>;
-export type AgentValue
-  = ExternalObjectValue<ExternalObject.StringAgent | ExternalObject.CordaAgent>;
+export type AgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
 export type CordaAgentValue = ExternalObjectValue<ExternalObject.CordaAgent>;
 export type PublicKeyValue = ExternalObjectValue<ExternalObject.PublicKey>;
 export type SignedValue = ExternalObjectValue<ExternalObject.SignedValue>;
