@@ -205,17 +205,6 @@ export class IdentifiedDeonRestClient implements IdentifiedDeonApi {
   }
 }
 
-export function deonRestClient(
-  fetch: (url: any, init: any) => Promise<Response>,
-  identity: ExternalObject,
-  serverUrl: string = '',
-  hook: (r: Promise<Response>) => Promise<Response> = r => r,
-) : DeonApi {
-  const anonymous = new AnonymousDeonRestClient(new HttpClient(fetch, hook, serverUrl));
-  const identified = new IdentifiedDeonRestClient(new HttpClient(fetch, hook, serverUrl, identity));
-  return { anonymous, identified };
-}
-
 function lookupKeyForValue<T>(m: {[id: string]: T}, val: T): string {
   for (const k of Object.keys(m)) {
     if (m[k] === val) {
@@ -225,15 +214,43 @@ function lookupKeyForValue<T>(m: {[id: string]: T}, val: T): string {
   throw Error(`Value ${JSON.stringify(val)} not found in ${JSON.stringify(m)}`);
 }
 
+export function identifiedDeonRestClient(
+  fetch: (url: any, init: any) => Promise<Response>,
+  identity: ExternalObject,
+  serverUrl: string = '',
+  hook: (r: Promise<Response>) => Promise<Response> = r => r,
+) : IdentifiedDeonApi {
+  return new IdentifiedDeonRestClient(new HttpClient(fetch, hook, serverUrl, identity));
+}
+
+export function anonymousDeonRestClient(
+  fetch: (url: any, init: any) => Promise<Response>,
+  serverUrl: string = '',
+  hook: (r: Promise<Response>) => Promise<Response> = r => r,
+) : AnonymousDeonApi {
+  return new AnonymousDeonRestClient(new HttpClient(fetch, hook, serverUrl));
+}
+
+export function deonRestClient(
+  fetch: (url: any, init: any) => Promise<Response>,
+  identity: ExternalObject,
+  serverUrl: string = '',
+  hook: (r: Promise<Response>) => Promise<Response> = r => r,
+) : DeonApi {
+  const anonymous = anonymousDeonRestClient(fetch, serverUrl, hook);
+  const identified = identifiedDeonRestClient(fetch, identity, serverUrl, hook);
+  return { anonymous, identified };
+}
+
 export async function deonRestClientLookupAgent(
   fetch: (url: any, init: any) => Promise<Response>,
   identity: string,
   serverUrl: string = '',
   hook: (r: Promise<Response>) => Promise<Response> = r => r,
 ) : Promise<DeonApi> {
-  const anonymous = new AnonymousDeonRestClient(new HttpClient(fetch, hook, serverUrl));
+  const anonymous = anonymousDeonRestClient(fetch, serverUrl, hook);
   const agents = await anonymous.getAgents();
   const myId = ExternalObject.mkAgent(lookupKeyForValue(agents, identity));
-  const identified = new IdentifiedDeonRestClient(new HttpClient(fetch, hook, serverUrl, myId));
+  const identified = identifiedDeonRestClient(fetch, myId, serverUrl, hook);
   return { anonymous, identified };
 }
