@@ -4,6 +4,11 @@
 
 ## Changelog
 
+### [Unreleased]
+
+* Introduced the `ExternalObject.CordaAgent` type for handling agent types coming from Corda backends
+* Renamed `mkAgentValue` and `ExternalObject.mkAgent` to `mkStringAgentValue` and `ExternalObject.mkStringAgent` respectively to closer match the generated object.
+
 ### [14.2.0] - 2020-04-15
 
 * The `Duration` type is now a `class` with `equals` and `hashCode` methods.  This makes it possible to use it with the containers in `immutable-js`.
