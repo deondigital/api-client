@@ -123,10 +123,6 @@ class DeonRestClient implements DeonApi {
       this.http.get(`/contracts/${idString(id)}`)
         .then(possiblyNotFound),
 
-    tree: (id: string | ContractValue) =>
-      this.http.get(`/contracts/${idString(id)}/tree`)
-        .then(possiblyNotFound),
-
     src: (id: string | ContractValue, simplified: boolean) => {
       const url = simplified ? `/contracts/${idString(id)}/src/?simplified=true`
                              : `/contracts/${idString(id)}/src`;

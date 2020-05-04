@@ -26,7 +26,6 @@ import {
 export const contractsApiMock : ContractsApi = {
   getAll: () => Promise.reject(),
   get: (_1: string) => Promise.reject(),
-  tree: (_1: string) => Promise.reject(),
   src: (_1: string, _2: boolean) => Promise.reject(),
   nextEvents: (_1: string) => Promise.reject(),
   applyEvent: (_1: string, _2: Event, _3?: Tag) => Promise.reject(),
