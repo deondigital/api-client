@@ -7,6 +7,8 @@
 ### Unreleased
 
 * Removed the `ContractApi.tree` endpoint and `ContractTree` type.
+* Introduced the `ExternalObject.CordaAgent` type for handling agent types coming from Corda backends
+* Renamed `mkAgentValue` and `ExternalObject.mkAgent` to `mkStringAgentValue` and `ExternalObject.mkStringAgent` respectively to closer match the generated object.
 
 ### [14.2.0] - 2020-04-15
 
