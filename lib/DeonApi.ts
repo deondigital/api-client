@@ -13,7 +13,6 @@ interface DeonApi {
 interface ContractsApi {
   getAll(): Promise<D.Contract[]>;
   get(id: string | D.ContractValue): Promise<D.Contract>;
-  tree(id: string | D.ContractValue): Promise<D.ContractTree>;
   src(
     id: string | D.ContractValue,
     simplified: boolean,

@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* Removed the `ContractApi.tree` endpoint and `ContractTree` type.
+
 ### [14.2.0] - 2020-04-15
 
 * The `Duration` type is now a `class` with `equals` and `hashCode` methods.  This makes it possible to use it with the containers in `immutable-js`.
