@@ -250,7 +250,7 @@ export async function deonRestClientLookupAgent(
 ) : Promise<DeonApi> {
   const anonymous = anonymousDeonRestClient(fetch, serverUrl, hook);
   const agents = await anonymous.getAgents();
-  const myId = ExternalObject.mkAgent(lookupKeyForValue(agents, identity));
+  const myId = ExternalObject.mkStringAgent(lookupKeyForValue(agents, identity));
   const identified = identifiedDeonRestClient(fetch, myId, serverUrl, hook);
   return { anonymous, identified };
 }
