@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### Unreleased
+### [15.0.0] - 2020-05-07
 
 * Removed the `ContractApi.tree` endpoint and `ContractTree` type.
 * Introduced the `ExternalObject.CordaAgent` type for handling agent types coming from Corda backends
@@ -127,6 +127,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[15.0.0]: https://github.com/deondigital/api-client/compare/v14.2.0...v15.0.0
 [14.2.0]: https://github.com/deondigital/api-client/compare/v14.1.2...v14.2.0
 [14.1.2]: https://github.com/deondigital/api-client/compare/v14.1.1...v14.1.2
 [14.1.1]: https://github.com/deondigital/api-client/compare/v14.1.0...v14.1.1
