@@ -1,6 +1,6 @@
 {
   "name": "@deondigital/api-client",
-  "version": "14.2.0",
+  "version": "15.0.0",
   "description": "REST client for Deon Digital CSL service",
   "repository": {
     "type": "git",
