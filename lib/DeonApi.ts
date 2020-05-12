@@ -42,8 +42,8 @@ interface IdentifiedDeonApi {
     id?: string,
   ): Promise<D.Value>;
   postReportWithName(
-    id: string,
     i: D.EvaluateReportInput,
+    id: string,
   ): Promise<D.Value>;
 }
 

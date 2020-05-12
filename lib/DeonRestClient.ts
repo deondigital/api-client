@@ -199,7 +199,7 @@ export class IdentifiedDeonRestClient implements IdentifiedDeonApi {
         .then(possiblyBadRequest);
   }
 
-  postReportWithName(id: string, i: EvaluateReportInput): Promise<Value> {
+  postReportWithName(i: EvaluateReportInput, id: string): Promise<Value> {
     return this.http.post(`/declarations/${id}/namedReport`, i)
       .then(possiblyBadRequestOrNotFound);
   }

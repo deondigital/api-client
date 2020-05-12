@@ -69,8 +69,8 @@ export const identifiedApiMock: IdentifiedDeonApi = {
     _1?: string,
   ): Promise<Value> => Promise.reject(),
   postReportWithName: (
-    _0: string,
-    _1: EvaluateReportInput,
+    _0: EvaluateReportInput,
+    _1: string,
   ): Promise<Value> => Promise.reject(),
 };
 
