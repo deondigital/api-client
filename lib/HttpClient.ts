@@ -13,7 +13,7 @@ export class HttpClient {
   ) {}
 
   private idHeader = this.identity != null
-    ? { 'Deon-Digital-Identity': JSON.stringify(this.identity) }
+    ? { 'Deon-Digital-Identity': encodeURIComponent(JSON.stringify(this.identity)) }
     : {};
 
   get = (url: string): Promise<Response> => this.hook(this.fetch(this.serverUrl + url, {

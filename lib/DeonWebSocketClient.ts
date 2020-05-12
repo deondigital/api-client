@@ -44,7 +44,7 @@ class DeonWebSocketClient {
       if (e.type === 'close') {
         this.offlineHook();
       }
-      this.ws!.send(`Deon-Digital-Identity: ${JSON.stringify(this.identity)}`);
+      this.ws!.send(`Deon-Digital-Identity: ${encodeURIComponent(JSON.stringify(this.identity))}`);
     };
   }
 
