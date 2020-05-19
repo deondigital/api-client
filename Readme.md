@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* The API is now split up into two parts: an anonymous API that does not require authentication and an identified API that does. The "authentication" is for now just a header that states which of the known identities of the ledger backed that performs a given request.
+
 ### [15.0.0] - 2020-05-07
 
 * Removed the `ContractApi.tree` endpoint and `ContractTree` type.
