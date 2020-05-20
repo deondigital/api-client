@@ -83,6 +83,392 @@ export interface EventPredicate {
   agent: AgentMatcher;
   exp: Exp;
   symbols: { [id: string] : ExternalObject };
+  residualContract: ReifiedRuntimeContract;
+}
+
+export interface ReifiedRuntimeContract {
+  heap: ReifiedHeap;
+  entities: ExternalObject[];
+  runtimeContract: ReifiedContract;
+}
+
+export interface ReifiedHeap {
+  hValue: ReifiedValue[];
+  hConstant: ReifiedConstant[];
+  hExp: ReifiedExp[];
+  hValueEnv: ReifiedValueEnv[];
+  hAtomTerm: ReifiedAtomTerm[];
+  hContract: ReifiedContract[];
+  hCSLEnv: ReifiedCSLEnv[];
+  hContractEnv: ReifiedContractEnv[];
+  hTemplateEnv: ReifiedTemplateEnv[];
+  hSupertypeEnv: ReifiedSupertypeEnv[];
+  hRulesEnv: ReifiedRulesEnv[];
+  hAtom: ReifiedAtom[];
+}
+
+export interface ReifiedCSLEnv {
+  contractEnv: number;
+  templateEnv: number;
+  valueEnv: number;
+  supertypeEnv: number;
+  rulesEnv: number;
+}
+
+export type ReifiedAtom =
+  ReifiedAAtom
+  | ReifiedAtomRefl
+  | ReifiedAtomHasEvent;
+
+export interface ReifiedAAtom {
+  tag: 'Atom';
+  name: QualifiedName;
+  arguments: number[];
+}
+
+export interface ReifiedAtomRefl {
+  tag: 'Refl';
+  left: number;
+  right: number;
+}
+
+export interface ReifiedAtomHasEvent {
+  tag: 'HasEvent';
+  cid: number;
+  event: number;
+}
+
+export type ReifiedValue =
+  ReifiedConstructor
+  | ReifiedConstant
+  | ReifiedRecord
+  | ReifiedFunction
+  | ReifiedList
+  | ReifiedTuple
+  | ReifiedMap;
+
+export interface ReifiedConstructor {
+  tag: 'Constructor';
+  constructorName: QualifiedName;
+  args: number[];
+}
+
+export interface ReifiedConstant {
+  tag: 'Constant';
+  const: number;
+}
+
+export interface ReifiedRecord {
+  tag: 'Record';
+  name: QualifiedName;
+  fields: { [key: string]: number };
+}
+
+export interface ReifiedFunction {
+  tag: 'Function';
+  env: number;
+  exp: number;
+}
+
+export interface ReifiedList {
+  tag: 'List';
+  elements: number[];
+}
+
+export interface ReifiedTuple {
+  tag: 'Tuple';
+  values: number[];
+}
+
+export interface ReifiedMap {
+  tag: 'Map';
+  sortedEntries: [number, number][];
+}
+
+export type ReifiedValueEnv = [QualifiedName, number][];
+
+export type ReifiedRulesEnv = [RuleName, ReifiedRule[]][];
+
+export type ReifiedContractEnv = [QualifiedName, ReifiedContractClosure<number>][];
+
+export type ReifiedTemplateEnv = [QualifiedName, ReifiedContractClosure<ReifiedContractTemplate>][];
+
+export type ReifiedSupertypeEnv = [QualifiedName, QualifiedName][];
+
+export interface ReifiedContractClosure<A> {
+  closureEnv: number;
+  closureBody: A;
+}
+
+export interface ReifiedContractTemplate {
+  contractParameters: string[];
+  expressionParameters: string[];
+  contractBody: number;
+}
+
+export type RuleName =
+  AtomName
+  | ReflName
+  | HasEventName;
+
+export interface AtomName {
+  tag: 'AtomName';
+  name: QualifiedName;
+}
+
+export interface ReflName {
+  tag: 'ReflName';
+}
+
+export interface HasEventName {
+  tag: 'HasEventName';
+}
+
+export interface ReifiedRule {
+  tag: 'ReifiedRule';
+  head: number;
+  body: number[];
+}
+
+export type ReifiedExp =
+  ReifiedEConstant
+  | ReifiedEVar
+  | ReifiedEConstructor
+  | ReifiedETuple
+  | ReifiedELambda
+  | ReifiedEApp
+  | ReifiedEBuiltInApp
+  | RefifiedERecord
+  | ReifiedEProject
+  | ReifiedEQuery;
+
+export interface ReifiedEConstant {
+  tag: 'Constant';
+  constant: number;
+}
+
+export interface ReifiedEVar {
+  tag: 'Var';
+  qualifiedName: QualifiedName;
+}
+
+export interface ReifiedEConstructor {
+  tag: 'Constructor';
+  constructorName: QualifiedName;
+}
+
+export interface ReifiedETuple {
+  tag: 'Tuple';
+  values: number[];
+}
+
+export interface ReifiedELambda {
+  tag: 'Lambda';
+  cases: ReifiedCase[];
+}
+
+export interface ReifiedEApp {
+  tag: 'App';
+  expression: number;
+  arg: number;
+}
+
+export interface ReifiedEBuiltInApp {
+  tag: 'BuiltInApp';
+  builtInName: string;
+  args: number[];
+}
+
+export interface RefifiedERecord {
+  tag: 'Record';
+  type: Type;
+  fields: ReifiedField[];
+}
+
+export interface ReifiedEProject {
+  tag: 'Project';
+  expression: number;
+  field: string;
+}
+
+export interface ReifiedEQuery {
+  tag: 'Query';
+  ruleTerm: number;
+  ruleName: QualifiedName;
+  bodyExp: number;
+}
+
+export interface ReifiedCase {
+  pattern: Pattern;
+  expression: number;
+}
+
+export interface ReifiedField {
+  name: string;
+  expression: number;
+}
+
+export type ReifiedAtomTerm =
+  ReifiedAWildcard
+  | ReifiedAVar
+  | ReifiedARecord
+  | ReifiedAConstant
+  | ReifiedAApp
+  | ReifiedATuple
+  | ReifiedAMap;
+
+export interface ReifiedAWildcard {
+  tag: 'Wildcard';
+  vildcardId: string;
+}
+export interface ReifiedAVar {
+  tag: 'Var';
+  variableId: string;
+}
+export interface ReifiedARecord {
+  tag: 'Record';
+  name: QualifiedName;
+  fields: [string, number][];
+}
+export interface ReifiedAConstant {
+  tag: 'Constant';
+  constant: number;
+}
+export interface ReifiedAApp {
+  tag: 'App';
+  name: QualifiedName;
+  arguments: number[];
+}
+export interface ReifiedATuple {
+  tag: 'Tuple';
+  elements: number[];
+}
+export interface ReifiedAMap{
+  tag: 'Map';
+  nativeMap: [number, number][];
+}
+
+export type ReifiedContract =
+  ReifiedSuccess
+  | ReifiedFailure
+  | ReifiedCVar
+  | ReifiedCApp
+  | ReifiedPrefix
+  | ReifiedBin
+  | ReifiedLet;
+
+export interface ReifiedSuccess {
+  tag: 'Success';
+}
+
+export interface ReifiedFailure {
+  tag: 'Failure';
+}
+
+export interface ReifiedCVar {
+  tag: 'Var';
+  name: QualifiedName;
+}
+
+export interface ReifiedCApp {
+  tag: 'App';
+  name: QualifiedName;
+  contractArgs: number[];
+  expressionArgs: number[];
+}
+
+export interface ReifiedPrefix {
+  tag: 'Prefix';
+  agent: ReifiedAgentMatcher;
+  eventName: string | undefined;
+  eventType: Type;
+  whereExpression: number | undefined;
+  thenContract: number;
+}
+
+export interface ReifiedBin {
+  tag: 'Bin';
+  operator: ContractBinOp;
+  lhs: number;
+  rhs: number;
+}
+
+export interface ReifiedLet {
+  tag: 'Let';
+  definitions: ReifiedDef[];
+  bodyContract: number;
+}
+
+export type ReifiedAgentMatcher =
+  ReifiedAnyAgent
+  | ReifiedMatchAgent;
+
+export interface ReifiedAnyAgent {
+  tag: 'AnyAgent';
+}
+
+export interface ReifiedMatchAgent {
+  tag: 'ReifiedMatchAgent';
+  expression: number;
+}
+
+export type ContractBinOp =
+  And
+  | Or
+  | Then;
+
+export interface And {
+  tag: 'And';
+}
+
+export interface Or {
+  tag: 'Or';
+}
+
+export interface Then {
+  tag: 'Then';
+}
+
+export type ReifiedDef =
+  ReifiedContractDef
+  | ReifiedTemplateDef
+  | ReifiedValDef;
+
+export interface ReifiedContractDef {
+  tag: 'ReifiedContractDef';
+  defRec: boolean;
+  defContractBindings: ReifiedContractBinding[];
+}
+
+export interface ReifiedTemplateDef {
+  tag: 'ReifiedTemplateDef';
+  defRec: boolean;
+  defTemplateBindings: ReifiedTemplateBinding[];
+}
+
+export interface ReifiedValDef {
+  tag: 'ReifiedValDef';
+  defRec: boolean;
+  defValBindings: ReifiedValBinding[];
+}
+
+export interface ReifiedContractBinding {
+  name: string;
+  body: number;
+}
+
+export interface ReifiedTemplateBinding {
+  name: string;
+  isEntrypoint: boolean;
+  templateParams: string[];
+  expressionParams: string[];
+  body: number;
+}
+
+export interface ReifiedValBinding {
+  name: string;
+  isReport: boolean;
+  expression: number;
 }
 
 /* Contracts */
