@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### Unreleased
+### [16.0.0] - 2020-05-20
 
 * The API is now split up into two parts: an anonymous API that does not require authentication and an identified API that does. The "authentication" is for now just a header that states which of the known identities of the ledger backed that performs a given request.
 
@@ -131,6 +131,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[16.0.0]: https://github.com/deondigital/api-client/compare/v15.0.0...v16.0.0
 [15.0.0]: https://github.com/deondigital/api-client/compare/v14.2.0...v15.0.0
 [14.2.0]: https://github.com/deondigital/api-client/compare/v14.1.2...v14.2.0
 [14.1.2]: https://github.com/deondigital/api-client/compare/v14.1.1...v14.1.2
