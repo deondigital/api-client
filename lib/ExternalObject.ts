@@ -18,7 +18,7 @@ export namespace ExternalObject {
   export interface CordaAgent {
     tag: 'CordaAgent';
     publicKeyBase58: string;
-    confidential: boolean;
+    isConfidential: boolean;
   }
 
   export type Agent = StringAgent | CordaAgent;
