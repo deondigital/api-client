@@ -183,10 +183,10 @@ describe('Fully typed to JSON typed', () => {
   it('works on CordaAgents', () => {
     const a: D.CordaAgentValue = {
       class: 'ExternalObjectValue',
-      externalObject: { tag: 'CordaAgent', publicKeyBase58: 'foo', confidential: true },
+      externalObject: { tag: 'CordaAgent', publicKeyBase58: 'foo', isConfidential: true },
     };
     expect(valueToJson(a)).to.deep.equal({
-      externalObject: { publicKeyBase58: 'foo', confidential: true },
+      externalObject: { publicKeyBase58: 'foo', isConfidential: true },
     });
   });
   it('works on ContractIds', () => {
