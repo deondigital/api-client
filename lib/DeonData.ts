@@ -80,9 +80,10 @@ export type Tag = string;
 
 export interface EventPredicate {
   type: Type;
-  agent: AgentMatcher;
-  exp: Exp;
-  symbols: { [id: string] : ExternalObject };
+  agent: ReifiedAgentMatcher;
+  exp: ReifiedExp;
+  env: ReifiedHeap;
+  entities: ExternalObject[];
   residualContract: ReifiedRuntimeContract;
 }
 
