@@ -10,4 +10,5 @@ export * from './Signed';
 export * from './ECDSA';
 export * from './Keys';
 export * from './ExternalObject';
+export * from './Reflect';
 export { ISO8601Duration };
