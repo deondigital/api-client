@@ -1,4 +1,14 @@
-import { ReifiedHeap, ReifiedExp, Exp, ReifiedConstant, Constant, ReifiedAtomTerm, AtomTerm, ReifiedAgentMatcher, AgentMatcher } from './DeonData';
+import {
+  ReifiedHeap,
+  ReifiedExp,
+  Exp,
+  ReifiedConstant,
+  Constant,
+  ReifiedAtomTerm,
+  AtomTerm,
+  ReifiedAgentMatcher,
+  AgentMatcher,
+ } from './DeonData';
 import { ExternalObject } from './ExternalObject';
 
 export class Reflect {
@@ -143,7 +153,7 @@ export class Reflect {
       case 'MatchAgent': return {
         tag: 'MatchAgent',
         expression: this.reflect(this.heap.hExp[agentMatcher.expression]),
-      }
+      };
     }
   }
 }
