@@ -12,7 +12,7 @@ import {
 import { ExternalObject } from './ExternalObject';
 
 export class Reflect {
-  constructor(private heap: ReifiedHeap, private entities: { [id: string] : ExternalObject }) { }
+  constructor(private heap: ReifiedHeap, private symbols: { [id: string] : ExternalObject }) { }
   reflect = (exp: ReifiedExp): Exp => {
     switch (exp.tag) {
       case 'App': return {
@@ -97,7 +97,7 @@ export class Reflect {
       };
       case 'Quote': return {
         tag: 'CQuote',
-        value: Object.keys(this.entities)[constant.symbol],
+        value: Object.keys(this.symbols)[constant.symbol],
       };
     }
   }
