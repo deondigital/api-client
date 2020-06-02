@@ -790,28 +790,28 @@ export interface CInt {
 }
 
 export interface CString {
-  tag: 'CInt';
+  tag: 'CString';
   value: string;
 }
 
 export interface CFloat {
-  tag: 'CInt';
+  tag: 'CFloat';
   value: string;
 }
 
 export interface CDateTime {
-  tag: 'CInt';
+  tag: 'CDateTime';
   value: string;
 }
 
 export interface CDuration {
-  tag: 'CInt';
+  tag: 'CDuration';
   value: string;
 }
 
 export interface CQuote {
   tag: 'CQuote';
-  value: ExternalObject;
+  value: string;
 }
 
 export interface PField {
@@ -922,7 +922,7 @@ export interface ERecord {
 export interface EProject {
   tag: 'EProject';
   expression: Exp;
-  field: Field;
+  field: string;
 }
 
 export interface EQuery {
@@ -953,7 +953,8 @@ export type AtomTerm
   | ATRecord
   | ATConstant
   | ATApp
-  | ATTuple;
+  | ATTuple
+  | ATMap;
 
 export interface ATWildcard {
   tag: 'Wildcard';
@@ -985,4 +986,9 @@ export interface ATApp {
 export interface ATTuple {
   tag: 'Tuple';
   elements: AtomTerm[];
+}
+
+export interface ATMap {
+  tag: 'Map';
+  nativeMap: [AtomTerm, AtomTerm][];
 }
