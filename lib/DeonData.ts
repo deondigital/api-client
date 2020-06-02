@@ -83,7 +83,7 @@ export interface EventPredicate {
   agent: ReifiedAgentMatcher;
   exp: ReifiedExp;
   env: ReifiedHeap;
-  entities: ExternalObject[];
+  entities: { [id: string] : ExternalObject };
   residualContract: ReifiedRuntimeContract;
 }
 
@@ -139,9 +139,47 @@ export interface ReifiedAtomHasEvent {
   event: number;
 }
 
+export type ReifiedConstant =
+  ReifiedCInt
+  | ReifiedCString
+  | ReifiedCFloat
+  | ReifiedCDateTime
+  | ReifiedCDuration
+  | ReifiedCQuote;
+
+export interface ReifiedCInt {
+  tag: 'Int';
+  value: number;
+}
+
+export interface ReifiedCString {
+  tag: 'String';
+  value: string;
+}
+
+export interface ReifiedCFloat {
+  tag: 'Float';
+  value: string;
+}
+
+export interface ReifiedCDateTime {
+  tag: 'DateTime';
+  instant: string;
+}
+
+export interface ReifiedCDuration {
+  tag: 'Duration';
+  duration: string;
+}
+
+export interface ReifiedCQuote {
+  tag: 'Quote';
+  symbol: number;
+}
+
 export type ReifiedValue =
   ReifiedConstructor
-  | ReifiedConstant
+  | ReifiedConstantValue
   | ReifiedRecord
   | ReifiedFunction
   | ReifiedList
@@ -154,7 +192,7 @@ export interface ReifiedConstructor {
   args: number[];
 }
 
-export interface ReifiedConstant {
+export interface ReifiedConstantValue {
   tag: 'Constant';
   const: number;
 }
@@ -329,7 +367,7 @@ export interface ReifiedAVar {
 export interface ReifiedARecord {
   tag: 'Record';
   name: QualifiedName;
-  fields: [string, number][];
+  fields:  { [id: string] : number };
 }
 export interface ReifiedAConstant {
   tag: 'Constant';
@@ -409,7 +447,7 @@ export interface ReifiedAnyAgent {
 }
 
 export interface ReifiedMatchAgent {
-  tag: 'ReifiedMatchAgent';
+  tag: 'MatchAgent';
   expression: number;
 }
 
