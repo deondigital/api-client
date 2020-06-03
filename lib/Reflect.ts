@@ -12,7 +12,23 @@ import {
 import { ExternalObject } from './ExternalObject';
 
 export class Reflect {
-  constructor(private heap: ReifiedHeap, private symbols: { [id: string] : ExternalObject }) { }
+  constructor(private heap: ReifiedHeap, private entities: ExternalObject[]) { }
+
+  private counter = 0;
+  private entitySymbols = Array<[ExternalObject, string]>();
+  symbolContext = new Map<string, ExternalObject>();
+  private getSymbol = (e: ExternalObject): string => {
+    const idx = this.entitySymbols.findIndex(x => e === x[0]);
+    if (idx >= 0) {
+      return this.entitySymbols[idx][1];
+    }
+    const symbol = (this.counter).toString();
+    this.counter += 1;
+    this.symbolContext.set(symbol, e);
+    this.entitySymbols.push([e, symbol]);
+    return symbol;
+  }
+
   reflect = (exp: ReifiedExp): Exp => {
     switch (exp.tag) {
       case 'App': return {
@@ -97,7 +113,7 @@ export class Reflect {
       };
       case 'Quote': return {
         tag: 'CQuote',
-        value: Object.keys(this.symbols)[constant.symbol],
+        value: this.reflectSymbol(this.entities[constant.symbol]),
       };
     }
   }
@@ -155,5 +171,8 @@ export class Reflect {
         expression: this.reflect(this.heap.hExp[agentMatcher.expression]),
       };
     }
+  }
+  reflectSymbol = (e: ExternalObject): string => {
+    return this.getSymbol(e);
   }
 }
