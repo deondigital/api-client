@@ -83,7 +83,7 @@ export interface EventPredicate {
   agent: ReifiedAgentMatcher;
   exp: ReifiedExp;
   env: ReifiedHeap;
-  symbols: { [id: string] : ExternalObject };
+  entities: ExternalObject[];
   residualContract: ReifiedContract;
 }
 
