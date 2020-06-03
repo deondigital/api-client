@@ -89,7 +89,7 @@ export interface EventPredicate {
 
 export interface ReifiedRuntimeContract {
   heap: ReifiedHeap;
-  symbols: { [id: string] : ExternalObject };
+  entities: ExternalObject[];
   runtimeContract: ReifiedContract;
 }
 
