@@ -84,12 +84,12 @@ export interface EventPredicate {
   exp: ReifiedExp;
   env: ReifiedHeap;
   symbols: { [id: string] : ExternalObject };
-  residualContract: ReifiedRuntimeContract;
+  residualContract: ReifiedContract;
 }
 
 export interface ReifiedRuntimeContract {
   heap: ReifiedHeap;
-  entities: ExternalObject[];
+  symbols: { [id: string] : ExternalObject };
   runtimeContract: ReifiedContract;
 }
 
