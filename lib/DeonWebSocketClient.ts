@@ -12,7 +12,7 @@ import { ExternalObject } from './ExternalObject';
  * @param messageHandler - function to call when message is received through the WebSocket.
  * @param offlineHook - function to call when connection fails.
  */
-class DeonWebSocketClient {
+export class DeonWebSocketClient {
   constructor(
     host: string,
     protocol : string,
@@ -73,5 +73,3 @@ interface MessageEvent {
 interface Event {
   readonly type: string;
 }
-
-export { DeonWebSocketClient };
