@@ -1,7 +1,7 @@
 import * as D from './DeonData';
 import { ExternalObject } from './ExternalObject';
 
-interface AnonymousDeonApi {
+export interface AnonymousDeonApi {
   addDeclaration(declarationInput: D.DeclarationInput): Promise<D.DeclarationOutput>;
   getDeclarations(): Promise<D.Declaration[]>;
   getDeclaration(id: string): Promise<D.Declaration>;
@@ -17,7 +17,7 @@ interface AnonymousDeonApi {
   getAgents(): Promise<D.NamedAgents>;
 }
 
-interface IdentifiedDeonApi {
+export interface IdentifiedDeonApi {
   identity(): ExternalObject;
 
   getContracts(): Promise<D.Contract[]>;
@@ -50,7 +50,7 @@ interface IdentifiedDeonApi {
 /**
  * Interface for Deon REST service.
  */
-interface DeonApi {
+export interface DeonApi {
   anonymous: AnonymousDeonApi;
   identified: IdentifiedDeonApi;
 }
@@ -58,7 +58,7 @@ interface DeonApi {
 /**
  * WebSocket message format
  */
-type ContractUpdate
+export type ContractUpdate
   = { type: 'add', contract: D.Contract }
   | { type: 'update', contract: D.Contract }
   | { type: 'batch', itemUpdates: BatchItemUpdate[] };
@@ -215,7 +215,3 @@ export interface NodeRange {
   startPosition: Position;
   endPosition: Position;
 }
-
-export {
-  DeonApi, AnonymousDeonApi, IdentifiedDeonApi, ContractUpdate,
-};
