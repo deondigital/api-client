@@ -117,6 +117,7 @@ export type Value =
   | RecordValue
   | ListValue
   | MapValue
+  | SetValue
   | TupleValue
   | ExternalObjectValue<any>;
 
@@ -266,6 +267,13 @@ export interface MapValue {
 }
 export const mkMapValue = (elements: [Value, Value][]): MapValue =>
   ({ elements, class: 'MapValue' });
+
+export interface SetValue {
+  class: 'SetValue';
+  elements: Value[];
+}
+export const mkSetValue = (elements: Value[]): SetValue =>
+  ({ elements, class: 'SetValue' });
 
 export interface TupleValue {
   class: 'TupleValue';

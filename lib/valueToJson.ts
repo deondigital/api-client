@@ -29,6 +29,11 @@ export const valueToJson = (value: Value): {} => {
       value.elements.forEach(e => tsMap.set(valueToJson(e[0]), valueToJson(e[1])));
       return tsMap;
     }
+    case 'SetValue': {
+      const tsSet = new Set();
+      value.elements.forEach(e => tsSet.add(valueToJson(e)));
+      return tsSet;
+    }
     case 'TupleValue': return value.values.map(valueToJson);
     case 'ExternalObjectValue': {
       const obj = Object.assign({}, value);
