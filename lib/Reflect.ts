@@ -148,7 +148,7 @@ export class Reflect {
         variableId: atomTern.variableId,
       };
       case 'Map': {
-        const d = [...atomTern.nativeMap].map(([k, v]) =>
+        const d = [...atomTern.entries].map(([k, v]) =>
           [
             this.reflectAtomTerm(this.heap.hAtomTerm[k]),
             this.reflectAtomTerm(this.heap.hAtomTerm[v]),
@@ -156,7 +156,7 @@ export class Reflect {
         );
         return {
           tag: 'Map',
-          nativeMap: d,
+          entries: d,
         };
       }
     }

@@ -384,7 +384,7 @@ export interface ReifiedATuple {
 }
 export interface ReifiedAMap{
   tag: 'Map';
-  nativeMap: [number, number][];
+  entries: [number, number][];
 }
 
 export type ReifiedContract =
@@ -990,5 +990,5 @@ export interface ATTuple {
 
 export interface ATMap {
   tag: 'Map';
-  nativeMap: [AtomTerm, AtomTerm][];
+  entries: [AtomTerm, AtomTerm][];
 }
