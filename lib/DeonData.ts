@@ -965,7 +965,8 @@ export type AtomTerm
   | ATConstant
   | ATApp
   | ATTuple
-  | ATMap;
+  | ATMap
+  | ATSet;
 
 export interface ATWildcard {
   tag: 'Wildcard';
@@ -1002,4 +1003,9 @@ export interface ATTuple {
 export interface ATMap {
   tag: 'Map';
   entries: [AtomTerm, AtomTerm][];
+}
+
+export interface ATSet {
+  tag: 'Set';
+  entries: AtomTerm[];
 }

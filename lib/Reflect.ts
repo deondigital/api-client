@@ -117,38 +117,38 @@ export class Reflect {
       };
     }
   }
-  reflectAtomTerm = (atomTern: ReifiedAtomTerm): AtomTerm => {
-    switch (atomTern.tag) {
+  reflectAtomTerm = (atomTerm: ReifiedAtomTerm): AtomTerm => {
+    switch (atomTerm.tag) {
       case 'Wildcard': return {
         tag: 'Wildcard',
-        wildcardId: atomTern.vildcardId,
+        wildcardId: atomTerm.vildcardId,
       };
       case 'App': return {
         tag: 'App',
-        name: atomTern.name,
-        arguments: atomTern.arguments.map(r => this.reflectAtomTerm(this.heap.hAtomTerm[r])),
+        name: atomTerm.name,
+        arguments: atomTerm.arguments.map(r => this.reflectAtomTerm(this.heap.hAtomTerm[r])),
       };
       case 'Constant': return {
         tag: 'Constant',
-        constant: this.reflectConstant(this.heap.hConstant[atomTern.constant]),
+        constant: this.reflectConstant(this.heap.hConstant[atomTerm.constant]),
       };
       case 'Record': return {
         tag: 'Record',
-        name: atomTern.name,
-        fields: Object.assign({}, ...Object.keys(atomTern.fields).map(
-          k => ({ [k]: this.reflectAtomTerm(this.heap.hAtomTerm[atomTern.fields[k]]) }),
+        name: atomTerm.name,
+        fields: Object.assign({}, ...Object.keys(atomTerm.fields).map(
+          k => ({ [k]: this.reflectAtomTerm(this.heap.hAtomTerm[atomTerm.fields[k]]) }),
         )),
       };
       case 'Tuple': return {
         tag: 'Tuple',
-        elements: atomTern.elements.map(r => this.reflectAtomTerm(this.heap.hAtomTerm[r])),
+        elements: atomTerm.elements.map(r => this.reflectAtomTerm(this.heap.hAtomTerm[r])),
       };
       case 'Var': return {
         tag: 'Var',
-        variableId: atomTern.variableId,
+        variableId: atomTerm.variableId,
       };
       case 'Map': {
-        const d = [...atomTern.entries].map(([k, v]) =>
+        const d = [...atomTerm.entries].map(([k, v]) =>
           [
             this.reflectAtomTerm(this.heap.hAtomTerm[k]),
             this.reflectAtomTerm(this.heap.hAtomTerm[v]),
@@ -159,6 +159,10 @@ export class Reflect {
           entries: d,
         };
       }
+      case 'Set': return {
+        tag: 'Set',
+        entries: atomTerm.entries.map(e => this.reflectAtomTerm(this.heap.hAtomTerm[e])),
+      };
     }
   }
   reflectAgentMatcher = (agentMatcher: ReifiedAgentMatcher): AgentMatcher => {
