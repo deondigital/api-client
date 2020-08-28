@@ -184,7 +184,8 @@ export type ReifiedValue =
   | ReifiedFunction
   | ReifiedList
   | ReifiedTuple
-  | ReifiedMap;
+  | ReifiedMap
+  | ReifiedSet;
 
 export interface ReifiedConstructor {
   tag: 'Constructor';
@@ -222,6 +223,11 @@ export interface ReifiedTuple {
 export interface ReifiedMap {
   tag: 'Map';
   sortedEntries: [number, number][];
+}
+
+export interface ReifiedSet {
+  tag: 'Set';
+  sortedElements: [number];
 }
 
 export type ReifiedValueEnv = [QualifiedName, number][];
@@ -354,7 +360,8 @@ export type ReifiedAtomTerm =
   | ReifiedAConstant
   | ReifiedAApp
   | ReifiedATuple
-  | ReifiedAMap;
+  | ReifiedAMap
+  | ReifiedASet;
 
 export interface ReifiedAWildcard {
   tag: 'Wildcard';
@@ -385,6 +392,10 @@ export interface ReifiedATuple {
 export interface ReifiedAMap{
   tag: 'Map';
   entries: [number, number][];
+}
+export interface ReifiedASet{
+  tag: 'Set';
+  entries: [number];
 }
 
 export type ReifiedContract =
