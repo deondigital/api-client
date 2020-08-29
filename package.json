@@ -33,7 +33,7 @@
     "typescript": "^3.1.6"
   },
   "dependencies": {
-    "@lapo/asn1js": "1.1.x",
+    "@lapo/asn1js": "1.2.x",
     "base64-js": "^1.3.0",
     "elliptic": "^6.4.1",
     "js-sha3": "^0.8.0",
