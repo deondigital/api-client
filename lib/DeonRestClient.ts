@@ -8,6 +8,8 @@ import {
   isBadRequest,
   AnonymousDeonApi,
   IdentifiedDeonApi,
+  CheckResponse,
+  Warning,
 } from './DeonApi';
 import {
   InstantiationInput,
@@ -96,10 +98,13 @@ const possiblyBadRequestOrNotFound = async (r: Response) => {
   throwUnexpected(r, data);
 };
 
-const checkHandler = async (r: Response): Promise<CheckError[]> => {
-  if (r.ok) { return []; }
+const checkHandler = async (r: Response): Promise<CheckResponse> => {
+  if (r.ok) {
+    return r.json().then((warnings: Warning[]) =>
+      ({ warnings, errors: [] }));
+  }
   if (r.status === 400) {
-    return r.json().then((json: {errors: CheckError[]}) => json.errors);
+    return r.json().then((rsp: { warnings: Warning[], errors: CheckError[] }) => rsp);
   }
   throw new ResponseError(r.status, JSON.stringify(r));
 };
@@ -130,11 +135,11 @@ export class AnonymousDeonRestClient implements AnonymousDeonApi {
     return this.http.get(`/declarations/${id}/ontology`)
       .then(possiblyNotFound);
   }
-  checkContract(i: CheckExpressionInput): Promise<CheckError[]> {
+  checkContract(i: CheckExpressionInput): Promise<CheckResponse> {
     return this.http.post('/csl/check', i)
       .then(checkHandler);
   }
-  checkExpression(i: CheckExpressionInput, id?: string | undefined): Promise<CheckError[]> {
+  checkExpression(i: CheckExpressionInput, id?: string | undefined): Promise<CheckResponse> {
     return this.http.post(`/csl/check-expression${id != null ? `/${id}` : ''}`, i)
       .then(checkHandler);
   }

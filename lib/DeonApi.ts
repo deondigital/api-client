@@ -8,8 +8,8 @@ export interface AnonymousDeonApi {
 
   getOntology(id: string): Promise<D.Ontology>;
 
-  checkContract(i: D.CheckExpressionInput): Promise<CheckError[]>;
-  checkExpression(i: D.CheckExpressionInput, id?: string): Promise<CheckError[]>;
+  checkContract(i: D.CheckExpressionInput): Promise<CheckResponse>;
+  checkExpression(i: D.CheckExpressionInput, id?: string): Promise<CheckResponse>;
 
   prettyPrintExp(i: D.Exp): Promise<string>;
 
@@ -97,6 +97,11 @@ export class BadRequestError extends ResponseError {
   }
 }
 
+export interface CheckResponse {
+  errors: CheckError[];
+  warnings: Warning[];
+}
+
 export type CheckError =
   | ParseError
   | TypeError
@@ -166,6 +171,23 @@ export interface SerializationError {
   message: string;
 }
 
+export type Warning =
+  | LocatedWarning
+  | IndexWarning
+  ;
+
+export interface LocatedWarning {
+  tag: 'LocatedWarning';
+  location: NodeRange;
+  message: string;
+}
+
+export interface IndexWarning {
+  tag: 'IndexWarning';
+  location: number;
+  message: string;
+}
+
 const hasTag = (x: unknown): x is { tag: unknown } =>
   typeof x === 'object' && x != null && 'tag' in x;
 
@@ -186,8 +208,17 @@ export const isCheckError = (x: unknown): x is CheckError =>
 export const isCheckErrors = (x: unknown): x is CheckError[] =>
   Array.isArray(x) && x.every(isCheckError);
 
-export const isBadRequest = (x: unknown): x is { errors: any[]} =>
-  (x as { errors: any[]}).errors.every(isCheckError);
+export const isWarning = (x: unknown): x is Warning =>
+  hasTag(x)
+  && typeof x.tag === 'string'
+  && (x.tag === 'LocatedWarning'
+    || x.tag === 'IndexWarning');
+
+export const isWarnings = (x: unknown): x is Warning[] =>
+  Array.isArray(x) && x.every(isWarning);
+
+export const isBadRequest = (x: unknown): x is { errors: any[] } =>
+  (x as { errors: any[] }).errors.every(isCheckError);
 
 export type Frame =
   | Call

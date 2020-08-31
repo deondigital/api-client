@@ -1,5 +1,5 @@
 import {
-  DeonApi, AnonymousDeonApi, CheckError, IdentifiedDeonApi,
+  DeonApi, AnonymousDeonApi, IdentifiedDeonApi, CheckResponse,
   } from './DeonApi';
 import {
   Event,
@@ -36,8 +36,8 @@ export const anonymousApiMock: AnonymousDeonApi = {
   getDeclarations: (): Promise<Declaration[]> => Promise.reject(),
   getDeclaration: (_0: string): Promise<Declaration> => Promise.reject(),
   getOntology: (_0: string): Promise<Ontology> => Promise.reject(),
-  checkContract: (_0: CheckExpressionInput): Promise<CheckError[]> => Promise.reject(),
-  checkExpression: (_0: CheckExpressionInput, _1?: string): Promise<CheckError[]> =>
+  checkContract: (_0: CheckExpressionInput): Promise<CheckResponse> => Promise.reject(),
+  checkExpression: (_0: CheckExpressionInput, _1?: string): Promise<CheckResponse> =>
     Promise.reject(),
   prettyPrintExp: (_0: Exp): Promise<string> => Promise.reject(),
   getNodeInfo: (): Promise<NodeInfoOutput> => Promise.reject(),
