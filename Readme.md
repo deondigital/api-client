@@ -7,6 +7,7 @@
 ### Unreleased
 
 * Added support for CSL's built-in `Set` type.
+* Added support for retrieving and working with residual contracts.
 
 ### [16.0.1] - 2020-05-28
 
