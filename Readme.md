@@ -8,6 +8,7 @@
 
 * Added support for CSL's built-in `Set` type.
 * Added support for retrieving and working with residual contracts.
+* Added support for warnings from the type checker.
 
 ### [16.0.1] - 2020-05-28
 
