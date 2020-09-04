@@ -139,8 +139,8 @@ export interface ReifiedAtomHasEvent {
   event: number;
 }
 
-export type ReifiedConstant =
-  ReifiedCInt
+export type ReifiedConstant
+  = ReifiedCInt
   | ReifiedCString
   | ReifiedCFloat
   | ReifiedCDateTime
