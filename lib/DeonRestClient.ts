@@ -3,7 +3,6 @@ import {
   NotFoundError,
   BadRequestError,
   ResponseError,
-  CheckError,
   isCheckErrors,
   isBadRequest,
   AnonymousDeonApi,
