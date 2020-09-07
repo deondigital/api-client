@@ -104,7 +104,7 @@ const checkHandler = async (r: Response): Promise<CheckResponse> => {
       ({ warnings, errors: [] }));
   }
   if (r.status === 400) {
-    return r.json().then((rsp: { warnings: Warning[], errors: CheckError[] }) => rsp);
+    return r.json().then((rsp: CheckResponse) => rsp);
   }
   throw new ResponseError(r.status, JSON.stringify(r));
 };
