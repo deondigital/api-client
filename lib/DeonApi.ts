@@ -59,8 +59,8 @@ export interface DeonApi {
  * WebSocket message format
  */
 export type ContractUpdate
-  = { type: 'add', contract: D.Contract }
-  | { type: 'update', contract: D.Contract }
+  = { type: 'ContractAdded', contract: D.Contract }
+  | { type: 'ContractUpdated', contract: D.Contract }
   | { type: 'batch', itemUpdates: BatchItemUpdate[] };
 
 export type BatchItemUpdate
