@@ -9,6 +9,7 @@
 * Added support for CSL's built-in `Set` type.
 * Added support for retrieving and working with residual contracts.
 * Added support for warnings from the type checker.
+* Fix bug where refresh is needed after instantiating a contract, by correcting the ContractUpdate type.
 
 ### [16.0.1] - 2020-05-28
 
