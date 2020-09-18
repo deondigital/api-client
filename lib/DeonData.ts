@@ -343,10 +343,7 @@ export interface ReifiedEQuery {
   bodyExp: number;
 }
 
-export interface ReifiedCase {
-  pattern: Pattern;
-  expression: number;
-}
+export type ReifiedCase = Case<number>;
 
 export interface ReifiedField {
   name: string;
@@ -782,9 +779,9 @@ export interface MatchAgent {
   expression: Exp;
 }
 
-export interface Case {
+export interface Case<E> {
   pattern: Pattern;
-  expression: Exp;
+  body: E;
 }
 
 export type Constant
@@ -909,7 +906,7 @@ export interface ETuple {
 
 export interface ELambda {
   tag: 'ELambda';
-  cases: Case[];
+  cases: Case<Exp>[];
 }
 
 export interface EApp {
