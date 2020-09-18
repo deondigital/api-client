@@ -134,6 +134,10 @@ export class AnonymousDeonRestClient implements AnonymousDeonApi {
     return this.http.get(`/declarations/${id}/ontology`)
       .then(possiblyNotFound);
   }
+  getOntologyForCSL(csl: string): Promise<Ontology> {
+      return this.http.post('/declarations/ontology', {input: csl})
+        .then(possiblyNotFound);
+    }
   checkContract(i: CheckExpressionInput): Promise<CheckResponse> {
     return this.http.post('/csl/check', i)
       .then(checkHandler);
