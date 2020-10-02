@@ -8,7 +8,6 @@
 
 * Parameterize Case over type of body.
 
-
 ### [16.1.0] - 2020-09-10
 
 * Added support for CSL's built-in `Set` type.
