@@ -5,6 +5,10 @@ import { ExternalObject } from './ExternalObject';
 import { stringifyCanonically } from './CanonicalJSON';
 
 /* API Input and output wrappers */
+export interface OntologyRequest {
+  csl: string;
+}
+
 export interface DeclarationInput {
   csl: string;
   name: string;
