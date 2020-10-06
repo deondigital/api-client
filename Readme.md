@@ -7,6 +7,7 @@
 ### Unreleased
 
 * Parameterize Case over type of body.
+* Added endpoint for `getOntologyForCSL`.
 
 ### [16.1.0] - 2020-09-10
 
