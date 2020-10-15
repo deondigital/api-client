@@ -156,6 +156,10 @@ describe('Fully typed to JSON typed', () => {
     mapEq(values[0], expVal1);
     mapEq(values[1], expVal2);
   });
+  it('works on unit', () => {
+    const p = D.mkTupleValue([]);
+    expect(valueToJson(p)).to.deep.equal([]);
+  });
   it('works on simple pair', () => {
     const p = D.mkTupleValue([D.mkIntValue(1), D.mkIntValue(2)]);
     expect(valueToJson(p)).to.deep.equal([1, 2]);
