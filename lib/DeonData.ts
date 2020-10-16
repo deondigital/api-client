@@ -5,6 +5,10 @@ import { ExternalObject } from './ExternalObject';
 import { stringifyCanonically } from './CanonicalJSON';
 
 /* API Input and output wrappers */
+export interface OntologyRequest {
+  csl: string;
+}
+
 export interface DeclarationInput {
   csl: string;
   name: string;
@@ -343,10 +347,7 @@ export interface ReifiedEQuery {
   bodyExp: number;
 }
 
-export interface ReifiedCase {
-  pattern: Pattern;
-  expression: number;
-}
+export type ReifiedCase = Case<number>;
 
 export interface ReifiedField {
   name: string;
@@ -715,9 +716,9 @@ export interface TupleValue {
   class: 'TupleValue';
   values: Value[];
 }
-export const mkTupleValue = (values: { 0: Value, 1: Value} & Value[]): TupleValue => {
-  if (values.length < 2) {
-    throw new Error('Cannot make tuple with less than 2 values');
+export const mkTupleValue = (values: ({ 0: Value, 1: Value} & Value[]) | []): TupleValue => {
+  if (values.length === 1) {
+    throw new Error('Cannot make a tuple with 1 value');
   }
   return { values, class: 'TupleValue' };
 };
@@ -782,9 +783,9 @@ export interface MatchAgent {
   expression: Exp;
 }
 
-export interface Case {
+export interface Case<E> {
   pattern: Pattern;
-  expression: Exp;
+  body: E;
 }
 
 export type Constant
@@ -909,7 +910,7 @@ export interface ETuple {
 
 export interface ELambda {
   tag: 'ELambda';
-  cases: Case[];
+  cases: Case<Exp>[];
 }
 
 export interface EApp {

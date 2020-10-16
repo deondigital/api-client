@@ -7,6 +7,7 @@ export interface AnonymousDeonApi {
   getDeclaration(id: string): Promise<D.Declaration>;
 
   getOntology(id: string): Promise<D.Ontology>;
+  getOntologyForCSL(input: D.OntologyRequest): Promise<D.Ontology>;
 
   checkContract(i: D.CheckExpressionInput): Promise<CheckResponse>;
   checkExpression(i: D.CheckExpressionInput, id?: string): Promise<CheckResponse>;

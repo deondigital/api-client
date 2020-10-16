@@ -54,7 +54,7 @@ export class Reflect {
         cases: exp.cases.map((c) => {
           return {
             pattern: c.pattern,
-            expression: this.reflect(this.heap.hExp[c.expression]),
+            body: this.reflect(this.heap.hExp[c.body]),
           };
         }),
       };

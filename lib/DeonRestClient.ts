@@ -29,6 +29,7 @@ import {
   EventPredicate,
   Value,
   ResidualSource,
+  OntologyRequest,
 } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
 import { ExternalObject } from './ExternalObject';
@@ -133,6 +134,10 @@ export class AnonymousDeonRestClient implements AnonymousDeonApi {
   getOntology(id: string): Promise<Ontology> {
     return this.http.get(`/declarations/${id}/ontology`)
       .then(possiblyNotFound);
+  }
+  getOntologyForCSL(input: OntologyRequest): Promise<Ontology> {
+    return this.http.post('/csl/ontology', input)
+      .then(possiblyBadRequest);
   }
   checkContract(i: CheckExpressionInput): Promise<CheckResponse> {
     return this.http.post('/csl/check', i)
