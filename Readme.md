@@ -8,7 +8,7 @@
 
 * Parameterize Case over type of body.
 * Added endpoint for `/csl/ontology`.
-* Added support for the unit type, through the empty tuple.
+* Added support for the unit type, represented as the empty tuple.
 
 ### [16.1.0] - 2020-09-10
 
