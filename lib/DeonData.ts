@@ -400,13 +400,15 @@ export interface ReifiedASet{
 }
 
 export type ReifiedContract =
-  ReifiedSuccess
+  | ReifiedSuccess
   | ReifiedFailure
   | ReifiedCVar
-  | ReifiedCApp
+  | ReifiedCMetaApp
   | ReifiedPrefix
   | ReifiedBin
-  | ReifiedLet;
+  | ReifiedLet
+  | ReifiedCApp
+  | ReifiedCLambda;
 
 export interface ReifiedSuccess {
   tag: 'Success';
@@ -421,11 +423,21 @@ export interface ReifiedCVar {
   name: QualifiedName;
 }
 
-export interface ReifiedCApp {
-  tag: 'App';
+export interface ReifiedCMetaApp {
+  tag: 'MetaApp';
   name: QualifiedName;
   contractArgs: number[];
-  expressionArgs: number[];
+}
+
+export interface ReifiedCApp {
+  tag: 'App';
+  lhs: number;
+  rhs: number;
+}
+
+export interface ReifiedCLambda {
+  tag: 'Lambda';
+  cases: ReifiedCase[];
 }
 
 export interface ReifiedPrefix {
