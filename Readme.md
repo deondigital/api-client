@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [17.1.0] - 2020-11-05
+
+* Add support for CSL contract lambdas.
+
 ### [17.0.0] - 2020-10-16
 
 * Parameterize Case over type of body.
@@ -148,6 +152,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[17.1.0]: https://github.com/deondigital/api-client/compare/v17.0.0...v17.1.0
 [17.0.0]: https://github.com/deondigital/api-client/compare/v16.1.0...v17.0.0
 [16.1.0]: https://github.com/deondigital/api-client/compare/v16.0.1...v16.1.0
 [16.0.1]: https://github.com/deondigital/api-client/compare/v16.0.0...v16.0.1
