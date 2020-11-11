@@ -173,7 +173,7 @@ export type ReifiedConstant
   = ReifiedCInt
   | ReifiedCString
   | ReifiedCFloat
-  | ReifiedCDateTime
+  | ReifiedCInstant
   | ReifiedCDuration
   | ReifiedCQuote;
 
@@ -192,8 +192,8 @@ export interface ReifiedCFloat {
   value: string;
 }
 
-export interface ReifiedCDateTime {
-  tag: 'DateTime';
+export interface ReifiedCInstant {
+  tag: 'Instant';
   instant: string;
 }
 
@@ -836,7 +836,7 @@ export type Constant
   = CInt
   | CString
   | CFloat
-  | CDateTime
+  | CInstant
   | CDuration
   | CQuote;
 
@@ -855,8 +855,8 @@ export interface CFloat {
   value: string;
 }
 
-export interface CDateTime {
-  tag: 'CDateTime';
+export interface CInstant {
+  tag: 'CInstant';
   value: string;
 }
 

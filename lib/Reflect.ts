@@ -103,8 +103,8 @@ export class Reflect {
         tag: 'CFloat',
         value: constant.value,
       };
-      case 'DateTime': return {
-        tag: 'CDateTime',
+      case 'Instant': return {
+        tag: 'CInstant',
         value: constant.instant,
       };
       case 'Duration': return {
