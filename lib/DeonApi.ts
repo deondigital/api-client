@@ -137,6 +137,7 @@ export interface ArgumentTypeError {
 
 export interface GuardError {
   tag: 'GuardError';
+  unitName: string;
   location: NodeRange;
   contractName: D.QualifiedName;
   trace: Frame[];
