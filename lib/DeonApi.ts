@@ -227,18 +227,11 @@ export const isBadRequest = (x: unknown): x is { errors: any[] } =>
 
 export type Frame =
   | Call
-  | Resolve
 ;
 
 export interface Call {
   tag: 'Call';
   contractName: D.QualifiedName;
-  location: NodeRange;
-}
-
-export interface Resolve {
-  tag: 'Resolve';
-  varName: D.QualifiedName;
   location: NodeRange;
 }
 
