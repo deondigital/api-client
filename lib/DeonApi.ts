@@ -231,6 +231,7 @@ export type Frame =
 
 export interface Call {
   tag: 'Call';
+  unitName: string;
   contractName: D.QualifiedName;
   location: NodeRange;
 }
