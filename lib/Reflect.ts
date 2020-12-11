@@ -111,6 +111,34 @@ export class Reflect {
         tag: 'CDuration',
         value: constant.duration,
       };
+      case 'Time': return {
+        tag: 'CTime',
+        value: constant.value,
+      };
+      case 'Period': return {
+        tag: 'CPeriod',
+        value: constant.value,
+      };
+      case 'Year': return {
+        tag: 'CYear',
+        value: constant.value,
+      };
+      case 'YearMonth': return {
+        tag: 'CYearMonth',
+        value: constant.value,
+      };
+      case 'Date': return {
+        tag: 'CDate',
+        value: constant.value,
+      };
+      case 'ZonedDateTime': return {
+        tag: 'CZonedDateTime',
+        value: constant.value,
+      };
+      case 'ZoneOffset': return {
+        tag: 'CZoneOffset',
+        value: constant.value,
+      };
       case 'Quote': return {
         tag: 'CQuote',
         value: this.reflectSymbol(this.entities[constant.symbol]),

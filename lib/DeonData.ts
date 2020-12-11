@@ -175,6 +175,13 @@ export type ReifiedConstant
   | ReifiedCFloat
   | ReifiedCInstant
   | ReifiedCDuration
+  | ReifiedCTime
+  | ReifiedCPeriod
+  | ReifiedCYear
+  | ReifiedCYearMonth
+  | ReifiedCDate
+  | ReifiedCZonedDateTime
+  | ReifiedCZoneOffset
   | ReifiedCQuote;
 
 export interface ReifiedCInt {
@@ -200,6 +207,41 @@ export interface ReifiedCInstant {
 export interface ReifiedCDuration {
   tag: 'Duration';
   duration: string;
+}
+
+export interface ReifiedCTime {
+  tag: 'Time';
+  value: number;
+}
+
+export interface ReifiedCPeriod {
+  tag: 'Period';
+  value: string;
+}
+
+export interface ReifiedCYear {
+  tag: 'Year';
+  value: number;
+}
+
+export interface ReifiedCYearMonth {
+  tag: 'YearMonth';
+  value: string;
+}
+
+export interface ReifiedCDate {
+  tag: 'Date';
+  value: string;
+}
+
+export interface ReifiedCZonedDateTime {
+  tag: 'ZonedDateTime';
+  value: string;
+}
+
+export interface ReifiedCZoneOffset {
+  tag: 'ZoneOffset';
+  value: number;
 }
 
 export interface ReifiedCQuote {
@@ -593,6 +635,13 @@ export type Value =
   | StringValue
   | BooleanValue
   | InstantValue
+  | TimeValue
+  | PeriodValue
+  | YearValue
+  | YearMonthValue
+  | DateValue
+  | ZonedDateTimeValue
+  | ZoneOffsetValue
   | DurationValue
   | ConstructorValue
   | RecordValue
@@ -681,6 +730,62 @@ export interface InstantValue {
   class: 'InstantValue';
   instant: string;
 }
+
+export interface TimeValue {
+  class: 'TimeValue';
+  time: number;
+}
+
+export const mkTimeValue = (time: number): TimeValue =>
+  ({ time, class: 'TimeValue' });
+
+export interface PeriodValue {
+  class: 'PeriodValue';
+  period: string;
+}
+
+export const mkPeriodValue = (period: string): PeriodValue =>
+  ({ period, class: 'PeriodValue' });
+
+export interface YearValue {
+  class: 'YearValue';
+  year: number;
+}
+
+export const mkYearValue = (year: number): YearValue =>
+  ({ year, class: 'YearValue' });
+
+export interface YearMonthValue {
+  class: 'YearMonthValue';
+  yearMonth: string;
+}
+
+export const mkYearMonthValue = (yearMonth: string): YearMonthValue =>
+  ({ yearMonth, class: 'YearMonthValue' });
+
+export interface DateValue {
+  class: 'DateValue';
+  date: string;
+}
+
+export const mkDateValue = (date: string): DateValue =>
+  ({ date, class: 'DateValue' });
+
+export interface ZonedDateTimeValue {
+  class: 'ZonedDateTimeValue';
+  zonedDateTime: string;
+}
+
+export const mkZonedDateTimeValue = (zonedDateTime: string): ZonedDateTimeValue =>
+  ({ zonedDateTime, class: 'ZonedDateTimeValue' });
+
+export interface ZoneOffsetValue {
+  class: 'ZoneOffsetValue';
+  zoneOffset: number;
+}
+
+export const mkZoneOffsetValue = (zoneOffset: number): ZoneOffsetValue =>
+  ({ zoneOffset, class: 'ZoneOffsetValue' });
 
 export interface DurationValue {
   class: 'DurationValue';
@@ -837,6 +942,13 @@ export type Constant
   | CString
   | CFloat
   | CInstant
+  | CTime
+  | CPeriod
+  | CYear
+  | CYearMonth
+  | CDate
+  | CZonedDateTime
+  | CZoneOffset
   | CDuration
   | CQuote;
 
@@ -858,6 +970,41 @@ export interface CFloat {
 export interface CInstant {
   tag: 'CInstant';
   value: string;
+}
+
+export interface CTime {
+  tag: 'CTime';
+  value: number;
+}
+
+export interface CPeriod {
+  tag: 'CPeriod';
+  value: string;
+}
+
+export interface CYear {
+  tag: 'CYear';
+  value: number;
+}
+
+export interface CYearMonth {
+  tag: 'CYearMonth';
+  value: string;
+}
+
+export interface CDate {
+  tag: 'CDate';
+  value: string;
+}
+
+export interface CZonedDateTime {
+  tag: 'CZonedDateTime';
+  value: string;
+}
+
+export interface CZoneOffset {
+  tag: 'CZoneOffset';
+  value: number;
 }
 
 export interface CDuration {
