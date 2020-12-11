@@ -13,6 +13,13 @@ export const valueToJson = (value: Value): {} => {
     case 'StringValue': return value.s;
     case 'BooleanValue': return value.b;
     case 'InstantValue': return value.instant;
+    case 'TimeValue': return value.time;
+    case 'PeriodValue': return value.period;
+    case 'YearValue': return value.year;
+    case 'YearMonthValue': return value.yearMonth;
+    case 'DateValue': return value.date;
+    case 'ZonedDateTimeValue': return value.zonedDateTime;
+    case 'ZoneOffsetValue': return value.zoneOffset;
     case 'DurationValue': return value.duration;
     case 'ConstructorValue': return {
       name: value.name,
