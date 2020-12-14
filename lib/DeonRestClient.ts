@@ -141,7 +141,8 @@ export class AnonymousDeonRestClient implements AnonymousDeonApi {
     return this.http.post('/csl/ontology', input)
       .then(possiblyBadRequest);
   }
-  getEntrypointSignatures(input: EntrypointSignatureRequest): Promise<OntologyAndEntrypointSignatures> {
+  getEntrypointSignatures(input: EntrypointSignatureRequest):
+    Promise<OntologyAndEntrypointSignatures> {
     return this.http.post('/csl/entrypoint-signatures', input)
       .then(possiblyBadRequest);
   }
