@@ -22,6 +22,8 @@ import {
   CheckExpressionInput,
   ResidualSource,
   OntologyRequest,
+  EntrypointSignatureRequest,
+  OntologyAndEntrypointSignatures,
   } from './DeonData';
 import { ExternalObject } from './ExternalObject';
 
@@ -38,6 +40,7 @@ export const anonymousApiMock: AnonymousDeonApi = {
   getDeclaration: (_0: string): Promise<Declaration> => Promise.reject(),
   getOntology: (_0: string): Promise<Ontology> => Promise.reject(),
   getOntologyForCSL: (_0: OntologyRequest): Promise<Ontology> => Promise.reject(),
+  getEntrypointSignatures: (_0: EntrypointSignatureRequest): Promise<OntologyAndEntrypointSignatures> => Promise.reject(),
   checkContract: (_0: CheckExpressionInput): Promise<CheckResponse> => Promise.reject(),
   checkExpression: (_0: CheckExpressionInput, _1?: string): Promise<CheckResponse> =>
     Promise.reject(),
