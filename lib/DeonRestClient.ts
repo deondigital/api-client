@@ -30,6 +30,8 @@ import {
   Value,
   ResidualSource,
   OntologyRequest,
+  EntrypointSignatureRequest,
+  OntologyAndEntrypointSignatures,
 } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
 import { ExternalObject } from './ExternalObject';
@@ -137,6 +139,10 @@ export class AnonymousDeonRestClient implements AnonymousDeonApi {
   }
   getOntologyForCSL(input: OntologyRequest): Promise<Ontology> {
     return this.http.post('/csl/ontology', input)
+      .then(possiblyBadRequest);
+  }
+  getEntrypointSignatures(input: EntrypointSignatureRequest): Promise<OntologyAndEntrypointSignatures> {
+    return this.http.post('/csl/entrypoint-signatures', input)
       .then(possiblyBadRequest);
   }
   checkContract(i: CheckExpressionInput): Promise<CheckResponse> {

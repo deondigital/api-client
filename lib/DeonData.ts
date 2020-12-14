@@ -5,6 +5,21 @@ import { ExternalObject } from './ExternalObject';
 import { stringifyCanonically } from './CanonicalJSON';
 
 /* API Input and output wrappers */
+
+export interface OntologyAndEntrypointSignatures {
+  ontology: OntologyElement[];
+  entrypointSignatures: EntrypointSignature[];
+}
+
+export interface EntrypointSignatureRequest {
+  csl: string;
+}
+
+export interface EntrypointSignature {
+  name: QualifiedName;
+  types: OntologyTypeIdentifier;
+}
+
 export interface OntologyRequest {
   csl: string;
 }
