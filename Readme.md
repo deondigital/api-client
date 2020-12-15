@@ -7,6 +7,7 @@
 ### [17.1.0] - 2020-11-05
 
 * Add support for CSL contract lambdas.
+* Added support to expose entrypoint signatures.
 
 ### [17.0.0] - 2020-10-16
 
