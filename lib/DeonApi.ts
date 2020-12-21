@@ -41,6 +41,9 @@ export interface IdentifiedDeonApi {
     tag?: D.Tag,
   ): Promise<D.Tag>;
 
+  archiveContract(id: string): Promise<void>;
+  getArchivedContracts(ids: string[]): Promise<D.Contract[]>;
+
   postReport(
     i: D.EvaluateExpressionInput,
     id?: string,
