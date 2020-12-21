@@ -550,12 +550,18 @@ export interface ReifiedValBinding {
 }
 
 /* Contracts */
+export interface ArchiveDetails {
+  archiveTime: Date;
+  requestingPeer: ExternalObject;
+}
+
 export interface Contract {
   id: string;
   declarationId: string;
   name: string;
   instantiationTime: Date;
   participants: ExternalObject[];
+  archiveDetails?: ArchiveDetails;
 }
 
 export interface ResidualSource {
