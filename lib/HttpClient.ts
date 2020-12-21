@@ -20,10 +20,10 @@ export class HttpClient {
     headers: { ...this.idHeader },
   }))
 
-  post = (url: string, data: object): Promise<Response> =>
+  post = (url: string, data?: object): Promise<Response> =>
     this.hook(this.fetch(this.serverUrl + url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...this.idHeader },
-      body: JSON.stringify(data),
+      body: data == null ? null : JSON.stringify(data),
     }))
 }
