@@ -15,9 +15,20 @@ export interface EntrypointSignatureRequest {
   csl: string;
 }
 
-export interface EntrypointSignature {
+export type EntrypointSignature
+  = TemplateEntrypoint
+  | ContractEntrypoint;
+
+export interface TemplateEntrypoint {
+  tag: 'TemplateEntrypoint';
   name: QualifiedName;
-  types: OntologyTypeIdentifier;
+  type: OntologyTypeIdentifier;
+}
+
+export interface ContractEntrypoint {
+  tag: 'ContractEntrypoint';
+  name: QualifiedName;
+  type: OntologyTypeIdentifier;
 }
 
 export interface OntologyRequest {
