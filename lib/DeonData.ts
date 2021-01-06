@@ -550,12 +550,18 @@ export interface ReifiedValBinding {
 }
 
 /* Contracts */
+export interface TerminationDetails {
+  terminatedAtTime: Date;
+  requestingPeer: ExternalObject;
+}
+
 export interface Contract {
   id: string;
   declarationId: string;
   name: string;
   instantiationTime: Date;
   participants: ExternalObject[];
+  terminationDetails?: TerminationDetails;
 }
 
 export interface ResidualSource {
