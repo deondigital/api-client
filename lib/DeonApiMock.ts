@@ -70,6 +70,8 @@ export const identifiedApiMock: IdentifiedDeonApi = {
     _2?: Tag,
   ): Promise<Tag> => Promise.reject(),
 
+  terminateContract: (_0: string): Promise<void> => Promise.reject(),
+
   postReport: (
     _0: EvaluateExpressionInput,
     _1?: string,

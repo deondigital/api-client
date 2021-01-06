@@ -206,6 +206,10 @@ export class IdentifiedDeonRestClient implements IdentifiedDeonApi {
     return this.http.post(`/contracts/${idString(id)}/${tag != null ? `${tag}/` : ''}events`, event)
       .then(possiblyBadRequestOrNotFound);
   }
+  terminateContract(id: string): Promise<void> {
+    return this.http.post(`/contracts/${id}/terminateContract`)
+      .then(possiblyBadRequestOrNotFound);
+  }
   postReport(i: EvaluateExpressionInput, id?: string): Promise<Value> {
     if (id == null) {
       return this.http.post('/declarations/report', i)
