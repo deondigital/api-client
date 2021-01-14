@@ -62,6 +62,12 @@ export interface TerminationInput {
   description: string;
 }
 
+export interface NovationInput {
+  replacementContract: InstantiationInput;
+  description: string;
+  time: Date;
+}
+
 export interface CheckExpressionInput {
   csl: string;
 }
@@ -610,12 +616,14 @@ export interface ReifiedValBinding {
 /* Contracts */
 export interface InstantiationDetails {
   time: Date;
+  novates?: String;
 }
 
 export interface TerminationDetails {
   terminatedAtTime: Date;
   description: String;
   requestingPeer: ExternalObject;
+  novatedBy?: String;
 }
 
 export interface Contract {
