@@ -21,6 +21,7 @@ import {
   Exp,
   DeclarationOutput,
   NodeInfoOutput,
+  NovationInput,
   NamedAgents,
   Declaration,
   Ontology,
@@ -218,6 +219,10 @@ export class IdentifiedDeonRestClient implements IdentifiedDeonApi {
       description,
     };
     return this.http.post(`/contracts/${id}/terminateContract`, terminationInput)
+      .then(possiblyBadRequestOrNotFound);
+  }
+  novateContract(id: string, novationInput: NovationInput): Promise<InstantiationOutput> {
+    return this.http.post(`/contracts/${id}/novateContract`, novationInput)
       .then(possiblyBadRequestOrNotFound);
   }
   postReport(i: EvaluateExpressionInput, id?: string): Promise<Value> {

@@ -43,6 +43,8 @@ export interface IdentifiedDeonApi {
 
   terminateContract(id: string, terminatedAtTime: Date, description: String): Promise<void>;
 
+  novateContract(id: string, replacementContract: D.NovationInput): Promise<D.InstantiationOutput>;
+
   postReport(
     i: D.EvaluateExpressionInput,
     id?: string,
