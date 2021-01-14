@@ -592,15 +592,22 @@ export type Value =
   | ExternalObjectValue<any>;
 
 export type ContractValue = ExternalObjectValue<ExternalObject.StringContract>;
+export type CordaContractValue = ExternalObjectValue<ExternalObject.CordaContract>;
 export type AgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
 export type CordaAgentValue = ExternalObjectValue<ExternalObject.CordaAgent>;
 export type PublicKeyValue = ExternalObjectValue<ExternalObject.PublicKey>;
 export type SignedValue = ExternalObjectValue<ExternalObject.SignedValue>;
 
-export const mkContractValue = (
+export const mkStringContractValue = (
   id: string,
 ): ContractValue =>
-  mkExternalObjectValue(ExternalObject.mkContract(id));
+  mkExternalObjectValue(ExternalObject.mkStringContract(id));
+
+export const mkCordaContractValue = (
+  txnHash: string,
+  txnIndex: string,
+): CordaContractValue =>
+  mkExternalObjectValue(ExternalObject.mkCordaContract(txnHash, txnIndex));
 
 export const mkStringAgentValue = (
   id: string,
