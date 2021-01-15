@@ -116,7 +116,12 @@ const idString = (id: string | ContractValue): string => {
   if (typeof(id) === 'string') {
     return id;
   }
-  return id.externalObject.contractIdentifier;
+  switch (id.class) {
+    case 'ExternalObjectValue': switch (id.externalObject.tag) {
+      case 'StringContract': return id.externalObject.contractIdentifier;
+      case 'CordaContract': return `${id.externalObject.txnHash}!${id.externalObject.txnIndex}`;
+    }
+  }
 };
 
 export class AnonymousDeonRestClient implements AnonymousDeonApi {

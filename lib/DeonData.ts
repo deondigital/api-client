@@ -661,16 +661,18 @@ export type Value =
   | TupleValue
   | ExternalObjectValue<any>;
 
-export type ContractValue = ExternalObjectValue<ExternalObject.StringContract>;
+export type ContractValue = StringContractValue | CordaContractValue;
+export type StringContractValue = ExternalObjectValue<ExternalObject.StringContract>;
 export type CordaContractValue = ExternalObjectValue<ExternalObject.CordaContract>;
-export type AgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
+export type AgentValue = StringAgentValue | CordaAgentValue;
+export type StringAgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
 export type CordaAgentValue = ExternalObjectValue<ExternalObject.CordaAgent>;
 export type PublicKeyValue = ExternalObjectValue<ExternalObject.PublicKey>;
 export type SignedValue = ExternalObjectValue<ExternalObject.SignedValue>;
 
 export const mkStringContractValue = (
   id: string,
-): ContractValue =>
+): StringContractValue =>
   mkExternalObjectValue(ExternalObject.mkStringContract(id));
 
 export const mkCordaContractValue = (
@@ -681,7 +683,7 @@ export const mkCordaContractValue = (
 
 export const mkStringAgentValue = (
   id: string,
-): AgentValue =>
+): StringAgentValue =>
   mkExternalObjectValue(ExternalObject.mkStringAgent(id));
 
 export const mkPublicKeyValue = (
