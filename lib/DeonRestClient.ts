@@ -32,6 +32,7 @@ import {
   OntologyRequest,
   EntrypointSignatureRequest,
   OntologyAndEntrypointSignatures,
+  TerminationInput,
 } from './DeonData';
 import { HttpClient, Response } from './HttpClient';
 import { ExternalObject } from './ExternalObject';
@@ -206,8 +207,12 @@ export class IdentifiedDeonRestClient implements IdentifiedDeonApi {
     return this.http.post(`/contracts/${idString(id)}/${tag != null ? `${tag}/` : ''}events`, event)
       .then(possiblyBadRequestOrNotFound);
   }
-  terminateContract(id: string): Promise<void> {
-    return this.http.post(`/contracts/${id}/terminateContract`)
+  terminateContract(id: string, terminatedAtTime: Date, description: string): Promise<void> {
+    const terminationInput : TerminationInput = {
+      terminatedAtTime,
+      description,
+    };
+    return this.http.post(`/contracts/${id}/terminateContract`, terminationInput)
       .then(possiblyBadRequestOrNotFound);
   }
   postReport(i: EvaluateExpressionInput, id?: string): Promise<Value> {

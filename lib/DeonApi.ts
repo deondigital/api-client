@@ -41,7 +41,7 @@ export interface IdentifiedDeonApi {
     tag?: D.Tag,
   ): Promise<D.Tag>;
 
-  terminateContract(id: string): Promise<void>;
+  terminateContract(id: string, terminatedAtTime: Date, description: String): Promise<void>;
 
   postReport(
     i: D.EvaluateExpressionInput,
