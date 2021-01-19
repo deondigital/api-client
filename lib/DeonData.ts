@@ -46,6 +46,11 @@ export interface InstantiationOutput {
   tag: string;
 }
 
+export interface TerminationInput {
+  terminatedAtTime: Date;
+  description: string;
+}
+
 export interface CheckExpressionInput {
   csl: string;
 }
@@ -58,6 +63,11 @@ export interface EvaluateExpressionInput {
 export interface EvaluateReportInput {
   reportName: QualifiedName;
   arguments: Value[];
+}
+
+export interface TerminationInput {
+  description: string;
+  terminatedAtTime: Date;
 }
 
 export interface NodeInfoOutput {
@@ -552,6 +562,7 @@ export interface ReifiedValBinding {
 /* Contracts */
 export interface TerminationDetails {
   terminatedAtTime: Date;
+  description: String;
   requestingPeer: ExternalObject;
 }
 
