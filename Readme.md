@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### [17.2.0] - 2020-01-20
+### [17.2.0] - 2021-01-20
 
 * Added support to expose entrypoint signatures.
 * Added `unitName` field to `GuardError` to indicate which file a guard error occurred in when using multi-file projects.
