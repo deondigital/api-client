@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### [17.2.0] - 2021-01-20
+### [18.0.0] - 2021-01-20
 
 * Added support to expose entrypoint signatures.
 * Added `unitName` field to `GuardError` to indicate which file a guard error occurred in when using multi-file projects.
@@ -159,7 +159,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
-[17.2.0]: https://github.com/deondigital/api-client/compare/v17.1.0...v17.2.0
+[18.0.0]: https://github.com/deondigital/api-client/compare/v17.1.0...v18.0.0
 [17.1.0]: https://github.com/deondigital/api-client/compare/v17.0.0...v17.1.0
 [17.0.0]: https://github.com/deondigital/api-client/compare/v16.1.0...v17.0.0
 [16.1.0]: https://github.com/deondigital/api-client/compare/v16.0.1...v16.1.0
