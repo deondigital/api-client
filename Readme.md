@@ -4,14 +4,17 @@
 
 ## Changelog
 
+### Unreleased
+
+* Renamed the `DateTime` CSL type to `Instant`.
+* Added support for new date/time types.
+
 ### [18.0.0] - 2021-01-20
 
 * Added support to expose entrypoint signatures.
 * Added `unitName` field to `GuardError` to indicate which file a guard error occurred in when using multi-file projects.
 * Added a terminate command, which disallows applying further events on a contract.
 * Added support for `contract entrypoint`.
-* Renamed the `DateTime` CSL type to `Instant`.
-* Added support for new date/time types.
 
 ### [17.1.0] - 2020-11-05
 
