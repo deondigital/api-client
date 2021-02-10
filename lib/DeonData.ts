@@ -47,7 +47,7 @@ export interface DeclarationOutput {
 export interface InstantiationInput {
   declarationId: string;
   name: string;
-  declarationExpressionArguments: Value[];
+  declarationExpressionArgument: Value;
   entryPoint: QualifiedName;
   peers: ExternalObject[];
 }
