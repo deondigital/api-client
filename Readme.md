@@ -9,7 +9,7 @@
 * Renamed the `DateTime` CSL type to `Instant`.
 * Added support for new date/time types.
 * Added description and termination time as parameters to termination command
-* Changed declarationExpressionArguments to declarationExpressionArgument and it is now a single value instead of a list of values
+* Changed `declarationExpressionArguments` to `declarationExpressionArgument. It is now a single value instead of a list of values.
 
 ### [18.0.0] - 2021-01-20
 
