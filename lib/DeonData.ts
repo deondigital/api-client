@@ -608,6 +608,10 @@ export interface ReifiedValBinding {
 }
 
 /* Contracts */
+export interface InstantiationDetails {
+  time: Date;
+}
+
 export interface TerminationDetails {
   terminatedAtTime: Date;
   description: String;
@@ -618,7 +622,7 @@ export interface Contract {
   id: string;
   declarationId: string;
   name: string;
-  instantiationTime: Date;
+  instantiationDetails: InstantiationDetails;
   participants: ExternalObject[];
   terminationDetails?: TerminationDetails;
 }
