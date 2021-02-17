@@ -4,13 +4,13 @@
 
 ## Changelog
 
-### Unreleased
+### [19.0.0] - 2021-02-17
 
 * Renamed the `DateTime` CSL type to `Instant`.
 * Added support for new date/time types.
 * Added description and termination time as parameters to termination command.
 * Changed `declarationExpressionArguments` to `declarationExpressionArgument`. It is now a single value instead of a list of values.
-* Moved instantiationTime into instantiationDetails in the Contract interface.
+* Moved `instantiationTime` into `instantiationDetails` in the Contract interface.
 
 ### [18.0.0] - 2021-01-20
 
@@ -167,6 +167,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[19.0.0]: https://github.com/deondigital/api-client/compare/v18.0.0...v19.0.0
 [18.0.0]: https://github.com/deondigital/api-client/compare/v17.1.0...v18.0.0
 [17.1.0]: https://github.com/deondigital/api-client/compare/v17.0.0...v17.1.0
 [17.0.0]: https://github.com/deondigital/api-client/compare/v16.1.0...v17.0.0
