@@ -8,8 +8,9 @@
 
 * Renamed the `DateTime` CSL type to `Instant`.
 * Added support for new date/time types.
-* Added description and termination time as parameters to termination command
+* Added description and termination time as parameters to termination command.
 * Changed `declarationExpressionArguments` to `declarationExpressionArgument`. It is now a single value instead of a list of values.
+* Moved instantiationTime into instantiationDetails in the Contract interface.
 
 ### [18.0.0] - 2021-01-20
 
