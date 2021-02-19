@@ -98,7 +98,7 @@ const errorMessage = (error: CheckError): string => {
 };
 
 export class BadRequestError extends ResponseError {
-  constructor(public errors: CheckError[]) {
+  constructor(public errors: CheckError[], public warnings: Warning[]) {
     super(400, `Bad request: ${errors.map(errorMessage).join('\n')}`);
   }
 }
