@@ -224,8 +224,9 @@ export const isWarning = (x: unknown): x is Warning =>
 export const isWarnings = (x: unknown): x is Warning[] =>
   Array.isArray(x) && x.every(isWarning);
 
-export const isBadRequest = (x: unknown): x is { errors: any[] } =>
-  (x as { errors: any[] }).errors.every(isCheckError);
+export const isBadRequest = (x: unknown): x is { errors: any[], warnings: any[] } =>
+  (x as { errors: any[] }).errors.every(isCheckError)
+  && (x as { warnings: any[] }).warnings.every(isWarning);
 
 export type Frame =
   | Call

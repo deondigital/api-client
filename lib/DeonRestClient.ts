@@ -45,9 +45,9 @@ const throwIfNotFound = (r: Response, data: any) => {
 
 const throwIfBadRequest = (r: Response, data: any) => {
   if (r.status === 400) {
-    if (isBadRequest(data)) throw new BadRequestError(data.errors);
-    if (isCheckErrors(data)) throw new BadRequestError(data);
-    if (data && data.message) throw new BadRequestError(data.message);
+    if (isBadRequest(data)) throw new BadRequestError(data.errors, data.warnings);
+    if (isCheckErrors(data)) throw new BadRequestError(data, []);
+    if (data && data.message) throw new BadRequestError(data.message, []);
   }
 };
 
