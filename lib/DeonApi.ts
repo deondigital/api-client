@@ -103,6 +103,13 @@ export class BadRequestError extends ResponseError {
   }
 }
 
+export interface BadRequestInterface {
+  errors: CheckError[];
+  warnings: Warning[];
+}
+export const mkBadRequestInterface = (bre: BadRequestError): BadRequestInterface =>
+  ({ errors: bre.errors, warnings: bre.warnings });
+
 export interface CheckResponse {
   errors: CheckError[];
   warnings: Warning[];
