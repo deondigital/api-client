@@ -4,6 +4,10 @@
 
 ## Changelog
 
+## Unreleased
+
+* Add warnings to `BadRequestError`.
+
 ### [19.0.0] - 2021-02-17
 
 * Renamed the `DateTime` CSL type to `Instant`.
