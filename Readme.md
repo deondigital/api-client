@@ -7,6 +7,8 @@
 ## Unreleased
 
 * Add warnings to `BadRequestError`.
+* Added support for the `CordaContract` data type.
+* Renamed the `ExternalObject.mkContract` function to `ExternalObject.mkStringContract`.
 
 ### [19.0.0] - 2021-02-17
 
@@ -22,8 +24,6 @@
 * Added `unitName` field to `GuardError` to indicate which file a guard error occurred in when using multi-file projects.
 * Added a terminate command, which disallows applying further events on a contract.
 * Added support for `contract entrypoint`.
-* Added support for the `CordaContract` data type.
-* Renamed the `ExternalObject.mkContract` function to `ExternalObject.mkStringContract`.
 
 ### [17.1.0] - 2020-11-05
 
