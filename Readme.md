@@ -6,6 +6,7 @@
 
 ## Unreleased
 
+* Added `EventPredicate.eventName` field.
 * Add warnings to `BadRequestError`.
 * Added support for the `CordaContract` data type.
 * Renamed the `ExternalObject.mkContract` function to `ExternalObject.mkStringContract`.
