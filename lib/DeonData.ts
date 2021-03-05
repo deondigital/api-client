@@ -122,6 +122,7 @@ export type Tag = string;
 export interface EventPredicate {
   type: Type;
   agent: ReifiedAgentMatcher;
+  eventName: String | undefined;
   exp: ReifiedExp;
   env: ReifiedHeap;
   entities: ExternalObject[];
