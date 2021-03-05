@@ -9,6 +9,7 @@
 * Add warnings to `BadRequestError`.
 * Added support for the `CordaContract` data type.
 * Renamed the `ExternalObject.mkContract` function to `ExternalObject.mkStringContract`.
+* Added `novateContract` command for contracts.
 
 ### [19.0.0] - 2021-02-17
 
