@@ -617,6 +617,8 @@ export interface ReifiedValBinding {
 /* Contracts */
 export interface InstantiationDetails {
   time: Date;
+  entryPoint: QualifiedName;
+  argument: Value;
   novates?: String;
 }
 

@@ -6,6 +6,7 @@
 
 ## Unreleased
 
+* Added `InstantiationDetails.entryPoint` and `InstantiationDetails.argument` fields.
 * Added `EventPredicate.eventName` field.
 * Add warnings to `BadRequestError`.
 * Added support for the `CordaContract` data type.
