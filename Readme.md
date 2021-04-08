@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* Added types for `ReifiedPattern`.
+
 ### [20.0.0] - 2021-04-09
 
 * Added `InstantiationDetails.entryPoint` and `InstantiationDetails.argument` fields.

@@ -359,6 +359,51 @@ export interface ReifiedRule {
   body: number[];
 }
 
+export interface ReifiedPField {
+  name: string;
+  pattern: ReifiedPattern;
+}
+
+export type ReifiedPattern =
+  | ReifiedPWildcard
+  | ReifiedPConstant
+  | ReifiedPRecord
+  | ReifiedPAlias
+  | ReifiedPApp
+  | ReifiedPTuple;
+
+export interface ReifiedPWildcard {
+  tag: 'ReifiedPWildcard';
+}
+
+export interface ReifiedPConstant {
+  tag: 'ReifiedPConstant';
+  constant: number;
+}
+
+export interface ReifiedPRecord {
+  tag: 'ReifiedPRecord';
+  type: Type;
+  fields: ReifiedPField[];
+}
+
+export interface ReifiedPAlias {
+  tag: 'ReifiedPAlias';
+  aliased: ReifiedPattern;
+  alias: string;
+}
+
+export interface ReifiedPApp {
+  tag: 'ReifiedPApp';
+  constructor: QualifiedName;
+  args: ReifiedPattern[];
+}
+
+export interface ReifiedPTuple {
+  tag: 'ReifiedPTuple';
+  args: ReifiedPattern[];
+}
+
 export type ReifiedExp =
   ReifiedEConstant
   | ReifiedEVar
@@ -427,7 +472,10 @@ export interface ReifiedEQuery {
   bodyExp: number;
 }
 
-export type ReifiedCase = Case<number>;
+export interface ReifiedCase {
+  pattern: ReifiedPattern;
+  body: number;
+}
 
 export interface ReifiedField {
   name: string;
