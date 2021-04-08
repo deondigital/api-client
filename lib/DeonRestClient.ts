@@ -21,6 +21,7 @@ import {
   Exp,
   DeclarationOutput,
   NodeInfoOutput,
+  NovationInput,
   NamedAgents,
   Declaration,
   Ontology,
@@ -45,9 +46,9 @@ const throwIfNotFound = (r: Response, data: any) => {
 
 const throwIfBadRequest = (r: Response, data: any) => {
   if (r.status === 400) {
-    if (isBadRequest(data)) throw new BadRequestError(data.errors);
-    if (isCheckErrors(data)) throw new BadRequestError(data);
-    if (data && data.message) throw new BadRequestError(data.message);
+    if (isBadRequest(data)) throw new BadRequestError(data.errors, data.warnings);
+    if (isCheckErrors(data)) throw new BadRequestError(data, []);
+    if (data && data.message) throw new BadRequestError(data.message, []);
   }
 };
 
@@ -116,7 +117,12 @@ const idString = (id: string | ContractValue): string => {
   if (typeof(id) === 'string') {
     return id;
   }
-  return id.externalObject.contractIdentifier;
+  switch (id.class) {
+    case 'ExternalObjectValue': switch (id.externalObject.tag) {
+      case 'StringContract': return id.externalObject.contractIdentifier;
+      case 'CordaContract': return `${id.externalObject.txnHash}!${id.externalObject.txnIndex}`;
+    }
+  }
 };
 
 export class AnonymousDeonRestClient implements AnonymousDeonApi {
@@ -213,6 +219,10 @@ export class IdentifiedDeonRestClient implements IdentifiedDeonApi {
       description,
     };
     return this.http.post(`/contracts/${id}/terminateContract`, terminationInput)
+      .then(possiblyBadRequestOrNotFound);
+  }
+  novateContract(id: string, novationInput: NovationInput): Promise<InstantiationOutput> {
+    return this.http.post(`/contracts/${id}/novateContract`, novationInput)
       .then(possiblyBadRequestOrNotFound);
   }
   postReport(i: EvaluateExpressionInput, id?: string): Promise<Value> {

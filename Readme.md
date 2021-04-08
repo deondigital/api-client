@@ -4,6 +4,15 @@
 
 ## Changelog
 
+## Unreleased
+
+* Added `InstantiationDetails.entryPoint` and `InstantiationDetails.argument` fields.
+* Added `EventPredicate.eventName` field.
+* Add warnings to `BadRequestError`.
+* Added support for the `CordaContract` data type.
+* Renamed the `ExternalObject.mkContract` function to `ExternalObject.mkStringContract`.
+* Added `novateContract` command for contracts.
+
 ### [19.0.0] - 2021-02-17
 
 * Renamed the `DateTime` CSL type to `Instant`.

@@ -62,6 +62,12 @@ export interface TerminationInput {
   description: string;
 }
 
+export interface NovationInput {
+  replacementContract: InstantiationInput;
+  description: string;
+  time: Date;
+}
+
 export interface CheckExpressionInput {
   csl: string;
 }
@@ -116,6 +122,7 @@ export type Tag = string;
 export interface EventPredicate {
   type: Type;
   agent: ReifiedAgentMatcher;
+  eventName: String | undefined;
   exp: ReifiedExp;
   env: ReifiedHeap;
   entities: ExternalObject[];
@@ -610,12 +617,16 @@ export interface ReifiedValBinding {
 /* Contracts */
 export interface InstantiationDetails {
   time: Date;
+  entryPoint: QualifiedName;
+  argument: Value;
+  novates?: String;
 }
 
 export interface TerminationDetails {
   terminatedAtTime: Date;
   description: String;
   requestingPeer: ExternalObject;
+  novatedBy?: String;
 }
 
 export interface Contract {
@@ -661,20 +672,29 @@ export type Value =
   | TupleValue
   | ExternalObjectValue<any>;
 
-export type ContractValue = ExternalObjectValue<ExternalObject.StringContract>;
-export type AgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
+export type ContractValue = StringContractValue | CordaContractValue;
+export type StringContractValue = ExternalObjectValue<ExternalObject.StringContract>;
+export type CordaContractValue = ExternalObjectValue<ExternalObject.CordaContract>;
+export type AgentValue = StringAgentValue | CordaAgentValue;
+export type StringAgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
 export type CordaAgentValue = ExternalObjectValue<ExternalObject.CordaAgent>;
 export type PublicKeyValue = ExternalObjectValue<ExternalObject.PublicKey>;
 export type SignedValue = ExternalObjectValue<ExternalObject.SignedValue>;
 
-export const mkContractValue = (
+export const mkStringContractValue = (
   id: string,
-): ContractValue =>
-  mkExternalObjectValue(ExternalObject.mkContract(id));
+): StringContractValue =>
+  mkExternalObjectValue(ExternalObject.mkStringContract(id));
+
+export const mkCordaContractValue = (
+  txnHash: string,
+  txnIndex: string,
+): CordaContractValue =>
+  mkExternalObjectValue(ExternalObject.mkCordaContract(txnHash, txnIndex));
 
 export const mkStringAgentValue = (
   id: string,
-): AgentValue =>
+): StringAgentValue =>
   mkExternalObjectValue(ExternalObject.mkStringAgent(id));
 
 export const mkPublicKeyValue = (

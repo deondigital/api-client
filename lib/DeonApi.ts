@@ -43,6 +43,8 @@ export interface IdentifiedDeonApi {
 
   terminateContract(id: string, terminatedAtTime: Date, description: String): Promise<void>;
 
+  novateContract(id: string, replacementContract: D.NovationInput): Promise<D.InstantiationOutput>;
+
   postReport(
     i: D.EvaluateExpressionInput,
     id?: string,
@@ -98,10 +100,17 @@ const errorMessage = (error: CheckError): string => {
 };
 
 export class BadRequestError extends ResponseError {
-  constructor(public errors: CheckError[]) {
+  constructor(public errors: CheckError[], public warnings: Warning[]) {
     super(400, `Bad request: ${errors.map(errorMessage).join('\n')}`);
   }
 }
+
+export interface BadRequestInterface {
+  errors: CheckError[];
+  warnings: Warning[];
+}
+export const mkBadRequestInterface = (bre: BadRequestError): BadRequestInterface =>
+  ({ errors: bre.errors, warnings: bre.warnings });
 
 export interface CheckResponse {
   errors: CheckError[];
@@ -224,8 +233,9 @@ export const isWarning = (x: unknown): x is Warning =>
 export const isWarnings = (x: unknown): x is Warning[] =>
   Array.isArray(x) && x.every(isWarning);
 
-export const isBadRequest = (x: unknown): x is { errors: any[] } =>
-  (x as { errors: any[] }).errors.every(isCheckError);
+export const isBadRequest = (x: unknown): x is { errors: any[], warnings: any[] } =>
+  (x as { errors: any[] }).errors.every(isCheckError)
+  && (x as { warnings: any[] }).warnings.every(isWarning);
 
 export type Frame =
   | Call

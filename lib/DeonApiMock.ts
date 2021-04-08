@@ -13,6 +13,7 @@ import {
   Declaration,
   Ontology,
   NodeInfoOutput,
+  NovationInput,
   NamedAgents,
   Contract,
   ContractValue,
@@ -71,6 +72,8 @@ export const identifiedApiMock: IdentifiedDeonApi = {
   ): Promise<Tag> => Promise.reject(),
 
   terminateContract: (_0: string, _1: Date, _2: String): Promise<void> => Promise.reject(),
+
+  novateContract: (_0: string, _1: NovationInput): Promise<InstantiationOutput> => Promise.reject(),
 
   postReport: (
     _0: EvaluateExpressionInput,
