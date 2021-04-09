@@ -4,7 +4,7 @@
 
 ## Changelog
 
-## Unreleased
+### [20.0.0] - 2021-04-09
 
 * Added `InstantiationDetails.entryPoint` and `InstantiationDetails.argument` fields.
 * Added `EventPredicate.eventName` field.
@@ -176,6 +176,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[20.0.0]: https://github.com/deondigital/api-client/compare/v19.0.0...v20.0.0
 [19.0.0]: https://github.com/deondigital/api-client/compare/v18.0.0...v19.0.0
 [18.0.0]: https://github.com/deondigital/api-client/compare/v17.1.0...v18.0.0
 [17.1.0]: https://github.com/deondigital/api-client/compare/v17.0.0...v17.1.0
