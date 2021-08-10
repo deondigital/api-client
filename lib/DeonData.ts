@@ -62,6 +62,12 @@ export interface TerminationInput {
   description: string;
 }
 
+export interface NovationInput {
+  replacementContract: InstantiationInput;
+  description: string;
+  time: Date;
+}
+
 export interface CheckExpressionInput {
   csl: string;
 }
@@ -116,6 +122,7 @@ export type Tag = string;
 export interface EventPredicate {
   type: Type;
   agent: ReifiedAgentMatcher;
+  eventName: String | undefined;
   exp: ReifiedExp;
   env: ReifiedHeap;
   entities: ExternalObject[];
@@ -352,6 +359,51 @@ export interface ReifiedRule {
   body: number[];
 }
 
+export interface ReifiedPField {
+  name: string;
+  pattern: ReifiedPattern;
+}
+
+export type ReifiedPattern =
+  | ReifiedPWildcard
+  | ReifiedPConstant
+  | ReifiedPRecord
+  | ReifiedPAlias
+  | ReifiedPApp
+  | ReifiedPTuple;
+
+export interface ReifiedPWildcard {
+  tag: 'ReifiedPWildcard';
+}
+
+export interface ReifiedPConstant {
+  tag: 'ReifiedPConstant';
+  constant: number;
+}
+
+export interface ReifiedPRecord {
+  tag: 'ReifiedPRecord';
+  type: Type;
+  fields: ReifiedPField[];
+}
+
+export interface ReifiedPAlias {
+  tag: 'ReifiedPAlias';
+  aliased: ReifiedPattern;
+  alias: string;
+}
+
+export interface ReifiedPApp {
+  tag: 'ReifiedPApp';
+  constructor: QualifiedName;
+  args: ReifiedPattern[];
+}
+
+export interface ReifiedPTuple {
+  tag: 'ReifiedPTuple';
+  args: ReifiedPattern[];
+}
+
 export type ReifiedExp =
   ReifiedEConstant
   | ReifiedEVar
@@ -420,7 +472,10 @@ export interface ReifiedEQuery {
   bodyExp: number;
 }
 
-export type ReifiedCase = Case<number>;
+export interface ReifiedCase {
+  pattern: ReifiedPattern;
+  body: number;
+}
 
 export interface ReifiedField {
   name: string;
@@ -610,12 +665,16 @@ export interface ReifiedValBinding {
 /* Contracts */
 export interface InstantiationDetails {
   time: Date;
+  entryPoint: QualifiedName;
+  argument: Value;
+  novates?: String;
 }
 
 export interface TerminationDetails {
   terminatedAtTime: Date;
   description: String;
   requestingPeer: ExternalObject;
+  novatedBy?: String;
 }
 
 export interface Contract {
@@ -661,20 +720,29 @@ export type Value =
   | TupleValue
   | ExternalObjectValue<any>;
 
-export type ContractValue = ExternalObjectValue<ExternalObject.StringContract>;
-export type AgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
+export type ContractValue = StringContractValue | CordaContractValue;
+export type StringContractValue = ExternalObjectValue<ExternalObject.StringContract>;
+export type CordaContractValue = ExternalObjectValue<ExternalObject.CordaContract>;
+export type AgentValue = StringAgentValue | CordaAgentValue;
+export type StringAgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
 export type CordaAgentValue = ExternalObjectValue<ExternalObject.CordaAgent>;
 export type PublicKeyValue = ExternalObjectValue<ExternalObject.PublicKey>;
 export type SignedValue = ExternalObjectValue<ExternalObject.SignedValue>;
 
-export const mkContractValue = (
+export const mkStringContractValue = (
   id: string,
-): ContractValue =>
-  mkExternalObjectValue(ExternalObject.mkContract(id));
+): StringContractValue =>
+  mkExternalObjectValue(ExternalObject.mkStringContract(id));
+
+export const mkCordaContractValue = (
+  txnHash: string,
+  txnIndex: string,
+): CordaContractValue =>
+  mkExternalObjectValue(ExternalObject.mkCordaContract(txnHash, txnIndex));
 
 export const mkStringAgentValue = (
   id: string,
-): AgentValue =>
+): StringAgentValue =>
   mkExternalObjectValue(ExternalObject.mkStringAgent(id));
 
 export const mkPublicKeyValue = (

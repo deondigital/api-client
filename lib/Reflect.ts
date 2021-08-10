@@ -8,6 +8,8 @@ import {
   AtomTerm,
   ReifiedAgentMatcher,
   AgentMatcher,
+  ReifiedPattern,
+  Pattern,
  } from './DeonData';
 import { ExternalObject } from './ExternalObject';
 
@@ -53,7 +55,7 @@ export class Reflect {
         tag: 'ELambda',
         cases: exp.cases.map((c) => {
           return {
-            pattern: c.pattern,
+            pattern: this.reflectPattern(c.pattern),
             body: this.reflect(this.heap.hExp[c.body]),
           };
         }),
@@ -206,5 +208,36 @@ export class Reflect {
   }
   reflectSymbol = (e: ExternalObject): string => {
     return this.getSymbol(e);
+  }
+  reflectPattern = (p: ReifiedPattern): Pattern => {
+    switch (p.tag) {
+      case 'ReifiedPAlias': return {
+        tag: 'PAlias',
+        alias: p.alias,
+        aliased: this.reflectPattern(p.aliased),
+      };
+      case 'ReifiedPApp': return {
+        tag: 'PApp',
+        constructor: p.constructor,
+        args: p.args.map(a => this.reflectPattern(a)),
+      };
+      case 'ReifiedPConstant': return {
+        tag: 'PConstant',
+        constant: this.reflectConstant(this.heap.hConstant[p.constant]),
+      };
+      case 'ReifiedPRecord': return {
+        tag: 'PRecord',
+        type: p.type,
+        fields: p.fields.map(f => ({
+          name: f.name,
+          pattern: this.reflectPattern(f.pattern),
+        })),
+      };
+      case 'ReifiedPTuple': return {
+        tag: 'PTuple',
+        args: p.args.map(a => this.reflectPattern(a)),
+      };
+      case 'ReifiedPWildcard': return { tag: 'PWildcard' };
+    }
   }
 }

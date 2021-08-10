@@ -4,6 +4,19 @@
 
 ## Changelog
 
+### [21.0.0] - 2021-05-28
+
+* Added types for `ReifiedPattern`.
+
+### [20.0.0] - 2021-04-09
+
+* Added `InstantiationDetails.entryPoint` and `InstantiationDetails.argument` fields.
+* Added `EventPredicate.eventName` field.
+* Add warnings to `BadRequestError`.
+* Added support for the `CordaContract` data type.
+* Renamed the `ExternalObject.mkContract` function to `ExternalObject.mkStringContract`.
+* Added `novateContract` command for contracts.
+
 ### [19.0.0] - 2021-02-17
 
 * Renamed the `DateTime` CSL type to `Instant`.
@@ -167,6 +180,8 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[21.0.0]: https://github.com/deondigital/api-client/compare/v20.0.0...v21.0.0
+[20.0.0]: https://github.com/deondigital/api-client/compare/v19.0.0...v20.0.0
 [19.0.0]: https://github.com/deondigital/api-client/compare/v18.0.0...v19.0.0
 [18.0.0]: https://github.com/deondigital/api-client/compare/v17.1.0...v18.0.0
 [17.1.0]: https://github.com/deondigital/api-client/compare/v17.0.0...v17.1.0
