@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [22.0.0] - 2022-03-23
+
+* Added flags `isProperty` and `isTest` for `ReifiedValBinding`.
+
 ### [21.0.0] - 2021-05-28
 
 * Added types for `ReifiedPattern`.
