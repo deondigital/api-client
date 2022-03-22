@@ -659,6 +659,7 @@ export interface ReifiedTemplateBinding {
 export interface ReifiedValBinding {
   name: string;
   isReport: boolean;
+  isProperty: boolean;
   expression: number;
 }
 
