@@ -184,6 +184,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[22.0.0]: https://github.com/deondigital/api-client/compare/v21.0.0...v22.0.0
 [21.0.0]: https://github.com/deondigital/api-client/compare/v20.0.0...v21.0.0
 [20.0.0]: https://github.com/deondigital/api-client/compare/v19.0.0...v20.0.0
 [19.0.0]: https://github.com/deondigital/api-client/compare/v18.0.0...v19.0.0
