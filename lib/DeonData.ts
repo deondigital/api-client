@@ -151,11 +151,22 @@ export interface ReifiedHeap {
 }
 
 export interface ReifiedCSLEnv {
+  local: number;
+  global: number;
+}
+
+export interface ReifiedCSLEnvGlobal {
   contractEnv: number;
   templateEnv: number;
   valueEnv: number;
   supertypeEnv: number;
   rulesEnv: number;
+}
+
+export interface ReifiedCSLEnvLocal {
+  contractEnv: number;
+  templateEnv: number;
+  valueEnv: number;
 }
 
 export type ReifiedAtom =
