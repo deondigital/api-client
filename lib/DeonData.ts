@@ -337,7 +337,7 @@ export interface ReifiedContractTemplate {
 
 export type RuleName =
   AtomName
-  | ReflName
+  | ReflName
   | HasEventName;
 
 export interface AtomName {
@@ -406,11 +406,11 @@ export interface ReifiedPTuple {
 
 export type ReifiedExp =
   ReifiedEConstant
-  | ReifiedEVar
-  | ReifiedEConstructor
-  | ReifiedETuple
-  | ReifiedELambda
-  | ReifiedEApp
+  | ReifiedEVar
+  | ReifiedEConstructor
+  | ReifiedETuple
+  | ReifiedELambda
+  | ReifiedEApp
   | ReifiedEBuiltInApp
   | RefifiedERecord
   | ReifiedEProject
@@ -489,7 +489,7 @@ export type ReifiedAtomTerm =
   | ReifiedAConstant
   | ReifiedAApp
   | ReifiedATuple
-  | ReifiedAMap
+  | ReifiedAMap
   | ReifiedASet;
 
 export interface ReifiedAWildcard {
@@ -529,11 +529,11 @@ export interface ReifiedASet{
 
 export type ReifiedContract =
   | ReifiedSuccess
-  | ReifiedFailure
+  | ReifiedFailure
   | ReifiedCVar
-  | ReifiedCMetaApp
-  | ReifiedPrefix
-  | ReifiedBin
+  | ReifiedCMetaApp
+  | ReifiedPrefix
+  | ReifiedBin
   | ReifiedLet
   | ReifiedCApp
   | ReifiedCLambda;
@@ -605,7 +605,7 @@ export interface ReifiedMatchAgent {
 
 export type ContractBinOp =
   And
-  | Or
+  | Or
   | Then;
 
 export interface And {
@@ -622,7 +622,7 @@ export interface Then {
 
 export type ReifiedDef =
   ReifiedContractDef
-  | ReifiedTemplateDef
+  | ReifiedTemplateDef
   | ReifiedValDef;
 
 export interface ReifiedContractDef {
@@ -631,7 +631,7 @@ export interface ReifiedContractDef {
   defContractBindings: ReifiedContractBinding[];
 }
 
-export interface ReifiedTemplateDef {
+export interface ReifiedTemplateDef {
   tag: 'ReifiedTemplateDef';
   defRec: boolean;
   defTemplateBindings: ReifiedTemplateBinding[];
@@ -1109,8 +1109,8 @@ export interface Field {
 
 export type Pattern
   = PWildcard
-  | PConstant
-  | PRecord
+  | PConstant
+  | PRecord
   | PAlias
   | PApp
   | PTuple;
@@ -1149,14 +1149,14 @@ export interface PTuple {
 
 export type Exp
   = EConstant
-  | EVar
+  | EVar
   | EConstructor
   | ETuple
-  | ELambda
-  | EApp
-  | EBuiltInApp
-  | ERecord
-  | EProject
+  | ELambda
+  | EApp
+  | EBuiltInApp
+  | ERecord
+  | EProject
   | EQuery;
 
 export interface EConstant {
