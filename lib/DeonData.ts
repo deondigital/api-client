@@ -579,11 +579,16 @@ export interface ReifiedCLambda {
   cases: ReifiedCase[];
 }
 
+export interface ReifiedPrefixGuard {
+  qualifiers: Array<[ReifiedPattern, number]>;
+}
+
 export interface ReifiedPrefix {
   tag: 'Prefix';
   agent: ReifiedAgentMatcher;
   eventName: string | undefined;
   eventType: Type;
+  guard: ReifiedPrefixGuard | undefined;
   whereExpression: number | undefined;
   thenContract: number;
 }

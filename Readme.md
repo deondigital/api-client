@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### Unreleased
+
+* Added `PrefixGuard` to contract prefixes.
+
 ### [23.0.0] - 2022-06-01
 
 * Changed `ReifiedCSLEnv` to point to a global and local environment.
