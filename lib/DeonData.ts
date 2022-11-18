@@ -123,6 +123,7 @@ export interface EventPredicate {
   type: Type;
   agent: ReifiedAgentMatcher;
   eventName: String | undefined;
+  guard: ReifiedPrefixGuard;
   exp: ReifiedExp;
   env: ReifiedHeap;
   entities: ExternalObject[];

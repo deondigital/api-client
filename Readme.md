@@ -7,6 +7,7 @@
 ### Unreleased
 
 * Added `PrefixGuard` to contract prefixes.
+* Added `guard: PrefixGuard` to `EventPredicate`.
 * Removed `isConfidential` from `ExternalObject.CordaAgent`.
 
 ### [23.0.0] - 2022-06-01
