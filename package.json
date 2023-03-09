@@ -15,7 +15,7 @@
     "lint": "tslint -p tsconfig.lint.json",
     "fix": "tslint -p tsconfig.lint.json --fix",
     "build": "tsc -p tsconfig.src.json",
-    "clean": "rm -rf node_modules/ dist/ package-lock.json",
+    "clean": "rm -rf node_modules/ dist",
     "test": "mocha -r ts-node/register test/*.spec.ts"
   },
   "author": "Deon Digital",
