@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### Unreleased
+### [24.0.0] - 2023-03-09
 
 * Added `PrefixGuard` to contract prefixes.
 * Added `guard: PrefixGuard` to `EventPredicate`.
