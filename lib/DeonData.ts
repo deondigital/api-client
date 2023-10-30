@@ -581,7 +581,7 @@ export interface ReifiedCLambda {
 }
 
 export interface ReifiedPrefixGuard {
-  qualifiers: Array<[ReifiedPattern, number]>;
+  qualifiers: [ReifiedPattern, number][];
 }
 
 export interface ReifiedPrefix {
@@ -739,12 +739,10 @@ export type Value =
   | TupleValue
   | ExternalObjectValue<any>;
 
-export type ContractValue = StringContractValue | CordaContractValue;
+export type ContractValue = StringContractValue;
 export type StringContractValue = ExternalObjectValue<ExternalObject.StringContract>;
-export type CordaContractValue = ExternalObjectValue<ExternalObject.CordaContract>;
-export type AgentValue = StringAgentValue | CordaAgentValue;
+export type AgentValue = StringAgentValue;
 export type StringAgentValue = ExternalObjectValue<ExternalObject.StringAgent>;
-export type CordaAgentValue = ExternalObjectValue<ExternalObject.CordaAgent>;
 export type PublicKeyValue = ExternalObjectValue<ExternalObject.PublicKey>;
 export type SignedValue = ExternalObjectValue<ExternalObject.SignedValue>;
 
@@ -752,12 +750,6 @@ export const mkStringContractValue = (
   id: string,
 ): StringContractValue =>
   mkExternalObjectValue(ExternalObject.mkStringContract(id));
-
-export const mkCordaContractValue = (
-  txnHash: string,
-  txnIndex: string,
-): CordaContractValue =>
-  mkExternalObjectValue(ExternalObject.mkCordaContract(txnHash, txnIndex));
 
 export const mkStringAgentValue = (
   id: string,

@@ -120,7 +120,6 @@ const idString = (id: string | ContractValue): string => {
   switch (id.class) {
     case 'ExternalObjectValue': switch (id.externalObject.tag) {
       case 'StringContract': return id.externalObject.contractIdentifier;
-      case 'CordaContract': return `${id.externalObject.txnHash}!${id.externalObject.txnIndex}`;
     }
   }
 };
