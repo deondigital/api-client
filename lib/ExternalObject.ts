@@ -13,20 +13,10 @@ export namespace ExternalObject {
     agentIdentifier: string;
   }
 
-  export interface CordaAgent {
-    tag: 'CordaAgent';
-    publicKeyBase58: string;
-  }
-
-  export type Agent = StringAgent | CordaAgent;
+  export type Agent = StringAgent;
 
   export const mkStringAgent = (agentIdentifier: string): ExternalObject.StringAgent =>
     ({ agentIdentifier, tag: 'StringAgent' });
-
-  export const mkCordaAgent = (
-    publicKeyBase58: string,
-  ): ExternalObject.CordaAgent =>
-    ({ publicKeyBase58, tag: 'CordaAgent' });
 
   export interface PublicKey {
     tag: 'PublicKey';
@@ -48,30 +38,16 @@ export namespace ExternalObject {
     contractIdentifier: string;
   }
 
-  export interface CordaContract {
-    tag: 'CordaContract';
-    txnHash: string;
-    txnIndex: string;
-  }
-
-  export type Contract = StringContract | CordaContract;
+  export type Contract = StringContract;
 
   export const mkStringContract = (
     contractIdentifier: string,
   ): ExternalObject.StringContract =>
     ({ contractIdentifier, tag: 'StringContract' });
-
-  export const mkCordaContract = (
-    txnHash: string,
-    txnIndex: string,
-  ): ExternalObject.CordaContract =>
-    ({ txnHash, txnIndex, tag: 'CordaContract' });
 }
 
 export type ExternalObject
   = ExternalObject.StringAgent
   | ExternalObject.StringContract
-  | ExternalObject.CordaAgent
-  | ExternalObject.CordaContract
   | ExternalObject.PublicKey
   | ExternalObject.SignedValue;

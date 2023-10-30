@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### [25.0.0] - Unreleased
+
+* Removed Corda constructs.
+
 ### [24.0.0] - 2023-03-09
 
 * Added `PrefixGuard` to contract prefixes.
@@ -194,6 +198,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[24.0.0]: https://github.com/deondigital/api-client/compare/v23.0.0...v24.0.0
 [23.0.0]: https://github.com/deondigital/api-client/compare/v22.0.0...v23.0.0
 [22.0.0]: https://github.com/deondigital/api-client/compare/v21.0.0...v22.0.0
 [21.0.0]: https://github.com/deondigital/api-client/compare/v20.0.0...v21.0.0
