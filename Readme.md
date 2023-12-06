@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### [25.0.0] - Unreleased
+### [25.0.0] - 2023-12-06
 
 * Removed Corda constructs.
 
@@ -198,6 +198,7 @@
 * (Note: Requires Deon-api version 0.22.0) Introduced a `NodeInfo.getAgents()` that wraps the api call `/agents`, to request agent values from the back end.
 
 ---
+[25.0.0]: https://github.com/deondigital/api-client/compare/v24.0.0...v25.0.0
 [24.0.0]: https://github.com/deondigital/api-client/compare/v23.0.0...v24.0.0
 [23.0.0]: https://github.com/deondigital/api-client/compare/v22.0.0...v23.0.0
 [22.0.0]: https://github.com/deondigital/api-client/compare/v21.0.0...v22.0.0
